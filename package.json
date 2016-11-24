@@ -6,13 +6,15 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "eslint": "^3.10.2",
-    "glob": "^7.1.1"
+    "glob": "^7.1.1",
+    "nodemon": "^1.11.0"
   },
   "description": "Open API for Tsinghua University Developer.",
   "version": "1.0.0",
   "main": "app/index.js",
   "scripts": {
     "start": "node --harmony app/index.js",
+    "dev": "nodemon -w app --debug --exec node --harmony app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint app"
   },

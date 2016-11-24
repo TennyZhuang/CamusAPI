@@ -16,6 +16,11 @@ npm install
 npm start
 ```
 
+## Develop
+```
+npm run dev
+```
+
 ### lint
 ```
 npm run lint
