@@ -1,7 +1,8 @@
 {
   "name": "y",
   "dependencies": {
-    "koa": "^2.0.0-alpha.7"
+    "koa": "^2.0.0-alpha.7",
+    "koa-logger": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
