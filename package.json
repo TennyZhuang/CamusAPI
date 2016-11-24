@@ -1,0 +1,30 @@
+{
+  "name": "y",
+  "dependencies": {
+    "koa": "^2.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.10.2"
+  },
+  "description": "Open API for Tsinghua University Developer.",
+  "version": "1.0.0",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node --harmony app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TennyZhuang/CamusAPI.git"
+  },
+  "keywords": [
+    "THU"
+  ],
+  "author": "TennyZhuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TennyZhuang/CamusAPI/issues"
+  },
+  "homepage": "https://github.com/TennyZhuang/CamusAPI#readme"
+}
