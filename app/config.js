@@ -21,7 +21,7 @@ class ProductionConfig extends Config {
   }
 }
 
-configs = new Map([
+const configs = new Map([
   ['development', new DevelopmentConfig()],
   ['production', new ProductionConfig()]
 ])
