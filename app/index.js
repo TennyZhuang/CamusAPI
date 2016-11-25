@@ -4,8 +4,11 @@ const restc = require('restc')
 const bodyParser = require('koa-better-body')
 const routers = require('./routers/base')
 const lowercase = require('./middlewares/lowercase').lowercase
+const db = require('./models/base')
 
 const app = new Koa()
+
+db.connect()
 
 app.use(logger())
 app.use(bodyParser())

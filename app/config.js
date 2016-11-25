@@ -4,6 +4,7 @@ class Config {
   constructor () {
     this.debug = true
     this.production = false
+    this.mongodbUrl = 'mongodb://localhost:27017/camus'
   }
 }
 
@@ -18,6 +19,7 @@ class ProductionConfig extends Config {
     super()
     this.debug = false
     this.production = true
+    this.mongodbUrl = 'mongodb://database:27017/camus'
   }
 }
 
