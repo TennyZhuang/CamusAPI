@@ -1,7 +1,7 @@
 const _lowercase = (rawObj) => {
   const obj = {}
 
-  for (let [k, v] of Object.entries(rawObj)) {
+  for (const [k, v] of Object.entries(rawObj)) {
     obj[k.toLowerCase()] = (typeof v === 'object' ? _lowercase(v) : v)
   }
 
