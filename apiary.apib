@@ -1,0 +1,131 @@
+FORMAT: 1A
+HOST: http://se.zhuangty.com/
+
+# CaμsAPI
+
+CaμsAPI is an API to promote utility learning assistant on wechat end.
+
+## Student Register [/students/register]
+
+### A Student Register [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key",
+            "username": "Valid student username(e.g. 2014000000 or abc14)",
+            "password": "Right-password-of-this-id"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Success",
+            "username": "Request username",
+            "existed": "true or false",
+            "information": {
+                "studentnumber": "Stundent number",
+                "department": "Department"",
+                "position": "Undergrate/master/doctor/teacher",
+                "email": "Email",
+                "realname": "Real name"
+            }
+        }
+
++ Response 401 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## Student Cancel [/students/{username}/cancel]
+
+### A Student Cancel His Register [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Success",
+            "username": "Request username"
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## Student Courses List [/learnhelper/{username}/{semester}/courses]
+
+### A Student Get His Courses List [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Success",
+            "username": "Request username",
+            "courses": [
+                {
+                    "coursename": "Course Name",
+                    "courseid": "Course ID",
+                    "unreadnotice": "Unread Notice",
+                    "newfile": "New File",
+                    "unsubmittedoperations": "Unsubmitted Operations"
+                }
+            ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## Student Course Notices List [/learnhelper/{username}/{semester}/courses/{courseid}/notices]
+
+### Get All Notices Of A Course [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "notices": [
+                {
+                    "title": "Title",
+                    "publishtime": "Publish Time",
+                    "state": "Read status",
+                    "content": "Content"
+                }
+            ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
