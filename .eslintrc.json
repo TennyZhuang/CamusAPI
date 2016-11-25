@@ -22,7 +22,6 @@
     "no-new-func": "error",
     "no-redeclare": "error",
     "no-self-compare": "error",
-    "no-unused-expressions": "warn",
     "no-void": "error",
     "no-with": "error",
     "no-undefined": "error",
