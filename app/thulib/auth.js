@@ -1,9 +1,9 @@
 const rp = require('request-promise')
 
 class AuthUtil {
-  static async getTicket(username, password) {
+  static async getTicket(username, password, appID) {
     const apiAddress = 'https://id.tsinghua.edu.cn/thuser/authapi/login'
-    const loginUrl = `${apiAddress}/ALL_ZHJW/0_0_0_0`
+    const loginUrl = `${apiAddress}/${appID}/0_0_0_0`
     const option = {
       method: 'POST',
       uri: loginUrl,
@@ -22,11 +22,48 @@ class AuthUtil {
 
   static async auth(username, password) {
     try {
-      await AuthUtil.getTicket(username, password)
+      await AuthUtil.getTicket(username, password, 'ALL_ZHJW')
       return true
     } catch (e) {
       return false
     }
+  }
+
+  static _formatUserInfo(rawInfo) {
+    const userTypeMap = new Map([
+      ['X0031', 'undergraduate'],
+      ['X0021', 'master'],
+      ['X0011', 'doctor'],
+      ['J0000', 'teacher'],
+      ['H0000', 'teacher'],
+      ['J0054', 'teacher'],
+    ])
+
+    const userInfo = {
+      studentNumber: rawInfo.zjh,
+      username: rawInfo.yhm,
+      realname: rawInfo.xm,
+      position: userTypeMap.get(rawInfo.yhlb),
+      organization: rawInfo.dw,
+      email: rawInfo.email
+    }
+
+    return userInfo
+  }
+
+  static async getUserInfo(username, password) {
+    const appID = 'WLXT'
+    const ticket = await AuthUtil.getTicket(username, password, appID)
+    const apiAddress = 'https://id.tsinghua.edu.cn/thuser/authapi/checkticket'
+    const checkUrl = `${apiAddress}/${appID}/${ticket}/0_0_0_0`
+    const resp = await rp.get(checkUrl)
+    const rawInfo = {}
+    for (const item of resp.split(':').map(s => s.split('='))) {
+      rawInfo[item[0]] = item[1]
+    }
+
+    const userInfo = AuthUtil._formatUserInfo(rawInfo)
+    return userInfo
   }
 }
 
