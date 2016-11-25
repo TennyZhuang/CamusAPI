@@ -3,16 +3,12 @@ const logger = require('koa-logger')
 const restc = require('restc')
 const bodyParser = require('koa-better-body')
 const routers = require('./routers/base')
-const config = require('./config').config
 
 const app = new Koa()
 
 app.use(logger())
 app.use(bodyParser())
-
-if (config.debug === true) {
-  app.use(restc.koa2())
-}
+app.use(restc.koa2())
 
 routers.initApp(app)
 
