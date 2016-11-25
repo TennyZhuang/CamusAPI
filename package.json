@@ -5,7 +5,8 @@
     "koa-better-body": "^3.0.2",
     "koa-logger": "^2.0.0",
     "request": "^2.79.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "restc": "0.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
