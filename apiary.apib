@@ -267,29 +267,6 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## HS Library [/library/studyrooms]
-
-### Get studyrooms of HS Library [POST]
-
-+ Request (application/json)
-
-        {
-            "apikey": "API Key",
-            "apisecret": "API Secret Key"
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "rooms": [
-                {
-                    "name": "Name of studyroom",
-                    "left": "number of left seats",
-                    "used": "number of used seats"
-                }
-            ]
-        }
-
 ## Update Student Course Info [/update/{username}/courses]
 
 ### Call the Server to Update Student Courses Info
@@ -336,4 +313,28 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         {
             "message": "Failure",
             "username": "Request username"
+        }
+
+
+## HS Library [/library/studyrooms]
+
+### Get studyrooms of HS Library [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "rooms": [
+                {
+                    "name": "Name of studyroom",
+                    "left": "number of left seats",
+                    "used": "number of used seats"
+                }
+            ]
         }
