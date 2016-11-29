@@ -200,9 +200,9 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Schedule [/schedule/{username}/{semester}/{week}]
+## Student Week Curriculum  [/schedule/{username}/{semester}/{week}]
 
-### Get Schedule Of A Semester [POST]
+### Get Curriculum Of A Week [POST]
 
 + Request (application/json)
 
@@ -216,17 +216,119 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         {
             "classes": [
                 {
-                    "sequencenum": "Sequence Number",
-                    "title": "Title",
-                    "detail": "Detail of the assignment",
-                    "startdate": "Start date",
-                    "duedate": "Due Time",
-                    "evaluatingteacher": "Evaluating teacher",
-                    "evaluatingdate": "Evaluating date",
-                    "comment": "Comment of teacher",
-                    "grade": "Grade of the homework"
+                    "coursid": "Course ID",
+                    "coursename": "Course name",
+                    "day": "From Monday to Sunday",
+                    "class": "From 1 to 6",
+                    "teacher": "Teacher",
+                    "classroom": "Classroom",
                 }
             ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## Student Semester Curriculum  [/schedule/{username}/{semester}]
+
+### Get Curriculum Of A Semester [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "classes": [
+                {
+                    "coursid": "Course ID",
+                    "coursename": "Course name",
+                    "day": "From Monday to Sunday",
+                    "class": "From 1 to 6",
+                    "teacher": "Teacher",
+                    "classroom": "Classroom",
+                    "weeks": "Description like 'odd weeks', 'even weeks' and so on"
+                }
+            ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## HS Library [/library/studyrooms]
+
+### Get studyrooms of HS Library [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "rooms": [
+                {
+                    "name": "Name of studyroom",
+                    "left": "number of left seats",
+                    "used": "number of used seats"
+                }
+            ]
+        }
+
+## Update Student Course Info [/update/{username}/courses]
+
+### Call the Server to Update Student Courses Info
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "message": "Request received"
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## Update Student Curriculum Info [/update/{username}/curriculum]
+
+### Call the Server to Update Student Curriculum Info
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "message": "Request received"
         }
 
 + Response 412 (application/json)
