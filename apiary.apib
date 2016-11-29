@@ -146,7 +146,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         {
             "documents": [
                 {
-                    "sequenecnum": "Sequence Number",
+                    "sequencenum": "Sequence Number",
                     "title": "Title",
                     "explanation": "Brief explanation",
                     "updatingtime": "Updating Time",
@@ -180,7 +180,43 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         {
             "assignments": [
                 {
-                    "sequenecnum": "Sequence Number",
+                    "sequencenum": "Sequence Number",
+                    "title": "Title",
+                    "detail": "Detail of the assignment",
+                    "startdate": "Start date",
+                    "duedate": "Due Time",
+                    "evaluatingteacher": "Evaluating teacher",
+                    "evaluatingdate": "Evaluating date",
+                    "comment": "Comment of teacher",
+                    "grade": "Grade of the homework"
+                }
+            ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
+
+## Student Schedule [/schedule/{username}/{semester}]
+
+### Get Schedule Of A Semester [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "classes": [
+                {
+                    "sequencenum": "Sequence Number",
                     "title": "Title",
                     "detail": "Detail of the assignment",
                     "startdate": "Start date",
