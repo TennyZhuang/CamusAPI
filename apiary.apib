@@ -129,3 +129,37 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "message": "Failure",
             "username": "Request username"
         }
+
+## Student Course Documents List [/learnhelper/{username}/{semester}/courses/{courseid}/documents]
+
+### Get All Documents Of A Course [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "documents": [
+                {
+                    "sequenecnum": "Sequence Number",
+                    "title": "Title",
+                    "explanation": "Brief explanation",
+                    "updatingtime": "Updating Time",
+                    "state": "New file or not",
+                    "size": "Size of file",
+                    "url": "File url"
+                }
+            ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
