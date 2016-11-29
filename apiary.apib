@@ -163,3 +163,39 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "message": "Failure",
             "username": "Request username"
         }
+
+## Student Course Assignments List [/learnhelper/{username}/{semester}/courses/{courseid}/assignments]
+
+### Get All Assignments Of A Course [POST]
+
++ Request (application/json)
+
+        {
+            "apikey": "API Key",
+            "apisecret": "API Secret Key"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "assignments": [
+                {
+                    "sequenecnum": "Sequence Number",
+                    "title": "Title",
+                    "detail": "Detail of the assignment",
+                    "startdate": "Start date",
+                    "duedate": "Due Time",
+                    "evaluatingteacher": "Evaluating teacher",
+                    "evaluatingdate": "Evaluating date",
+                    "comment": "Comment of teacher",
+                    "grade": "Grade of the homework"
+                }
+            ]
+        }
+
++ Response 412 (application/json)
+
+        {
+            "message": "Failure",
+            "username": "Request username"
+        }
