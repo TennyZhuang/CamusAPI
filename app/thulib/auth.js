@@ -42,9 +42,9 @@ class AuthUtil {
     const userInfo = {
       studentNumber: rawInfo.zjh,
       username: rawInfo.yhm,
-      realname: rawInfo.xm,
+      realName: rawInfo.xm,
       position: userTypeMap.get(rawInfo.yhlb),
-      organization: rawInfo.dw,
+      department: rawInfo.dw,
       email: rawInfo.email
     }
 
