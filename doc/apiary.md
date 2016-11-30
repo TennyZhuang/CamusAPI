@@ -711,7 +711,6 @@ Response 200
 
 {
     "message": "Success",
-    "username": "mzj14",
     "areas": [
         {
             "name": "G层自修室",
