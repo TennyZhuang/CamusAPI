@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const CourseSchema = require('./course').CourseSchema
 
 const POSITIONS = ['undergraduate', 'master', 'doctor', 'teacher', 'unknown']
 
@@ -25,7 +26,8 @@ const userSchema = new mongoose.Schema({
     index: true
   },
   password: String,
-  info: userInfoSchema
+  info: userInfoSchema,
+  courses: [CourseSchema]
 })
 
 const User = mongoose.model('User', userSchema)
