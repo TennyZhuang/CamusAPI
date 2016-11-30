@@ -4,6 +4,7 @@ class Config {
   constructor () {
     this.debug = true
     this.production = false
+    this.port = process.env.RUN_PORT || 8000
     this.mongodbUrl = 'mongodb://localhost:27017/camus'
   }
 }
