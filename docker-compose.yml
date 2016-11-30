@@ -1,0 +1,18 @@
+version: '2'
+services:
+  camusapi:
+    build: .
+    restart: always
+    links:
+      - database
+    ports:
+      - "8080:8000"
+  database:
+    image: mongo:3.2.11
+    volumes:
+      - db:/data/db
+    restart: always
+
+volumes:
+  db:
+    driver: local
