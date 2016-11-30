@@ -4,26 +4,31 @@ const rp = require('request-promise')
 const ci = require('cheerio')
 
 class LearnHelperUtil {
-  static async getCourseList(username, password) {
+  constructor(username, password) {
+    this.username = username
+    this.password = password
+    this.j = rp.jar()
+    this.prefix = 'https://learn.tsinghua.edu.cn'
+  }
+
+  async login() {
+    await rp({
+      method: 'POST',
+      uri: `${this.prefix}/MultiLanguage/lesson/teacher/loginteacher.jsp`,
+      form: {
+        userid: this.username,
+        userpass: this.password
+      },
+      jar: this.j
+    })
+  }
+
+  async getCourseList() {
     try {
-      const prefix = 'https://learn.tsinghua.edu.cn'
-      const loginUrl = `${prefix}/MultiLanguage/lesson/teacher/loginteacher.jsp`
-      const j = rp.jar()
-
-      await rp({
-        method: 'POST',
-        uri: loginUrl,
-        form: {
-          userid: username,
-          userpass: password
-        },
-        jar: j
-      })
-
       const $ = await rp({
         method: 'GET',
-        uri: `${prefix}/MultiLanguage/lesson/student/MyCourse.jsp?language=cn`,
-        jar: j,
+        uri: `${this.prefix}/MultiLanguage/lesson/student/MyCourse.jsp?language=cn`,
+        jar: this.j,
         transform: (body) => {
           return ci.load(body, {decodeEntities: false})
         }
