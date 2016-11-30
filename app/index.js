@@ -4,9 +4,9 @@ const restc = require('restc')
 const convert = require('koa-convert')
 const bodyParser = require('koa-better-body')
 const routers = require('./routers/base')
-const lowercase = require('./middlewares/lowercase').lowercase
+const lowercase = require('./middlewares/lowercase')
 const db = require('./models/base')
-const config = require('./config').config
+const config = require('./config')
 
 const app = new Koa()
 

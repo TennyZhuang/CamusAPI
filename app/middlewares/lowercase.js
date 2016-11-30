@@ -15,4 +15,4 @@ const lowercase = async (ctx, next) => {
   }
 }
 
-exports.lowercase = lowercase
+module.exports = lowercase

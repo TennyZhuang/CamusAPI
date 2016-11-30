@@ -67,4 +67,4 @@ class AuthUtil {
   }
 }
 
-exports.AuthUtil = AuthUtil
+module.exports = AuthUtil

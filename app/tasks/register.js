@@ -1,4 +1,4 @@
-const AuthUtil = require('../thulib/auth').AuthUtil
+const AuthUtil = require('../thulib/auth')
 const User = require('../models/user')
 
 const register = async (username, password) => {
