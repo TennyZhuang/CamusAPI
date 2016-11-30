@@ -1,6 +1,7 @@
 {
   "name": "y",
   "dependencies": {
+    "cheerio": "^0.22.0",
     "koa": "^2.0.0-alpha.7",
     "koa-better-body": "^3.0.2",
     "koa-convert": "^1.2.0",
