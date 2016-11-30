@@ -30,7 +30,7 @@
     "camelcase": ["error", { "properties": "always" }],
     "func-style": ["error", "expression", { "allowArrowFunctions": true }],
     "max-depth": ["error", 5],
-    "max-len": ["error", 80],
+    "max-len": ["error", 127],
     "max-lines": ["error", 500],
     "max-nested-callbacks": ["error", 3],
     "max-statements-per-line": ["error", { "max": 1 }],
