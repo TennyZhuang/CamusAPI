@@ -61,7 +61,7 @@ class LearnHelperUtil {
     }
   }
 
-  async getFiles(courseID) {
+  async getDocuments(courseID) {
     try {
       const $ = await rp({
         method: 'GET',
@@ -72,24 +72,56 @@ class LearnHelperUtil {
         }
       })
 
-      const files = []
+      const docs = []
       $('.tr1, .tr2').each((i, ele) => {
         const $this = $(ele)
-        const file = {}
+        const doc = {}
 
         const infos = ['sequenceNum', 'title', 'explanation', 'size', 'updatingTime', 'state']
         $this.children().each((i, ele) => {
-          file[infos[i]] = $(ele).text().replace(/&nbsp;/gi, '').trim()
+          doc[infos[i]] = $(ele).text().replace(/&nbsp;/gi, '').trim()
         })
 
-        file.url = this.prefix + $this.find('a').attr('href')
+        doc.url = this.prefix + $this.find('a').attr('href')
 
-        file.state = file.state !== '' ? 'new' : 'previous'
+        doc.state = doc.state !== '' ? 'new' : 'previous'
 
-        console.log(file)
-        files[i] = file
+        docs[i] = doc
       })
-      return files
+      return docs
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async getAssignments(courseID) {
+    try {
+      const $ = await rp({
+        method: 'GET',
+        uri: `${this.prefix}/MultiLanguage/lesson/student/hom_wk_brw.jsp?course_id=${courseID}`,
+        jar: this.cookies,
+        transform: (body) => {
+          return ci.load(body, {decodeEntities: false})
+        }
+      })
+
+      const assignments = []
+      $('.tr1, .tr2').each((i, ele) => {
+        const $this = $(ele)
+        const assignment = {}
+
+        const infos = ['title', 'startDate', 'dueDate', 'state', 'size', '_delete']
+        $this.children().each((i, ele) => {
+          assignment[infos[i]] = $(ele).text().replace(/&nbsp;/gi, '').trim()
+        })
+
+        delete assignment._delete
+
+        // TODO: crawl more details
+
+        assignments[i] = assignment
+      })
+      return assignments
     } catch (e) {
       throw e
     }

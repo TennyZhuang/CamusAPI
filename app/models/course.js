@@ -43,6 +43,8 @@ const AssignmentSchema = new mongoose.Schema({
   detail: String,
   startDate: String,
   dueDate: String,
+  state: String,
+  size: String,
   evaluatingTeacher: String,
   evaluatingDate: String,
   comment: String,
