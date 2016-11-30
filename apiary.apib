@@ -5,16 +5,16 @@ HOST: http://se.zhuangty.com/
 
 CaμsAPI is an API to promote utility learning assistant on wechat end.
 
-## Student Register [/users/register]
+## User Register [/users/register]
 
-### A Student Register [POST]
+### A User Register [POST]
 
 + Request (application/json)
 
         {
             "apikey": "API Key",
             "apisecret": "API Secret Key",
-            "username": "Valid student username(e.g. 2014000000 or abc14)",
+            "username": "Valid username(e.g. 2014000000 or abc14)",
             "password": "Right-password-of-this-id"
         }
 
@@ -25,7 +25,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username",
             "existed": "true/false",
             "information": {
-                "studentnumber": "Stundent number",
+                "studentnumber": Stundent number,
                 "department": "Department",
                 "position": "undergrate/master/doctor/teacher",
                 "email": "Email",
@@ -40,9 +40,9 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Cancel [/students/{username}/cancel]
+## User Cancel [/students/{username}/cancel]
 
-### A Student Cancel His Register [POST]
+### A User Cancel His Register [POST]
 
 + Request (application/json)
 
@@ -58,7 +58,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -85,14 +85,14 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
                 {
                     "coursename": "Course Name",
                     "courseid": "Course ID",
-                    "unreadnotice": "Unread Notice Number",
-                    "newfile": "New File Number",
-                    "unsubmittedoperations": "Unsubmitted Operations Number"
+                    "unreadnotice": Unread Notice Number,
+                    "newfile": New File Number,
+                    "unsubmittedoperations": Unsubmitted Operations Number
                 }
             ]
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -117,7 +117,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username",
             "notices": [
                 {
-                    "sequencenum": "Sequence Number",
+                    "sequencenum": Sequence Number,
                     "title": "Title",
                     "publishtime": "Publish Time",
                     "state": "read/unread",
@@ -126,7 +126,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             ]
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -151,7 +151,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username",
             "documents": [
                 {
-                    "sequencenum": "Sequence Number",
+                    "sequencenum": Sequence Number,
                     "title": "Title",
                     "explanation": "Brief explanation",
                     "updatingtime": "Updating Time",
@@ -162,7 +162,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             ]
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -188,7 +188,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username",
             "assignments": [
                 {
-                    "sequencenum": "Sequence Number",
+                    "sequencenum": Sequence Number,
                     "title": "Title",
                     "detail": "Detail of the assignment",
                     "startdate": "Start date",
@@ -196,12 +196,12 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
                     "evaluatingteacher": "Evaluating teacher",
                     "evaluatingdate": "Evaluating date",
                     "comment": "Comment of teacher",
-                    "grade": "Grade of the homework"
+                    "grade": Grade of the homework
                 }
             ]
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -228,15 +228,14 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
                 {
                     "coursid": "Course ID",
                     "coursename": "Course name",
-                    "day": "From Monday to Sunday",
-                    "class": "From 1 to 6",
+                    "time": "[[1 to 7,1 to 6]]",
                     "teacher": "Teacher",
-                    "classroom": "Classroom",
+                    "classroom": "Classroom"
                 }
             ]
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -263,16 +262,15 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
                 {
                     "coursid": "Course ID",
                     "coursename": "Course name",
-                    "day": "From Monday to Sunday",
-                    "class": "From 1 to 6",
+                    "time": "[[1 to 7,1 to 6]]",
                     "teacher": "Teacher",
                     "classroom": "Classroom",
-                    "weeks": "Description like 'odd weeks', 'even weeks' and so on"
+                    "weeks": "array of [1,16]"
                 }
             ]
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -294,10 +292,10 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
 
         {
             "message": "Success",
-            "username": "Request username",
+            "username": "Request username"
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -322,7 +320,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username",
         }
 
-+ Response 412 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failure",
@@ -330,7 +328,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         }
 
 
-## HS Library [/library/studyrooms]
+## HS Library [/library/hs]
 
 ### Get studyrooms of HS Library [POST]
 
@@ -346,11 +344,11 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         {
             "message": "Success",
             "username": "Request username",
-            "rooms": [
+            "areas": [
                 {
-                    "name": "Name of studyroom",
-                    "left": "number of left seats",
-                    "used": "number of used seats"
+                    "name": "Name of study area",
+                    "left": number of left seats,
+                    "used": number of used seats
                 }
             ]
         }
