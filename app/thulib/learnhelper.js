@@ -7,7 +7,7 @@ class LearnHelperUtil {
   constructor(username, password) {
     this.username = username
     this.password = password
-    this.j = rp.jar()
+    this.cookies = rp.jar()
     this.prefix = 'https://learn.tsinghua.edu.cn'
   }
 
@@ -19,7 +19,7 @@ class LearnHelperUtil {
         userid: this.username,
         userpass: this.password
       },
-      jar: this.j
+      jar: this.cookies
     })
   }
 
@@ -28,7 +28,7 @@ class LearnHelperUtil {
       const $ = await rp({
         method: 'GET',
         uri: `${this.prefix}/MultiLanguage/lesson/student/MyCourse.jsp?language=cn`,
-        jar: this.j,
+        jar: this.cookies,
         transform: (body) => {
           return ci.load(body, {decodeEntities: false})
         }
@@ -56,6 +56,40 @@ class LearnHelperUtil {
         courses[i] = course
       })
       return courses
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async getFiles(courseID) {
+    try {
+      const $ = await rp({
+        method: 'GET',
+        uri: `${this.prefix}/MultiLanguage/lesson/student/download.jsp?course_id=${courseID}`,
+        jar: this.cookies,
+        transform: (body) => {
+          return ci.load(body, {decodeEntities: false})
+        }
+      })
+
+      const files = []
+      $('.tr1, .tr2').each((i, ele) => {
+        const $this = $(ele)
+        const file = {}
+
+        const infos = ['sequenceNum', 'title', 'explanation', 'size', 'updatingTime', 'state']
+        $this.children().each((i, ele) => {
+          file[infos[i]] = $(ele).text().replace(/&nbsp;/gi, '').trim()
+        })
+
+        file.url = this.prefix + $this.find('a').attr('href')
+
+        file.state = file.state !== '' ? 'new' : 'previous'
+
+        console.log(file)
+        files[i] = file
+      })
+      return files
     } catch (e) {
       throw e
     }
