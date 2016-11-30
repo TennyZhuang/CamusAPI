@@ -20,7 +20,9 @@ const _lowercase = (rawObj) => {
 
 const lowercase = async (ctx, next) => {
   await next()
-  ctx.body = _lowercase(ctx.body)
+  if (ctx.body instanceof Object) {
+    ctx.body = _lowercase(ctx.body)
+  }
 }
 
 module.exports = lowercase
