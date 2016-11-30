@@ -3,7 +3,7 @@ const register = require('../tasks/register')
 const cancel = require('../tasks/cancel')
 
 const router = new Router({
-  prefix: '/students'
+  prefix: '/users'
 })
 
 router.post('/register', async (ctx) => {
