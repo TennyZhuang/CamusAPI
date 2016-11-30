@@ -26,7 +26,8 @@
     "dev": "nodemon -w app --debug --exec node --harmony app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint app",
-    "lint-fix": "eslint --fix app"
+    "lint-fix": "eslint --fix app",
+    "mongo": "mongod --dbpath db"
   },
   "repository": {
     "type": "git",
