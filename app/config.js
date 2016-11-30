@@ -29,4 +29,4 @@ const configs = new Map([
   ['production', new ProductionConfig()]
 ])
 
-exports.config = configs.get(process.env.CAMUS_API_ENV || 'development')
+exports.config = configs.get(process.env.NODE_ENV || 'development')
