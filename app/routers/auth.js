@@ -1,5 +1,5 @@
 const Router = require('koa-router')
-const AuthUtil = require('../thulib/auth').AuthUtil
+const register = require('../tasks/register')
 
 const router = new Router({
   prefix: '/students'
@@ -11,17 +11,16 @@ router.post('/register', async ctx => {
     ctx.throw(400, 'Missing Arguments')
   }
 
-  const result = await AuthUtil.auth(username, password)
+  const [user, existed] = await register(username, password)
 
   ctx.body = {
-    username: username
+    username: username,
+    existed: existed
   }
 
-  if (result) {
+  if (user) {
     ctx.body.message = 'Success'
-    ctx.body.information = await AuthUtil.getUserInfo(username, password)
-
-    // TODO: save user
+    ctx.body.information = user.info.toObject()
   } else {
     ctx.body.message = 'Failure'
   }
