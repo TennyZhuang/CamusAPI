@@ -1,7 +1,6 @@
 const _lowercase = (rawObj) => {
   let obj = null
   if (rawObj instanceof Array) {
-    console.log(rawObj)
     obj = []
     for (const v of rawObj) {
       obj.push(_lowercase(v))
