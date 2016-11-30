@@ -5,7 +5,7 @@ HOST: http://se.zhuangty.com/
 
 CaμsAPI is an API to promote utility learning assistant on wechat end.
 
-## Student Register [/students/register]
+## Student Register [/users/register]
 
 ### A Student Register [POST]
 
@@ -23,11 +23,11 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
         {
             "message": "Success",
             "username": "Request username",
-            "existed": "true or false",
+            "existed": "true/false",
             "information": {
                 "studentnumber": "Stundent number",
                 "department": "Department",
-                "position": "Undergrate/master/doctor/teacher",
+                "position": "undergrate/master/doctor/teacher",
                 "email": "Email",
                 "realname": "Real name"
             }
@@ -65,7 +65,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Courses List [/learnhelper/{username}/{semester}/courses]
+## Student Courses List [/learnhelper/{username}/courses]
 
 ### A Student Get His Courses List [POST]
 
@@ -85,9 +85,9 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
                 {
                     "coursename": "Course Name",
                     "courseid": "Course ID",
-                    "unreadnotice": "Unread Notice",
-                    "newfile": "New File",
-                    "unsubmittedoperations": "Unsubmitted Operations"
+                    "unreadnotice": "Unread Notice Number",
+                    "newfile": "New File Number",
+                    "unsubmittedoperations": "Unsubmitted Operations Number"
                 }
             ]
         }
@@ -99,7 +99,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Course Notices List [/learnhelper/{username}/{semester}/courses/{courseid}/notices]
+## Student Course Notices List [/learnhelper/{username}/courses/{courseid}/notices]
 
 ### Get All Notices Of A Course [POST]
 
@@ -113,11 +113,14 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
 + Response 200 (application/json)
 
         {
+            "message": "Success",
+            "username": "Request username",
             "notices": [
                 {
+                    "sequencenum": "Sequence Number",
                     "title": "Title",
                     "publishtime": "Publish Time",
-                    "state": "Read status",
+                    "state": "read/unread",
                     "content": "Content"
                 }
             ]
@@ -130,7 +133,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Course Documents List [/learnhelper/{username}/{semester}/courses/{courseid}/documents]
+## Student Course Documents List [/learnhelper/{username}/courses/{courseid}/documents]
 
 ### Get All Documents Of A Course [POST]
 
@@ -152,7 +155,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
                     "title": "Title",
                     "explanation": "Brief explanation",
                     "updatingtime": "Updating Time",
-                    "state": "New file or not",
+                    "state": "old/previous",
                     "size": "Size of file",
                     "url": "File url"
                 }
@@ -166,7 +169,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Course Assignments List [/learnhelper/{username}/{semester}/courses/{courseid}/assignments]
+## Student Course Assignments List [/learnhelper/{username}/courses/{courseid}/assignments]
 
 ### Get All Assignments Of A Course [POST]
 
@@ -205,7 +208,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Week Curriculum  [/schedule/{username}/{semester}/{week}]
+## Student Week Curriculum  [/schedule/{username}/{week}]
 
 ### Get Curriculum Of A Week [POST]
 
@@ -240,7 +243,7 @@ CaμsAPI is an API to promote utility learning assistant on wechat end.
             "username": "Request username"
         }
 
-## Student Semester Curriculum  [/schedule/{username}/{semester}]
+## Student Semester Curriculum  [/schedule/{username}]
 
 ### Get Curriculum Of A Semester [POST]
 
