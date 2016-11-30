@@ -5,7 +5,8 @@ const POSITIONS = ['undergraduate', 'master', 'doctor', 'teacher', 'unknown']
 const userInfoSchema = new mongoose.Schema({
   studentNumber: String,
   department: String,
-  realname: String,
+  realName: String,
+  email: String,
   position: {
     type: String,
     enum: POSITIONS
