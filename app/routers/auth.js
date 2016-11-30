@@ -15,12 +15,12 @@ router.post('/register', async (ctx) => {
   const [user, existed] = await register(username, password)
 
   ctx.body = {
-    username: username,
-    existed: existed
+    username: username
   }
 
   if (user) {
     ctx.body.message = 'Success'
+    ctx.body.existed = existed
     ctx.body.information = user.info.toObject()
   } else {
     ctx.body.message = 'Failure'
