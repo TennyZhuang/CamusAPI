@@ -55,8 +55,7 @@ class LearnHelperUtil {
 
         courses[i] = course
       })
-      console.log(courses)
-      return {courses: courses}
+      return courses
     } catch (e) {
       throw e
     }
