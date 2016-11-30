@@ -6,11 +6,13 @@ const bodyParser = require('koa-better-body')
 const routers = require('./routers/base')
 const lowercase = require('./middlewares/lowercase')
 const db = require('./models/base')
+const startTask = require('./tasks/start')
 const config = require('./config')
 
 const app = new Koa()
 
 db.connect()
+startTask()
 
 app.use(logger())
 app.use(convert(bodyParser()))
