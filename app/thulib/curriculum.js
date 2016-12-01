@@ -66,8 +66,11 @@ class CurriculumUtil {
   }
 
   static async parseFirstLevelCurriculum($) {
+    if (!$('title').text().includes('清华大学信息门户')) {
+      throw 'Fail To Crawl Curriculum'
+    }
     const classes = []
-    $('.kc_div').each(async (i, elem) => {
+    $('.kc_div').each( async(i, elem) => {
       const course = {}
 
       //Course ID and Time
@@ -97,7 +100,7 @@ class CurriculumUtil {
       course['time'] = time
       course['classroom'] = classroom
       course['week'] = week
-      console.log(course)
+      // console.log(course)
       classes.push(course)
     })
     return classes
@@ -114,8 +117,6 @@ class CurriculumUtil {
       `http://zhjw.cic.tsinghua.edu.cn/j_acegi_login.do?ticket=${ticket}`
 
     const cookies = rp.jar()
-
-    let classes = []
     const loginOptions = {
       method: 'GET',
       uri: loginUrl,
@@ -131,36 +132,19 @@ class CurriculumUtil {
       encoding: null,
       transform: function (body) {
         const html = iconv.decode(body, 'GBK')
+        // console.log(html)
         return ci.load(html, {decodeEntities: false})
       }
     }
 
-    const crawlCurriculum = () => {
-      rp(curriculumOptions)
-        .then(
-          ($) => {
-            classes = CurriculumUtil.parseFirstLevelCurriculum($)
-          })
-        .catch(
-          () => {
-            console.log('Crawl Curriculum failed')
-          }
-        )
+    try {
+      await rp(loginOptions)
+      const $ = await rp(curriculumOptions)
+      const classes = await CurriculumUtil.parseFirstLevelCurriculum($)
+      return classes
+    } catch (e) {
+      throw e
     }
-
-    rp(loginOptions)
-      .then(
-        () => {
-          crawlCurriculum()
-        }
-      )
-      .catch(
-        () => {
-          console.log('Login ALL_ZHJW failed')
-        }
-      )
-
-    return classes
   }
 }
 
