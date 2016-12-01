@@ -28,6 +28,12 @@ const CurriculumClassSchema = new mongoose.Schema({
   week: {
     type: [Number]
   }
+}, {
+  toObject: {
+    transform: (doc, ret) => {
+      delete ret._id
+    }
+  }
 })
 
 const CurriculumClass = mongoose.model('CurriculumClass', CurriculumClassSchema)
