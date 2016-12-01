@@ -24,3 +24,5 @@ routers.initApp(app)
 app.listen(config.port, () => {
   console.log(`listen on ${config.port}`)
 })
+
+module.exports = app

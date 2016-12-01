@@ -19,10 +19,12 @@ router.post('/register', async (ctx) => {
   }
 
   if (user) {
+    ctx.status = 200
     ctx.body.message = 'Success'
     ctx.body.existed = existed
     ctx.body.information = user.info.toObject()
   } else {
+    ctx.status = 400
     ctx.body.message = 'Failure'
   }
 })
