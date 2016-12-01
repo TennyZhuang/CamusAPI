@@ -24,9 +24,17 @@ class ProductionConfig extends Config {
   }
 }
 
+class TestConfig extends Config {
+  constructor () {
+    super()
+    this.mongodbUrl = 'mongodb://localhost:27017/camus-test'
+  }
+}
+
 const configs = new Map([
   ['development', new DevelopmentConfig()],
-  ['production', new ProductionConfig()]
+  ['production', new ProductionConfig()],
+  ['test', new TestConfig()]
 ])
 
 module.exports = configs.get(process.env.NODE_ENV || 'development')
