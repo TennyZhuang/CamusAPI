@@ -76,6 +76,12 @@ const CourseSchema = new mongoose.Schema({
 }, {
   toObject: {
     transform: (doc, ret) => {
+      for (const [k, v] of Object.entries(ret)) {
+        if (Array.isArray(v)) {
+          delete ret[k]
+        }
+      }
+
       delete ret._id
     }
   }
