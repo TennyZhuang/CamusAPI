@@ -126,6 +126,49 @@ class LearnHelperUtil {
       throw e
     }
   }
+
+  async getNotices(courseID) {
+    const noticeUrl = `${this.prefix}/MultiLanguage/public/bbs/getnoteid_student.jsp?course_id=${courseID}`
+
+    const notices = []
+
+    try {
+      const option = {
+        uri: noticeUrl,
+        jar: this.cookies,
+        transform: (body) => {
+          return ci.load(body, {decodeEntities: false})
+        }
+      }
+
+      const $ = await rp(option)
+
+      $('.tr1, .tr2').each((i, ele) => {
+        const [
+          sequenceNumStr,
+          title,
+          publisher,
+          publishTime,
+          state] = Array.from($(ele).find('td')).map(td => $(td).text().trim())
+
+        // TODO: format
+        const sequenceNum = parseInt(sequenceNumStr)
+        const content = ''
+        notices.push({
+          sequenceNum,
+          title,
+          publisher,
+          publishTime,
+          state,
+          content
+        })
+      })
+    } catch (e) {
+      console.error(e)
+    }
+
+    return notices
+  }
 }
 
 module.exports = LearnHelperUtil
