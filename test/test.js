@@ -2,6 +2,8 @@
  * Created by Ma_Zi_jun on 2016/12/1.
  */
 const nock = require('nock')
+const should = require('should')
+
 const config = require('../app/config')
 const app = require('../app/index')
 const request = require('supertest').agent(app.listen())
@@ -43,8 +45,9 @@ describe('Test For Authentication Feature', () => {
   })
   describe('With valid data', () => {
     // we cannot mock the right ticket of the outer service
-    const validUserName = 'a valid username'
-    const validPassword = 'a valid password'
+    // TODO: provide a valid username and password to pass this describe
+    const validUserName = 'valid user name'
+    const validPassword = 'valid password'
     const validKeys = ['username', 'message', 'existed', 'information']
     const validSubKeys = ['studentnumber', 'realname', 'position', 'department', 'email']
     it('should response 200 with message Success', (done) => {
@@ -54,15 +57,32 @@ describe('Test For Authentication Feature', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect((res) => {
-          if (!(res.body.username === validUserName && res.body.message === 'Success')) {
-            throw new Error('wrong value in response')
-          }
+          res.body.should.have.property('message', 'Success')
+          res.body.should.have.property('username', validUserName)
           validKeys.forEach((key) => {
-            if (!(key in res.body)) throw new Error(`missing ${key} key in response`)
+            res.body.should.have.property(key)
           })
           validSubKeys.forEach((key) => {
-            if (!(key in res.body.information)) throw new Error(`missing ${key} key in response information`)
+            res.body.information.should.have.property(key)
           })
+        })
+        .end(done)
+    })
+  })
+})
+
+
+describe('Test For Library Feature', () => {
+  describe('Should return libray seats info', () => {
+    it('should response 200 with message success', (done) => {
+      request
+        .post('/library/hs')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect((res) => {
+          res.body.should.have.property('message', 'Success')
+          res.body.should.have.property('areas')
+          res.body.areas.should.be.instanceof(Array)
         })
         .end(done)
     })
