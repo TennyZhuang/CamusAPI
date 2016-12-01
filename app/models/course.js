@@ -10,9 +10,16 @@ const NoticeSchema = new mongoose.Schema({
     index: true
   },
   title: String,
+  publisher: String,
   publishTime: String,
   state: String,
   content: String
+}, {
+  toObject: {
+    transform: (doc, ret) => {
+      delete ret._id
+    }
+  }
 })
 
 const DocumentSchema = new mongoose.Schema({
@@ -74,7 +81,9 @@ const CourseSchema = new mongoose.Schema({
   }
 })
 
+const Notice = mongoose.model('Notice', NoticeSchema)
 const Course = mongoose.model('Course', CourseSchema)
 
+module.exports.Notice = Notice
 module.exports.Course = Course
 module.exports.CourseSchema = CourseSchema
