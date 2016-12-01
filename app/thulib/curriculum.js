@@ -7,6 +7,52 @@ const iconv = require('iconv-lite')
 
 const AuthUtil = require('../thulib/auth')
 class CurriculumUtil {
+
+  static async parseWeekStr(s) {
+    const range = (start, end, stride = 1) => {
+      if (isNaN(start) || isNaN(end)) {
+        throw "Unknown Curriculum Week Format Exception"
+      }
+      let x = []
+      for (let i = start; i <= end; i += stride) {
+        x.push(i)
+      }
+      return x
+    }
+    let week = []
+    switch (s) {
+      case "全周":
+        week = range(1, 16)
+        break
+      case "前八周":
+        week = range(1, 8)
+        break
+      case "后八周":
+        week = range(9, 16)
+        break
+      case "单周":
+        week = range(1, 16, 2)
+        break
+      case "双周":
+        week = range(2, 16, 2)
+        break
+      default:
+        let index = s.indexOf('-')
+        while (index != -1) {
+          let startWeek = parseInt(s.slice(0, index))
+          s = s.slice(index + 1, s.length)
+          index = s.indexOf(',')
+          index = index > 0 ? index : s.indexOf('周')
+          let endWeek = parseInt(s.slice(0, index))
+          s = s.slice(index + 1, s.length)
+          week = week.concat(range(startWeek, endWeek))
+          index = s.indexOf('-')
+        }
+        break
+    }
+    return week
+  }
+
   static async getFirstLevelCurriculum(username, password) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/'
     // const curriculumUndergraduateFirstLevelUrl = `${prefix}/jxmh.do?m=bks_yjkbSearch`
@@ -29,46 +75,6 @@ class CurriculumUtil {
         let html = iconv.decode(body, 'GBK')
         return ci.load(html, {decodeEntities: false})
       }
-    }
-
-    const parseWeekStr = (s) => {
-      const range = (start, end, stride = 1) => {
-        if (isNaN(start) || isNaN(end)) {
-          throw "Unknown Curriculum Week Format Exception"
-        }
-        let x = []
-        for (let i = start; i <= end; i += stride) {
-          x.push(i)
-        }
-        return x
-      }
-      let week = null
-      switch (s) {
-        case "全周":
-          week = range(1, 16)
-          break
-        case "前八周":
-          week = range(1, 8)
-          break
-        case "后八周":
-          week = range(9, 16)
-          break
-        case "单周":
-          week = range(1, 16, 2)
-          break
-        case "双周":
-          week = range(2, 16, 2)
-          break
-        default:
-          let index = s.indexOf('-')
-          while (index != -1) {
-            week = week.concat(range(parseInt(s[index - 1]), parseInt(s[index + 1])))
-            s = s.slice(index + 2, s.length)
-            index = s.indexOf('-')
-          }
-          break
-      }
-      return week
     }
 
     const parseFirstLevelCurriculum =($) => {
