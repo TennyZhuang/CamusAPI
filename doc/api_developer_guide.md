@@ -8,7 +8,7 @@
 ## CaμsAPI 设计概要
 #### API 设计初衷
 
-  * 帮助软件工程(3)课程的开发者团队在有限的开发时间内完成清华课程助手项目
+  * 帮助校园开发者团队在有限的开发时间内完成清华课程助手项目
 
 #### API 主要功能
 
@@ -16,7 +16,7 @@
 
 #### API HOST
 
-  * http://se.zhuangty.com/
+  * http://se.zhuangty.com:8000
 
 #### API 使用方法
 
@@ -25,6 +25,11 @@
   2. 开发者向 API 指定的 url 发起 HTTP POST Request， 提交数据的格式为 application/json
 
   3. API 返回 HTTP Response 给开发者，结果数据的格式为 application/json
+
+#### API 迭代
+
+  * 本文档诞生于 CaμsAPI 迭代初期，可通过 http://se.zhuangty.com:8000/doc 在线查看最新CaμsAPI使用手册。
+  * 若您对 API 接口设计有疑问，或者希望 API 能够提供一些新的服务，可随时联系 `鱻鱼` 团队。我们将诚恳地与您交流，并尽所能满足您的需求。
 
 ---
 
@@ -469,6 +474,7 @@ Response 200
 
 | 字段 | 含义 | 备注 |
 | --- | -- | --|
+| scored | 作业是否被批改 | true表示已被批改 |
 | grade | 作业评分 | 浮点数 |
 
 
@@ -524,8 +530,7 @@ Response 200
         {
             "coursid": "Course ID",
             "coursename": "Course name",
-            "time": "[[day,period]]",
-            "period": "From 1 to 6",
+            "time": [day,period],
             "teacher": "Teacher",
             "classroom": "Classroom"
         }
@@ -552,7 +557,14 @@ Response 200
         {
             "coursid": "34100294",
             "coursename": "计算机与网络体系结构(1)",
-            "time": "[[3,2],[5,2]]",
+            "time": [3,2],
+            "teacher": "刘云浩",
+            "classroom": "六教6A209"
+        },
+        {
+            "coursid": "34100294",
+            "coursename": "计算机与网络体系结构(1)",
+            "time": [5,2],
             "teacher": "刘云浩",
             "classroom": "六教6A209"
         }
@@ -606,13 +618,13 @@ Response 200
         {
             "coursid": "Course ID",
             "coursename": "Course name",
-            "time": "[[day, period]]",
+            "time": [day, period],
             "teacher": "Teacher",
             "classroom": "Classroom",
-            "week": "array of [1,16]"
+            "week": array of 0/1 whose length equals 16
         }
     ]
-        
+
 }
 ```
 
@@ -621,7 +633,7 @@ Response 200
 
 | 字段 | 含义 | 备注 |
 | --- | -- | -- |
-|  week  | 课程周数分布 | 值为字符串类型的长度为16的数组，元素为 0 或 1，表示某一周是否有此课 | 
+|  week  | 课程周数分布 | 值为字符串类型的长度为16的数组，元素为 0 或 1，表示某一周是否有此课 |
 
 参数示例：
 
@@ -635,10 +647,18 @@ Response 200
         {
             "coursid": "34100294",
             "coursename": "计算机与网络体系结构(1)",
-            "time": "[[3,2],[5,2]]",
+            "time": [3,2],
             "teacher": "刘云浩",
             "classroom": "六教6A209",
-            "weeks": "[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
+            "week": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        },
+        {
+            "coursid": "34100294",
+            "coursename": "计算机与网络体系结构(1)",
+            "time": [3,2],
+            "teacher": "刘云浩",
+            "classroom": "六教6A209",
+            "week": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
         }
     ]
 }
@@ -692,7 +712,7 @@ Response 200
             "left": number of left seats,
             "used": number of used seats
         }
-    ] 
+    ]
 }
 ```
 
@@ -701,7 +721,7 @@ Response 200
 
 | 字段 | 含义 | 备注 |
 | --- | -- | -- |
-|  left  | 某区域剩余座位数 | 非负整数 | 
+|  left  | 某区域剩余座位数 | 非负整数 |
 |  used  | 某区域使用座位数 | 非负整数 |
 
 参数示例：
