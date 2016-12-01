@@ -149,10 +149,10 @@ class LearnHelperUtil {
           title,
           publisher,
           publishTime,
-          state] = Array.from($(ele).find('td')).map(td => $(td).text().trim())
+          rawState] = Array.from($(ele).find('td')).map(td => $(td).text().trim())
 
-        // TODO: format
         const sequenceNum = parseInt(sequenceNumStr)
+        const state = rawState === '已读' ? 'read' : 'unread'
         const content = ''
         notices.push({
           sequenceNum,
