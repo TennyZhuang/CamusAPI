@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const CryptoJS = require('crypto-js')
 const CourseSchema = require('./course').CourseSchema
+const CurriculumClassSchema = require('./curriculum').CurriculumClassSchema
 const config = require('../config')
-
 const POSITIONS = ['undergraduate', 'master', 'doctor', 'teacher', 'unknown']
 
 const userInfoSchema = new mongoose.Schema({
@@ -29,7 +29,8 @@ const userSchema = new mongoose.Schema({
   },
   password: String,
   info: userInfoSchema,
-  courses: [CourseSchema]
+  courses: [CourseSchema],
+  curriculum: [CurriculumClassSchema]
 })
 
 userSchema.pre('save', function (next) {

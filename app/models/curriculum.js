@@ -30,10 +30,8 @@ const CurriculumClassSchema = new mongoose.Schema({
   }
 })
 
-const CurriculumSchema = new mongoose.Schema({
-  curriculum: [CurriculumClassSchema]
-})
-const Curriculum = mongoose.model('Curriculum', CurriculumSchema)
+const CurriculumClass = mongoose.model('CurriculumClass', CurriculumClassSchema)
 
-module.exports.Curriculum = Curriculum
+module.exports.CurriculumClass = CurriculumClass
+module.exports.CurriculumClassSchema = CurriculumClassSchema
 
