@@ -4,7 +4,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CaμsAPI开发者使用手册</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<style>
+.function-list {
+  margin-bottom: 40px;
+}
+
+.function-list li{
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  list-style: none;
+}
+
+.function-list li a {
+  color: #8D6748;
+  text-decoration: underline;
+}
+
+.function-list li a:hover{
+  color: #8D6748;
+  font-size: 600;
+}
+
+h4 a{
+  color: #8D6748;
+  text-decoration: underline;
+}
+
+h4 a:hover{
+  color: #8D6748;
+}
+</style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body><div class="container"><h1 id="caμsapi-开发者使用手册">CaμsAPI 开发者使用手册</h1>
@@ -57,7 +89,7 @@
 <h4 id="api-reference">API Reference</h4>
 
 <ul>
-<li><p><a href="http://gh.zhuangty.com/CamusAPI">http://gh.zhuangty.com/CamusAPI</a></p>
+<li><p><a href="http://gh.zhuangty.com/CamusAPI/doc.html">http://gh.zhuangty.com/CamusAPI/doc.html</a></p>
 
 <ul><li>CaμsAPI 在线使用手册, 由 <code>鱻鱼</code> 定期更新</li></ul></li>
 <li><p><a href="http://docs.camusapi.apiary.io/#">http://docs.camusapi.apiary.io/#</a></p>
@@ -73,13 +105,27 @@
 
 <hr>
 
+<h2 id="function-list">CaμsAPI 功能列表</h2>
 
+<ul class="container function-list">
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#register">校内人员信息验证</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#cancel">校内人员信息注销</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#course">学生课程动态获取</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#course-notice">学生课程公告获取</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#course-doc">学生课程文件信息获取</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#course-assignment">学生课程作业信息获取</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#cur-week">学生周课表获取</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#cur-semester">学生学期课表获取</a></li>
+  <li class="col-md-4 col-sm-6 col-xs-12"><a href="#library-hs">文图座位信息获取</a></li>
+</ul>
+
+<hr>
 
 <h2 id="caμsapi-接口定义">CaμsAPI 接口定义</h2>
 
 
 
-<h4 id="1-校内人员信息验证">1.  校内人员信息验证</h4>
+<h4 id="register"><a href="#function-list">1.  校内人员信息验证</a></h4>
 
 <p>功能介绍：</p>
 
@@ -219,7 +265,7 @@
 
 
 
-<h4 id="2-校内人员信息注销">2. 校内人员信息注销</h4>
+<h4 id="cancel"><a href="#function-list">2. 校内人员信息注销</a></h4>
 
 <p>功能介绍：</p>
 
@@ -271,7 +317,7 @@
 
 
 
-<h4 id="3-学生课程动态获取">3. 学生课程动态获取</h4>
+<h4 id="course"><a href="#function-list">3. 学生课程动态获取</a></h4>
 
 <p>功能介绍：</p>
 
@@ -393,7 +439,7 @@
 
 
 
-<h4 id="4-学生课程公告获取">4. 学生课程公告获取</h4>
+<h4 id="course-notice"><a href="#function-list">4. 学生课程公告获取</a></h4>
 
 <p>功能介绍：</p>
 
@@ -510,7 +556,7 @@
 
 
 
-<h4 id="5-学生课程文件信息获取">5. 学生课程文件信息获取</h4>
+<h4 id="course-doc"><a href="#function-list">5. 学生课程文件信息获取</a></h4>
 
 <p>功能介绍：</p>
 
@@ -629,7 +675,7 @@
 
 
 
-<h4 id="6-学生课程作业信息获取">6. 学生课程作业信息获取</h4>
+<h4 id="course-assignment"><a href="#function-list">6. 学生课程作业信息获取</a></h4>
 
 <p>功能介绍：</p>
 
@@ -719,7 +765,7 @@
 
 
 
-<h4 id="7-学生周课表获取">7. 学生周课表获取</h4>
+<h4 id="cur-week"><a href="#function-list">7. 学生周课表获取</a></h4>
 
 <p>功能介绍：</p>
 
@@ -849,7 +895,7 @@
 
 
 
-<h4 id="8-学生学期课表获取">8. 学生学期课表获取</h4>
+<h4 id="cur-semester"><a href="#function-list">8. 学生学期课表获取</a></h4>
 
 <p>功能介绍：</p>
 
@@ -960,7 +1006,7 @@
 
 
 
-<h4 id="9-文图座位信息获取">9. 文图座位信息获取</h4>
+<h4 id="library-hs"><a href="#function-list">9. 文图座位信息获取</a></h4>
 
 <p>功能介绍：</p>
 
