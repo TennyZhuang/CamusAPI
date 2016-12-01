@@ -5,24 +5,33 @@
 const CurriculumUtil = require('../thulib/curriculum')
 
 const updateCurriculumInfo = async(user) => {
-  const isUndergraduate = user.info.position === 'undergraduate'
-  console.log(isUndergraduate)
-  const curriculumInfo = await
-    CurriculumUtil.getFirstLevelCurriculum(user.username, user.password, isUndergraduate)
+  for (let i = 0; i < 3; ++i) {
+    try {
+      const isUndergraduate = user.info.position === 'undergraduate'
+      const curriculumInfo = await
+        CurriculumUtil.getFirstLevelCurriculum(user.username, user.password, isUndergraduate)
 
-  user.curriculum = []
-  for (const curriculumClass of curriculumInfo) {
-    user.curriculum.push({
-      courseName: curriculumClass['coursename'],
-      courseID: curriculumClass['courseid'],
-      courseSequence: curriculumClass['coursesequence'],
-      classroom: curriculumClass['classroom'],
-      teacher: curriculumClass['teacher'],
-      time: curriculumClass['time'],
-      week: curriculumClass['week']
-    })
+      user.curriculum = []
+      for (const curriculumClass of curriculumInfo) {
+        user.curriculum.push({
+          courseName: curriculumClass['coursename'],
+          courseID: curriculumClass['courseid'],
+          courseSequence: curriculumClass['coursesequence'],
+          classroom: curriculumClass['classroom'],
+          teacher: curriculumClass['teacher'],
+          time: curriculumClass['time'],
+          week: curriculumClass['week']
+        })
+      }
+      await user.save()
+      break
+    }
+    catch (e) {
+      if (i === 2) {
+        console.error('Fail to update Curriculum')
+      }
+    }
   }
-  await user.save()
 }
 
 module.exports = updateCurriculumInfo
