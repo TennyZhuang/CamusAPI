@@ -3,7 +3,9 @@
  */
 
 const Router = require('koa-router')
-const getCourseList = require('../tasks/get_course_info')
+const courseInfoGetter = require('../tasks/get_course_info')
+const getCourseList = courseInfoGetter.getCourseList
+const getCourse = courseInfoGetter.getCourse
 
 const router = new Router({
   prefix: '/learnhelper'
@@ -16,7 +18,14 @@ router.post('/:username/courses', async(ctx) => {
   ctx.body = {
     courses: courses.toObject()
   }
+})
 
+router.post('/:username/courses/:courseID/notices', async (ctx) => {
+  const {username,courseID} = ctx.params
+  const course = await getCourse(username, courseID)
+  ctx.body = {
+    notices: course.toObject().notices
+  }
 })
 
 exports.router = router

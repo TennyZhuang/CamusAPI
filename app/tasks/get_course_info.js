@@ -9,4 +9,11 @@ const getCourseList = async(username) => {
   return user.courses
 }
 
-module.exports = getCourseList
+const getCourse = async (username, courseID) => {
+  const user = await User.findOne({username}).populate('courses')
+  const course = user.courses.find(c => c.courseID === courseID)
+  return course
+}
+
+exports.getCourseList = getCourseList
+exports.getCourse = getCourse
