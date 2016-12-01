@@ -1,5 +1,7 @@
 const AuthUtil = require('../thulib/auth')
 const User = require('../models/user')
+const updateCourseInfo = require('./update_course_info')
+const taskSchedular = require('./task_schedular')
 
 const register = async (username, password) => {
   let user = await User.findOne({ username: username })
@@ -18,6 +20,8 @@ const register = async (username, password) => {
     })
 
     await user.save()
+
+    taskSchedular.add(updateCourseInfo, user, 300000)
   }
 
   return [user, false]
