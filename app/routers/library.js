@@ -11,6 +11,7 @@ const router = new Router({
 
 router.post('/hs', async (ctx) => {
   ctx.body = {
+    message: 'Success',
     areas: LibraryUtil.result
   }
 })
