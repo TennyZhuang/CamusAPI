@@ -1,12 +1,16 @@
 /**
  * Created by XiYe on 12/1/2016.
  */
+
+/**
+ * Created by XiYe on 12/1/2016.
+ */
 const rp = require('request-promise').defaults({jar: true})
 const ci = require('cheerio')
 const iconv = require('iconv-lite')
 
 const AuthUtil = require('../thulib/auth')
-class CurriculumsUtil {
+class CurriculumUtil {
   static async getFirstLevelCurriculum(username, password) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/'
     // const curriculumUndergraduateFirstLevelUrl = `${prefix}/jxmh.do?m=bks_yjkbSearch`
@@ -67,4 +71,4 @@ class CurriculumsUtil {
   }
 }
 
-module.exports = CurriculumsUtil
+module.exports = CurriculumUtil
