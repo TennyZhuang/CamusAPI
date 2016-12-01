@@ -50,7 +50,11 @@ class CurriculumUtil {
         }
         break
     }
-    return week
+    const weekFlag = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for (let i in week) {
+      weekFlag[week[i] - 1] = 1
+    }
+    return weekFlag
   }
 
   static async getFirstLevelCurriculum(username, password) {
