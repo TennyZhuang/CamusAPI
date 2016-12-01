@@ -6,9 +6,10 @@
 ---
 
 ## CaμsAPI 设计概要
+
 #### API 设计初衷
 
-  * 帮助校园开发者团队在有限的开发时间内完成清华课程助手项目
+  * 帮助校园开发者在有限的开发时间内完成清华课程助手项目
 
 #### API 主要功能
 
@@ -26,9 +27,18 @@
 
   3. API 返回 HTTP Response 给开发者，结果数据的格式为 application/json
 
-#### API 迭代
+#### API Reference
 
-  * 本文档诞生于 CaμsAPI 迭代初期，可通过 http://se.zhuangty.com:8000/doc 在线查看最新CaμsAPI使用手册。
+  * http://se.zhuangty.com:8000/doc
+
+    * CaμsAPI 在线使用手册, 由 `鱻鱼` 定期更新
+
+  * http://docs.camusapi.apiary.io/#
+
+    * CaμsAPI 在线测试和结果查看工具，可生成具有发起 HTTP Request 功能的代码段(包括Python/JS等多种语言版本)，供开发者使用
+
+#### API 反馈
+
   * 若您对 API 接口设计有疑问，或者希望 API 能够提供一些新的服务，可随时联系 `鱻鱼` 团队。我们将诚恳地与您交流，并尽所能满足您的需求。
 
 ---
@@ -40,6 +50,7 @@
 功能介绍：
 
 * 开发者通过此 API 验证校内人员身份，返回人员基本信息。
+
 * 验证是 API 为校内人员提供课业数据服务的前提
 
 接口: /users/register
@@ -47,6 +58,7 @@
 请求类型：POST
 
 请求参数：
+
 ```
 {
     "apikey": "API Key",
@@ -54,7 +66,13 @@
     "username": "Valid username(e.g. 2014000000 or abc14)",
     "password": "Right-password-of-this-id"
 }
+
 ```
+
+&nbsp;
+
+&nbsp;
+
 
 参数说明：
 
@@ -538,6 +556,7 @@ Response 200
 }
 ```
 
+参数说明：
 
 | 字段 | 含义 | 备注 |
 | --- | -- | --|
