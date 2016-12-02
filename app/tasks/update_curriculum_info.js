@@ -9,7 +9,7 @@ const updateCurriculumInfo = async(user) => {
     try {
       const isUndergraduate = user.info.position === 'undergraduate'
       const curriculumInfo = await
-        CurriculumUtil.getFirstLevelCurriculum(user.username, user.password, isUndergraduate)
+        CurriculumUtil.getFirstLevelCurriculum(user.username, user.getPassword(), isUndergraduate)
 
       user.curriculum = []
       for (const curriculumClass of curriculumInfo) {
