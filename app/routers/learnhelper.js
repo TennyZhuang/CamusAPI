@@ -24,7 +24,7 @@ router.post('/:username/courses/:courseID/notices', async (ctx) => {
   const {username,courseID} = ctx.params
   const course = await getCourse(username, courseID)
   ctx.body = {
-    notices: course.toObject().notices
+    notices: course.notices.toObject()
   }
 })
 
