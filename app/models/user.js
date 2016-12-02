@@ -42,7 +42,6 @@ userSchema.pre('save', function (next) {
 })
 
 userSchema.methods.getPassword = function () {
-  console.log(this.password, config.secretkey)
   return CryptoJS.AES.decrypt(this.password, config.secretkey).toString(CryptoJS.enc.Utf8)
 }
 
