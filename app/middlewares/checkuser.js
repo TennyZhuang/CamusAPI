@@ -12,6 +12,8 @@ const checkUser = async (username, ctx, next) => {
   } else {
     ctx.throw(400)
   }
+
+  ctx.body.username = username
 }
 
 module.exports = checkUser
