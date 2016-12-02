@@ -16,6 +16,7 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "eslint": "^3.10.2",
+    "fs-readfile-promise": "^3.0.0",
     "glob": "^7.1.1",
     "mocha": "^3.2.0",
     "nock": "^9.0.2",
@@ -30,7 +31,7 @@
     "start": "node --harmony app/index.js",
     "dev": "nodemon -w app --debug --exec node --harmony app/index.js",
     "test": "mocha --harmony test",
-    "lint": "eslint app",
+    "lint": "eslint app test",
     "lint-fix": "eslint --fix app",
     "mongo": "mongod --dbpath db"
   },
