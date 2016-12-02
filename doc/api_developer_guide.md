@@ -29,7 +29,7 @@
 
 #### API Reference
 
-  * http://se.zhuangty.com:8000/doc
+  * http://gh.zhuangty.com/CamusAPI/doc.html
 
     * CaμsAPI 在线使用手册, 由 `鱻鱼` 定期更新
 
