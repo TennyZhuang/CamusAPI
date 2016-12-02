@@ -17,8 +17,8 @@
 
 #### API HOST
 
-  * http://se.zhuangty.com:8000
-
+  * http://se.zhuangty.com:8000, 可同时允许开发者进行 API 在线测试
+  
 #### API 使用方法
 
   1. 开发者获取 API 使用权限
