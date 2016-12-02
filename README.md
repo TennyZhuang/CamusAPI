@@ -6,7 +6,7 @@ Open API platform for Tsinghua University Developer.
 ## Usage
 
 ### pre install
-`node v7.0` is required.
+`node v7` is required.
 
 ### install
 ```
