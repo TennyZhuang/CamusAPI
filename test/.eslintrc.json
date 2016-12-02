@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "no-undef": "off",
+    "max-depth": "off",
+    "max-nested-callbacks": "off",
+    "object-property-newline": "off"
+  }
+}
