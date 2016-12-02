@@ -6,6 +6,7 @@ class Config {
     this.production = false
     this.port = process.env.RUN_PORT || 8000
     this.mongodbUrl = 'mongodb://localhost:27017/camus'
+    this.secretkey = process.env.SECRETKEY || 'camusapi'
   }
 }
 
