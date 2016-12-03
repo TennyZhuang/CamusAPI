@@ -30,7 +30,7 @@
   "scripts": {
     "start": "node --harmony app/index.js",
     "dev": "nodemon -w app --debug --exec node --harmony app/index.js",
-    "test": "mocha --harmony test",
+    "test": "mocha --harmony --require should test/test.js",
     "lint": "eslint app test",
     "lint-fix": "eslint --fix app",
     "mongo": "mongod --dbpath db"
