@@ -12,6 +12,8 @@ const updateCourseInfo = async(user) => {
   user.courses = []
   for (const course of courses) {
     const notices = await lhu.getNotices(course.courseid)
+    const documents = await lhu.getDocuments(course.courseid)
+    const assignments = await lhu.getAssignments(course.courseid)
 
     user.courses.push({
       courseName: course['coursename'],
@@ -20,8 +22,8 @@ const updateCourseInfo = async(user) => {
       unreadNotice: course['unreadnotice'],
       newFile: course['newfile'],
       notices: notices,
-      documents: [],
-      assignments: []
+      documents: documents,
+      assignments: assignments
     })
   }
 
