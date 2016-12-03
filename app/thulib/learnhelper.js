@@ -62,7 +62,7 @@ class LearnHelperUtil {
         course.unsubmittedoperations = parseInt($this.find('.red_text').eq(0).text())
         course.unreadnotice = parseInt($this.find('.red_text').eq(1).text())
         course.newfile = parseInt($this.find('.red_text').eq(2).text())
-        
+
         courses[i] = course
       })
       return courses
@@ -87,10 +87,13 @@ class LearnHelperUtil {
         const $this = $(ele)
         const doc = {}
 
-        const infos = ['sequenceNum', 'title', 'explanation', 'size', 'updatingTime', 'state']
-        $this.children().each((i, ele) => {
-          doc[infos[i]] = $(ele).text().replace(/&nbsp;/gi, '').trim()
-        })
+        const $children = $this.children()
+        doc.sequenceNum = $children.eq(0).text().replace(/&nbsp;/gi, '').trim()
+        doc.title = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
+        doc.explanation = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
+        doc.size = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
+        doc.updatingTime = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
+        doc.state = $children.eq(5).text().replace(/&nbsp;/gi, '').trim()
 
         doc.url = this.prefix + $this.find('a').attr('href')
 
