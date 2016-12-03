@@ -7,6 +7,7 @@ const LearnHelperUtil = require('../thulib/learnhelper')
 const updateCourseInfo = async(user) => {
   const lhu = new LearnHelperUtil(user.username, user.getPassword())
   await lhu.login()
+  await lhu.loginCic()
   const courses = await lhu.getCourseList()
 
   const courseModels = []

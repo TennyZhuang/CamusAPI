@@ -2,6 +2,8 @@
 
 const rp = require('request-promise')
 const ci = require('cheerio')
+const AuthUtil = require('./auth')
+
 
 class LearnHelperUtil {
   constructor(username, password) {
@@ -21,6 +23,22 @@ class LearnHelperUtil {
       },
       jar: this.cookies
     })
+  }
+
+  async loginCic() {
+    try {
+      const ticket = await AuthUtil.getTicket(this.username, this.password, 'WLXT')
+      const options = {
+        uri: `${LearnHelperUtil.CIC_LOGIN_URL}${ticket}`,
+        method: 'GET',
+        jar: this.cookies
+      }
+
+      await rp(options)
+    } catch (e) {
+      // TODO: error handler
+      console.error(e)
+    }
   }
 
   async getCourseList() {
@@ -236,5 +254,8 @@ class LearnHelperUtil {
     return notices
   }
 }
+
+LearnHelperUtil.CIC_HOST_URL = 'http://learn.cic.tsinghua.edu.cn'
+LearnHelperUtil.CIC_LOGIN_URL = `${LearnHelperUtil.CIC_HOST_URL}/j_spring_security_thauth_roaming_entry?status=SUCCESS&ticket=`
 
 module.exports = LearnHelperUtil
