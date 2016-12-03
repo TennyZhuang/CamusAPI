@@ -17,7 +17,7 @@ const testAuthFeature = (agent) => {
     })
 
     describe('With invalid data', () => {
-      before(() => {
+      it('should response 400 with message Failure', (done) => {
         const outerDomain = 'https://id.tsinghua.edu.cn'
         const appID = 'ALL_ZHJW'
         const outerPath = `/thuser/authapi/login/${appID}/0_0_0_0`
@@ -29,9 +29,7 @@ const testAuthFeature = (agent) => {
         nock(outerDomain)
           .post(outerPath)
           .reply(400, response)
-      })
 
-      it('should response 400 with message Failure', (done) => {
         agent
           .post('/users/register')
           .send({username: 'user', password: 'invalid'})
@@ -66,6 +64,7 @@ const testAuthFeature = (agent) => {
           .end(done)
       })
     })
+    
   })
 }
 
