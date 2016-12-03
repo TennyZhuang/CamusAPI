@@ -35,24 +35,34 @@ class LearnHelperUtil {
       })
 
       const courses = []
-      $('.info_tr, .info_tr2').each((i, ele) => {
+      $('.info_tr, .info_tr2').each(async(i, ele) => {
         const $this = $(ele)
         const course = {}
 
-        course['coursename'] = $this.find('a').text().trim()
+        course.coursename = $this.find('a').text().trim()
 
         const url = $this.find('a').attr('href')
         if (url.indexOf('learn.cic.tsinghua.edu.cn') !== -1) {
-          course['courseid'] = url.split('-').slice(-2).join('-')
+          course.courseid = url.split('/').slice(-1)[0]
         } else {
-          course['courseid'] = url.split('=').slice(-1)[0]
+          const courseID = url.split('=').slice(-1)[0]
+          const _$ = await rp({
+            method: 'GET',
+            uri: `${this.prefix}/MultiLanguage/lesson/student/course_info.jsp?course_id=${courseID}`,
+            jar: this.cookies,
+            transform: (body) => {
+              return ci.load(body, {decodeEntities: false})
+            }
+          })
+          const courseNum = _$('#table_box .tr_1').eq(0).text().trim()
+          const courseSeq = _$('#table_box .tr_1').eq(1).text().trim()
+          course.courseid = `2016-2017-1-${courseNum}-${courseSeq}`
         }
 
-        const infos = ['unsubmittedoperations', 'unreadnotice', 'newfile']
-        $this.find('.red_text').each((i, ele) => {
-          course[infos[i]] = parseInt($(ele).text())
-        })
-
+        course.unsubmittedoperations = parseInt($this.find('.red_text').eq(0).text())
+        course.unreadnotice = parseInt($this.find('.red_text').eq(1).text())
+        course.newfile = parseInt($this.find('.red_text').eq(2).text())
+        
         courses[i] = course
       })
       return courses
