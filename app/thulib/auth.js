@@ -39,7 +39,7 @@ class AuthUtil {
       ['J0054', 'teacher'],
     ])
 
-    const userInfo = {
+    return {
       studentNumber: rawInfo.zjh,
       username: rawInfo.yhm,
       realName: rawInfo.xm,
@@ -47,8 +47,6 @@ class AuthUtil {
       department: rawInfo.dw,
       email: rawInfo.email
     }
-
-    return userInfo
   }
 
   static async getUserInfo(username, password) {
@@ -62,8 +60,7 @@ class AuthUtil {
       rawInfo[item[0]] = item[1]
     }
 
-    const userInfo = AuthUtil._formatUserInfo(rawInfo)
-    return userInfo
+    return AuthUtil._formatUserInfo(rawInfo)
   }
 }
 

@@ -3,8 +3,7 @@
  */
 
 const getCourse = async (user, courseID) => {
-  const course = user.courses.find(c => c.courseID === courseID)
-  return course
+  return user.courses.find(c => c.courseID === courseID)
 }
 
 exports.getCourse = getCourse

@@ -140,8 +140,7 @@ class CurriculumUtil {
     try {
       await rp(loginOptions)
       const $ = await rp(curriculumOptions)
-      const classes = await CurriculumUtil.parseFirstLevelCurriculum($)
-      return classes
+      return await CurriculumUtil.parseFirstLevelCurriculum($)
     } catch (e) {
       throw e
     }
