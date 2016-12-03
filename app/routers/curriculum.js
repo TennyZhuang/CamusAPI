@@ -11,12 +11,12 @@ const getSemesterCurriculumWithClassEntry =
 const checkUser = require('../middlewares/checkuser')
 
 const router = new Router({
-  prefix: '/schedule'
+  prefix: '/curriculum'
 })
 
 router.param('username', checkUser)
 
-router.post('/byclass/:username/:week', async(ctx) => {
+router.post('/:username/:week', async(ctx) => {
   const {week} = ctx.params
   const weekCurriculum =
     await getWeekCurriculumWithClassEntry(ctx.user, week)
@@ -26,7 +26,7 @@ router.post('/byclass/:username/:week', async(ctx) => {
   }
 })
 
-router.post('/byclass/:username', async (ctx) => {
+router.post('/:username', async (ctx) => {
   const semesterCurriculum =
     await getSemesterCurriculumWithClassEntry(ctx.user)
   ctx.body = {
@@ -34,4 +34,5 @@ router.post('/byclass/:username', async (ctx) => {
     classes: semesterCurriculum
   }
 })
+
 exports.router = router
