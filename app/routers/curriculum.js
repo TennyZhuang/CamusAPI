@@ -8,29 +8,29 @@ const getWeekCurriculumWithClassEntry =
   curriculumGetter.getWeekCurriculumWithClassEntry
 const getSemesterCurriculumWithClassEntry =
   curriculumGetter.getSemesterCurriculumWithClassEntry
+const checkUser = require('../middlewares/checkuser')
 
 const router = new Router({
   prefix: '/schedule'
 })
 
+router.param('username', checkUser)
+
 router.post('/byclass/:username/:week', async(ctx) => {
-  const {username, week} = ctx.params
+  const {week} = ctx.params
   const weekCurriculum =
-    await getWeekCurriculumWithClassEntry(username, week)
+    await getWeekCurriculumWithClassEntry(ctx.user, week)
   ctx.body = {
     message: 'Success',
-    username: username,
     classes: weekCurriculum
   }
 })
 
 router.post('/byclass/:username', async (ctx) => {
-  const {username} = ctx.params
   const semesterCurriculum =
-    await getSemesterCurriculumWithClassEntry(username)
+    await getSemesterCurriculumWithClassEntry(ctx.user)
   ctx.body = {
     message: 'Success',
-    username: username,
     classes: semesterCurriculum
   }
 })

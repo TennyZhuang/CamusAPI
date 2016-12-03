@@ -2,18 +2,14 @@
  * Created by XiYe on 12/1/2016.
  */
 
-const User = require('../models/user')
-
-const getWeekCurriculumWithClassEntry = async(username, week) => {
-  const user = await User.findOne({username: username})
+const getWeekCurriculumWithClassEntry = async(user, week) => {
   const weekFilter = (x) => {
     return x.week[week - 1] === 1
   }
   return user.curriculum.toObject().filter(weekFilter)
 }
 
-const getSemesterCurriculumWithClassEntry = async (username) => {
-  const user = await User.findOne({username: username})
+const getSemesterCurriculumWithClassEntry = async (user) => {
   return user.curriculum.toObject()
 }
 
