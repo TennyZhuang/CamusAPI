@@ -143,17 +143,31 @@ class LearnHelperUtil {
 
       const $ = await rp(option)
 
-      $('.tr1, .tr2').each((i, ele) => {
+      for (const ele of Array.from($('.tr1, .tr2'))) {
+        const tds = Array.from($(ele).find('td'))
         const [
           sequenceNumStr,
           title,
           publisher,
           publishTime,
-          rawState] = Array.from($(ele).find('td')).map(td => $(td).text().trim())
+          rawState] = tds.map(td => $(td).text().trim())
+
+        const href = encodeURI(`${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`)
+        const options = {
+          method: 'GET',
+          uri: href,
+          jar: this.cookies,
+          transform: (body) => {
+            return ci.load(body, {decodeEntities: false})
+          }
+        }
+
+        const $notice = await rp(options)
+        const content = $notice($notice('.tr_l2')[1]).text()
 
         const sequenceNum = parseInt(sequenceNumStr)
         const state = rawState === '已读' ? 'read' : 'unread'
-        const content = ''
+
         notices.push({
           sequenceNum,
           title,
@@ -162,7 +176,7 @@ class LearnHelperUtil {
           state,
           content
         })
-      })
+      }
     } catch (e) {
       console.error(e)
     }
