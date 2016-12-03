@@ -14,13 +14,13 @@ const updateCurriculumInfo = async(user) => {
       user.curriculum = []
       for (const curriculumClass of curriculumInfo) {
         user.curriculum.push({
-          courseName: curriculumClass['coursename'],
-          courseID: curriculumClass['courseid'],
-          courseSequence: curriculumClass['coursesequence'],
-          classroom: curriculumClass['classroom'],
-          teacher: curriculumClass['teacher'],
-          time: curriculumClass['time'],
-          week: curriculumClass['week']
+          courseName: curriculumClass.coursename,
+          courseID: curriculumClass.courseid,
+          courseSequence: curriculumClass.coursesequence,
+          classroom: curriculumClass.classroom,
+          teacher: curriculumClass.teacher,
+          time: curriculumClass.time,
+          week: curriculumClass.week
         })
       }
       await user.save()

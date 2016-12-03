@@ -93,13 +93,13 @@ class CurriculumUtil {
       //Classroom
       const classroom = $(li).find('span').last().text()
 
-      course['coursename'] = courseName
-      course['teacher'] = teacher
-      course['courseid'] = courseID
-      course['coursesequence'] = courseSequence
-      course['time'] = time
-      course['classroom'] = classroom
-      course['week'] = week
+      course.coursename = courseName
+      course.teacher = teacher
+      course.courseid = courseID
+      course.coursesequence = courseSequence
+      course.time = time
+      course.classroom = classroom
+      course.week = week
       // console.log(course)
       classes.push(course)
     })

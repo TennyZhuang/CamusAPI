@@ -16,11 +16,11 @@ const updateCourseInfo = async(user) => {
     const assignments = await lhu.getAssignments(course.courseid)
 
     user.courses.push({
-      courseName: course['coursename'],
-      courseID: course['courseid'],
-      unsubmittedOperations: course['unsubmittedoperations'],
-      unreadNotice: course['unreadnotice'],
-      newFile: course['newfile'],
+      courseName: course.coursename,
+      courseID: course.courseid,
+      unsubmittedOperations: course.unsubmittedoperations,
+      unreadNotice: course.unreadnotice,
+      newFile: course.newfile,
       notices: notices,
       documents: documents,
       assignments: assignments
