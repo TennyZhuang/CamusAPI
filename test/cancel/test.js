@@ -8,8 +8,6 @@
  3. With valid username for the second time, the response show failure
  */
 
-const nock = require('nock')
-
 //TODO: Tests in this module needs to be passed. They all lack "message" field
 
 const testCancelFeature = (agent, validUsername) => {
@@ -17,7 +15,7 @@ const testCancelFeature = (agent, validUsername) => {
     describe('With username invalid', () => {
       it('should response 400 with failure', (done) => {
         agent
-          .post(`/users/xxx/cancel`)
+          .post('/users/xxx/cancel')
           .send({})
           .expect('Content-Type', /json/)
           .expect(400)
