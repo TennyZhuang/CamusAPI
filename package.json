@@ -33,7 +33,7 @@
     "dev": "nodemon -w app --debug --exec node --harmony app/index.js",
     "test": "mocha --harmony --require should test/test.js",
     "lint": "eslint app test",
-    "lint-fix": "eslint --fix app",
+    "lint-fix": "eslint --fix app test",
     "mongo": "mongod --dbpath db"
   },
   "repository": {
