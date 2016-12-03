@@ -119,18 +119,49 @@ class LearnHelperUtil {
       })
 
       const assignments = []
-      $('.tr1, .tr2').each((i, ele) => {
+      $('.tr1, .tr2').each(async(i, ele) => {
         const $this = $(ele)
         const assignment = {}
 
-        const infos = ['title', 'startDate', 'dueDate', 'state', 'size', '_delete']
-        $this.children().each((i, ele) => {
-          assignment[infos[i]] = $(ele).text().replace(/&nbsp;/gi, '').trim()
+        const $children = $this.children()
+        assignment.title = $children.eq(0).text().replace(/&nbsp;/gi, '').trim()
+        assignment.startDate = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
+        assignment.dueDate = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
+        assignment.state = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
+        assignment.size = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
+
+        const homeworkPrefix = 'http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/'
+        const _url = $children.eq(0).find('a').attr('href')
+
+        const detailURL = homeworkPrefix + _url
+        const $1 = await rp({
+          method: 'GET',
+          uri: detailURL,
+          jar: this.cookies,
+          transform: (body) => {
+            return ci.load(body, {decodeEntities: false})
+          }
         })
+        assignment.detail = $1('#table_box .tr_2').eq(1).text().replace(/&nbsp;/gi, '').trim()
+        assignment.filename = $1('#table_box .tr_2').eq(2).text().replace(/&nbsp;/gi, '').trim()
+        assignment.fileURL = $1('#table_box .tr_2').eq(2).find('a').attr('href')
+        assignment.fileURL = !assignment.fileURL ? '' : this.prefix + assignment.fileURL
 
-        delete assignment._delete
-
-        // TODO: crawl more details
+        const reviewURL = homeworkPrefix + _url.replace('detail', 'view')
+        const $2 = await rp({
+          method: 'GET',
+          uri: reviewURL,
+          jar: this.cookies,
+          transform: (body) => {
+            return ci.load(body, {decodeEntities: false})
+          }
+        })
+        assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
+        assignment.evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
+        assignment.evaluatingDate = assignment.evaluatingDate === 'null' ? '' : assignment.evaluatingDate
+        assignment.scored = assignment.evaluatingDate !== ''
+        assignment.grade = parseFloat($2('#table_box .tr_1').eq(2).text().replace('分', '0').trim())
+        assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
 
         assignments[i] = assignment
       })
