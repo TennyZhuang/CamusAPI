@@ -206,6 +206,7 @@ class LearnHelperUtil {
           }
         }
 
+        const noticeID = href.split(/&|=/).slice(-3)[0]
         const $notice = await rp(options)
         const content = $notice($notice('.tr_l2')[1]).text()
 
@@ -213,6 +214,7 @@ class LearnHelperUtil {
         const state = rawState === '已读' ? 'read' : 'unread'
 
         notices.push({
+          noticeID,
           sequenceNum,
           title,
           publisher,
