@@ -10,7 +10,9 @@ class LearnHelperUtil {
     this.username = username
     this.password = password
     this.cookies = rp.jar()
+    this.cicCookies = rp.jar()
     this.prefix = 'https://learn.tsinghua.edu.cn'
+    this.cicPrefix = 'http://learn.cic.tsinghua.edu.cn'
   }
 
   async login() {
@@ -31,7 +33,7 @@ class LearnHelperUtil {
       const options = {
         uri: `${LearnHelperUtil.CIC_LOGIN_URL}${ticket}`,
         method: 'GET',
-        jar: this.cookies
+        jar: this.cicCookies
       }
 
       await rp(options)
@@ -108,7 +110,6 @@ class LearnHelperUtil {
         const doc = {}
 
         const $children = $this.children()
-        doc.sequenceNum = $children.eq(0).text().replace(/&nbsp;/gi, '').trim()
         doc.title = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
         doc.explanation = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
         doc.size = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
@@ -214,7 +215,7 @@ class LearnHelperUtil {
       for (const ele of Array.from($('.tr1, .tr2'))) {
         const tds = Array.from($(ele).find('td'))
         const [
-          sequenceNumStr,
+          ,
           title,
           publisher,
           _publishTime,
@@ -235,12 +236,10 @@ class LearnHelperUtil {
         const $notice = await rp(options)
         const content = $notice($notice('.tr_l2')[1]).text()
 
-        const sequenceNum = parseInt(sequenceNumStr)
         const state = rawState === '已读' ? 'read' : 'unread'
 
         notices.push({
           noticeID,
-          sequenceNum,
           title,
           publisher,
           publishTime,
@@ -252,6 +251,46 @@ class LearnHelperUtil {
       console.error(e)
     }
     return notices
+  }
+
+  async getCicNotices(courseID) {
+    const noticeUrl = `${this.cicPrefix}/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`
+    const notices = []
+    try {
+      const res = await rp({
+        method: 'GET',
+        uri: noticeUrl,
+        jar: this.cicCookies,
+        json: true
+      })
+
+      for (const rawNoticeInfo of res.paginationList.recordList) {
+        const notice = {}
+        if (rawNoticeInfo.status)
+          notice.state = rawNoticeInfo.status.trim() === '1' ? 'read' : 'unread'
+        else
+          notice.state = 'unread'
+        const rawNotice = rawNoticeInfo.courseNotice
+        notice.noticeID = rawNotice.id
+        notice.title = rawNotice.title
+        notice.publisher = rawNotice.owner
+        notice.publishTime = new Date(`${rawNotice.regDate} 00:00:00`).getTime()
+
+        const detailUrl = `${this.cicPrefix}/b/myCourse/notice/studDetail/${notice.noticeID}`
+        const det = await rp({
+          method: 'GET',
+          uri: detailUrl,
+          jar: this.cicCookies,
+          json: true
+        })
+        const _detail = ci.load(det.dataSingle.detail, {decodeEntities: false})
+        notice.content = _detail.text()
+        notices.push(notice)
+      }
+      return notices
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 

@@ -9,10 +9,6 @@ const NoticeSchema = new mongoose.Schema({
     type: Number,
     index: true
   },
-  sequenceNum: {
-    type: Number,
-    index: true
-  },
   title: String,
   publisher: String,
   publishTime: Number,
@@ -27,10 +23,6 @@ const NoticeSchema = new mongoose.Schema({
 })
 
 const DocumentSchema = new mongoose.Schema({
-  sequenceNum: {
-    type: Number,
-    index: true
-  },
   title: {
     type: String,
     index: true

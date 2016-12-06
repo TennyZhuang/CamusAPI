@@ -12,7 +12,11 @@ const updateCourseInfo = async(user) => {
 
   const courseModels = []
   for (const course of courses) {
-    const notices = await lhu.getNotices(course._courseID)
+    let notices
+    if (course._courseID.indexOf('-') !== -1)
+      notices = await lhu.getCicNotices(course._courseID)
+    else
+      notices = await lhu.getNotices(course._courseID)
     const documents = await lhu.getDocuments(course._courseID)
     const assignments = await lhu.getAssignments(course._courseID)
 
