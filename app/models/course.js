@@ -5,11 +5,14 @@
 const mongoose = require('mongoose')
 
 const NoticeSchema = new mongoose.Schema({
+  noticeID: {
+    type: Number,
+    index: true
+  },
   sequenceNum: {
     type: Number,
     index: true
   },
-  noticeID: String,
   title: String,
   publisher: String,
   publishTime: Number,
@@ -46,7 +49,7 @@ const DocumentSchema = new mongoose.Schema({
 })
 
 const AssignmentSchema = new mongoose.Schema({
-  sequenceNum: {
+  assignmentID: {
     type: Number,
     index: true
   },
