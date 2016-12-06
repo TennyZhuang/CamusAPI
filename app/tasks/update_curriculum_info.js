@@ -2,6 +2,7 @@
  * Created by XiYe on 12/1/2016.
  */
 
+const sleep = require('es6-sleep').promise
 const CurriculumUtil = require('../thulib/curriculum')
 
 const updateCurriculumInfo = async(user) => {
@@ -27,6 +28,7 @@ const updateCurriculumInfo = async(user) => {
       break
     }
     catch (e) {
+      await sleep(1000)
       if (i === 2) {
         console.error('Fail to update Curriculum')
       }

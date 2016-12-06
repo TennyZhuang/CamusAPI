@@ -4,6 +4,7 @@
 const rp = require('request-promise').defaults({jar: true})
 const ci = require('cheerio')
 const iconv = require('iconv-lite')
+const sleep = require('es6-sleep').promise
 
 const AuthUtil = require('../thulib/auth')
 class CurriculumUtil {
@@ -139,6 +140,8 @@ class CurriculumUtil {
 
     try {
       await rp(loginOptions)
+      //Wait for ticket take effect
+      await sleep(2000)
       const $ = await rp(curriculumOptions)
       return await CurriculumUtil.parseFirstLevelCurriculum($)
     } catch (e) {
