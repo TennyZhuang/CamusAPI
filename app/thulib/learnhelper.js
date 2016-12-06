@@ -2,7 +2,6 @@
 
 const rp = require('request-promise')
 const ci = require('cheerio')
-const AuthUtil = require('./auth')
 
 
 class LearnHelperUtil {
@@ -10,9 +9,7 @@ class LearnHelperUtil {
     this.username = username
     this.password = password
     this.cookies = rp.jar()
-    this.cicCookies = rp.jar()
     this.prefix = 'https://learn.tsinghua.edu.cn'
-    this.cicPrefix = 'http://learn.cic.tsinghua.edu.cn'
   }
 
   async login() {
@@ -25,22 +22,6 @@ class LearnHelperUtil {
       },
       jar: this.cookies
     })
-  }
-
-  async loginCic() {
-    try {
-      const ticket = await AuthUtil.getTicket(this.username, this.password, 'WLXT')
-      const options = {
-        uri: `${LearnHelperUtil.CIC_LOGIN_URL}${ticket}`,
-        method: 'GET',
-        jar: this.cicCookies
-      }
-
-      await rp(options)
-    } catch (e) {
-      // TODO: error handler
-      console.error(e)
-    }
   }
 
   async getCourseList() {
@@ -252,52 +233,6 @@ class LearnHelperUtil {
     }
     return notices
   }
-
-  async getCicNotices(courseID) {
-    const noticeUrl = `${this.cicPrefix}/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`
-    const notices = []
-    try {
-      const res = await rp({
-        method: 'GET',
-        uri: noticeUrl,
-        jar: this.cicCookies,
-        json: true
-      })
-
-      for (const rawNoticeInfo of res.paginationList.recordList) {
-        const notice = {}
-        if (rawNoticeInfo.status)
-          notice.state = rawNoticeInfo.status.trim() === '1' ? 'read' : 'unread'
-        else
-          notice.state = 'unread'
-        const rawNotice = rawNoticeInfo.courseNotice
-        notice.noticeID = rawNotice.id
-        notice.title = rawNotice.title
-        notice.publisher = rawNotice.owner
-        notice.publishTime = new Date(`${rawNotice.regDate} 00:00:00`).getTime()
-
-        const detailUrl = `${this.cicPrefix}/b/myCourse/notice/studDetail/${notice.noticeID}`
-        const det = await rp({
-          method: 'GET',
-          uri: detailUrl,
-          jar: this.cicCookies,
-          json: true
-        })
-
-        const _detail = ci.load(det.dataSingle.detail, {decodeEntities: false})
-        notice.content = _detail.text()
-        notices.push(notice)
-      }
-
-      return notices
-    } catch (e) {
-      console.error(e)
-      return []
-    }
-  }
 }
-
-LearnHelperUtil.CIC_HOST_URL = 'http://learn.cic.tsinghua.edu.cn'
-LearnHelperUtil.CIC_LOGIN_URL = `${LearnHelperUtil.CIC_HOST_URL}/j_spring_security_thauth_roaming_entry?status=SUCCESS&ticket=`
 
 module.exports = LearnHelperUtil

@@ -3,18 +3,20 @@
  */
 
 const LearnHelperUtil = require('../thulib/learnhelper')
+const CicLearnHelperUtil = require('../thulib/cic_learnhelper')
 
 const updateCourseInfo = async(user) => {
   const lhu = new LearnHelperUtil(user.username, user.getPassword())
+  const cicLhu = new CicLearnHelperUtil(user.username, user.getPassword())
   await lhu.login()
-  await lhu.loginCic()
+  await cicLhu.login()
   const courses = await lhu.getCourseList()
 
   const courseModels = []
   for (const course of courses) {
     let notices, documents, assignments
     if (course._courseID.indexOf('-') !== -1) {
-      notices = await lhu.getCicNotices(course._courseID)
+      notices = await cicLhu.getNotices(course._courseID)
       documents = []
       assignments = []
     } else {
