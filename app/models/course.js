@@ -9,6 +9,7 @@ const NoticeSchema = new mongoose.Schema({
     type: Number,
     index: true
   },
+  noticeID: String,
   title: String,
   publisher: String,
   publishTime: String,
@@ -55,7 +56,10 @@ const AssignmentSchema = new mongoose.Schema({
   evaluatingTeacher: String,
   evaluatingDate: String,
   comment: String,
-  grade: Number
+  grade: Number,
+  filename: String,
+  fileURL: String,
+  scored: Boolean
 })
 
 const CourseSchema = new mongoose.Schema({
@@ -67,6 +71,7 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     index: true
   },
+  courseNS: String,
   unsubmittedOperations: Number,
   unreadNotice: Number,
   newFile: Number,

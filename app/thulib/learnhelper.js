@@ -35,15 +35,16 @@ class LearnHelperUtil {
       })
 
       const courses = []
-      $('.info_tr, .info_tr2').each(async(i, ele) => {
+      for (const ele of Array.from($('.info_tr, .info_tr2'))) {
         const $this = $(ele)
         const course = {}
 
-        course.coursename = $this.find('a').text().trim()
+        course.courseName = $this.find('a').text().trim()
 
         const url = $this.find('a').attr('href')
         if (url.indexOf('learn.cic.tsinghua.edu.cn') !== -1) {
-          course.courseid = url.split('/').slice(-1)[0]
+          course.courseNS = url.split('/').slice(-1)[0]
+          course.courseID = course.courseNS
         } else {
           const courseID = url.split('=').slice(-1)[0]
           const _$ = await rp({
@@ -56,15 +57,16 @@ class LearnHelperUtil {
           })
           const courseNum = _$('#table_box .tr_1').eq(0).text().trim()
           const courseSeq = _$('#table_box .tr_1').eq(1).text().trim()
-          course.courseid = `2016-2017-1-${courseNum}-${courseSeq}`
+          course.courseNS = `2016-2017-1-${courseNum}-${courseSeq}`
+          course.courseID = courseID
         }
 
-        course.unsubmittedoperations = parseInt($this.find('.red_text').eq(0).text())
-        course.unreadnotice = parseInt($this.find('.red_text').eq(1).text())
-        course.newfile = parseInt($this.find('.red_text').eq(2).text())
+        course.unsubmittedOperations = parseInt($this.find('.red_text').eq(0).text())
+        course.unreadNotice = parseInt($this.find('.red_text').eq(1).text())
+        course.newFile = parseInt($this.find('.red_text').eq(2).text())
 
-        courses[i] = course
-      })
+        courses.push(course)
+      }
       return courses
     } catch (e) {
       throw e
@@ -119,7 +121,7 @@ class LearnHelperUtil {
       })
 
       const assignments = []
-      $('.tr1, .tr2').each(async(i, ele) => {
+      for (const ele of Array.from($('.tr1, .tr2'))) {
         const $this = $(ele)
         const assignment = {}
 
@@ -133,10 +135,9 @@ class LearnHelperUtil {
         const homeworkPrefix = 'http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/'
         const _url = $children.eq(0).find('a').attr('href')
 
-        const detailURL = homeworkPrefix + _url
         const $1 = await rp({
           method: 'GET',
-          uri: detailURL,
+          uri: homeworkPrefix + _url,
           jar: this.cookies,
           transform: (body) => {
             return ci.load(body, {decodeEntities: false})
@@ -147,10 +148,9 @@ class LearnHelperUtil {
         assignment.fileURL = $1('#table_box .tr_2').eq(2).find('a').attr('href')
         assignment.fileURL = !assignment.fileURL ? '' : this.prefix + assignment.fileURL
 
-        const reviewURL = homeworkPrefix + _url.replace('detail', 'view')
         const $2 = await rp({
           method: 'GET',
-          uri: reviewURL,
+          uri: homeworkPrefix + _url.replace('detail', 'view'),
           jar: this.cookies,
           transform: (body) => {
             return ci.load(body, {decodeEntities: false})
@@ -161,10 +161,11 @@ class LearnHelperUtil {
         assignment.evaluatingDate = assignment.evaluatingDate === 'null' ? '' : assignment.evaluatingDate
         assignment.scored = assignment.evaluatingDate !== ''
         assignment.grade = parseFloat($2('#table_box .tr_1').eq(2).text().replace('分', '0').trim())
+        assignment.grade = isNaN(assignment.grade) ? 0.0 : assignment.grade
         assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
 
-        assignments[i] = assignment
-      })
+        assignments.push(assignment)
+      }
       return assignments
     } catch (e) {
       throw e
@@ -206,7 +207,7 @@ class LearnHelperUtil {
           }
         }
 
-        const noticeID = href.split(/&|=/).slice(-3)[0]
+        const noticeID = parseInt(href.split(/&|=/).slice(-3)[0])
         const $notice = await rp(options)
         const content = $notice($notice('.tr_l2')[1]).text()
 
@@ -226,7 +227,6 @@ class LearnHelperUtil {
     } catch (e) {
       console.error(e)
     }
-
     return notices
   }
 }
