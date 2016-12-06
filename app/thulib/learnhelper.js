@@ -43,8 +43,8 @@ class LearnHelperUtil {
 
         const url = $this.find('a').attr('href')
         if (url.indexOf('learn.cic.tsinghua.edu.cn') !== -1) {
-          course.courseNS = url.split('/').slice(-1)[0]
-          course.courseID = course.courseNS
+          course.courseID = url.split('/').slice(-1)[0]
+          course._courseID = course.courseID
         } else {
           const courseID = url.split('=').slice(-1)[0]
           const _$ = await rp({
@@ -57,8 +57,8 @@ class LearnHelperUtil {
           })
           const courseNum = _$('#table_box .tr_1').eq(0).text().trim()
           const courseSeq = _$('#table_box .tr_1').eq(1).text().trim()
-          course.courseNS = `2016-2017-1-${courseNum}-${courseSeq}`
-          course.courseID = courseID
+          course.courseID = `2016-2017-1-${courseNum}-${courseSeq}`
+          course._courseID = courseID
         }
 
         course.unsubmittedOperations = parseInt($this.find('.red_text').eq(0).text())

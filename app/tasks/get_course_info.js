@@ -3,7 +3,7 @@
  */
 
 const getCourse = async(user, courseID) => {
-  return user.courses.find(c => c.courseID === courseID || c.courseNS === courseID)
+  return user.courses.find(c => c.courseID === courseID)
 }
 
 exports.getCourse = getCourse

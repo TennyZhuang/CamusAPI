@@ -11,14 +11,13 @@ const updateCourseInfo = async(user) => {
 
   const courseModels = []
   for (const course of courses) {
-    const notices = await lhu.getNotices(course.courseID)
-    const documents = await lhu.getDocuments(course.courseID)
-    const assignments = await lhu.getAssignments(course.courseID)
+    const notices = await lhu.getNotices(course._courseID)
+    const documents = await lhu.getDocuments(course._courseID)
+    const assignments = await lhu.getAssignments(course._courseID)
 
     courseModels.push({
       courseName: course.courseName,
       courseID: course.courseID,
-      courseNS: course.courseNS,
       unsubmittedOperations: course.unsubmittedOperations,
       unreadNotice: course.unreadNotice,
       newFile: course.newFile,

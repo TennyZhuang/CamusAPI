@@ -83,7 +83,7 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     index: true
   },
-  courseNS: String,
+  _courseID: String,
   unsubmittedOperations: Number,
   unreadNotice: Number,
   newFile: Number,
@@ -100,6 +100,7 @@ const CourseSchema = new mongoose.Schema({
       }
 
       delete ret._id
+      delete ret._courseID
     }
   }
 })
