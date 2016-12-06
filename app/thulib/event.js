@@ -8,6 +8,10 @@ const iconv = require('iconv-lite')
 
 class EventUtil {
 
+  static async getEventList() {
+    return EventUtil._events
+  }
+
   static async parseEvents($) {
     if (!$('h3').text().includes('倒计时通知')) {
       throw 'Fail To Crawl Events'
@@ -35,7 +39,7 @@ class EventUtil {
     return events
   }
 
-  static async getEventList() {
+  static async fetch() {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/'
     const eventUrl = `${prefix}portal3rd.do?url=/portal3rd.do&m=tsxx`
 
@@ -51,7 +55,7 @@ class EventUtil {
 
     try {
       const $ = await rp(options)
-      return EventUtil.parseEvents($)
+      EventUtil._events = await EventUtil.parseEvents($)
     } catch(e) {
       console.log(e)
       throw e
@@ -59,4 +63,5 @@ class EventUtil {
   }
 }
 
+EventUtil._events = []
 module.exports = EventUtil
