@@ -75,9 +75,9 @@ class CurriculumUtil {
 
       //Course ID and Time
       const classStr = $(elem).attr('class').split(' ')[1]
-      const courseID = classStr.slice(2, 10)
-      const time = [parseInt(classStr[0]), parseInt(classStr[1])]
       const courseSequence = parseInt(classStr.slice(10))
+      const courseID = `2016-2017-1-${classStr.slice(2, 10)}-${courseSequence}`
+      const time = [parseInt(classStr[0]), parseInt(classStr[1])]
       //Course Name
       const courseName = $(elem).find('h5').first().children().first().text()
       //Teacher
