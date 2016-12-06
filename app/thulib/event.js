@@ -8,7 +8,10 @@ const iconv = require('iconv-lite')
 
 class EventUtil {
 
-  static async getEventList() {
+  static getEventList() {
+    if (EventUtil._events.length === 0) {
+      throw 'Not Crawled Yet'
+    }
     return EventUtil._events
   }
 

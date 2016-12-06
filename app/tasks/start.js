@@ -3,6 +3,7 @@
  */
 
 const LibraryUtil = require('../thulib/library')
+const EventUtil = require('../thulib/event')
 const taskSchedular = require('./task_schedular')
 const updateCourseInfo = require('./update_course_info')
 const updateCurriculumInfo = require('./update_curriculum_info')
@@ -10,6 +11,7 @@ const User = require('../models/user')
 
 const start = async () => {
   taskSchedular.add(LibraryUtil.fetch, 300000)
+  taskSchedular.add(EventUtil.fetch, 300000)
   const users = await User.find({})
   users.forEach((user) => {
     taskSchedular.add(updateCourseInfo, user, 300000)
