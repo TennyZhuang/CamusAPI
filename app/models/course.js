@@ -12,7 +12,7 @@ const NoticeSchema = new mongoose.Schema({
   noticeID: String,
   title: String,
   publisher: String,
-  publishTime: String,
+  publishTime: Number,
   state: String,
   content: String
 }, {
@@ -33,7 +33,7 @@ const DocumentSchema = new mongoose.Schema({
     index: true
   },
   explanation: String,
-  updatingTime: String,
+  updatingTime: Number,
   state: String,
   size: String,
   url: String
@@ -55,12 +55,12 @@ const AssignmentSchema = new mongoose.Schema({
     index: true
   },
   detail: String,
-  startDate: String,
-  dueDate: String,
+  startDate: Number,
+  dueDate: Number,
   state: String,
   size: String,
   evaluatingTeacher: String,
-  evaluatingDate: String,
+  evaluatingDate: Number,
   comment: String,
   grade: Number,
   filename: String,

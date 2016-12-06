@@ -94,7 +94,8 @@ class LearnHelperUtil {
         doc.title = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
         doc.explanation = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
         doc.size = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
-        doc.updatingTime = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
+        const updatingTime = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
+        doc.updatingTime = new Date(`${updatingTime} 00:00:00`).getTime()
         doc.state = $children.eq(5).text().replace(/&nbsp;/gi, '').trim()
 
         doc.url = this.prefix + $this.find('a').attr('href')
@@ -127,8 +128,10 @@ class LearnHelperUtil {
 
         const $children = $this.children()
         assignment.title = $children.eq(0).text().replace(/&nbsp;/gi, '').trim()
-        assignment.startDate = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
-        assignment.dueDate = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
+        const startDate = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
+        assignment.startDate = new Date(`${startDate} 00:00:00`).getTime()
+        const dueDate = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
+        assignment.dueDate = new Date(`${dueDate} 23:59:59`).getTime()
         assignment.state = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
         assignment.size = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
 
@@ -157,9 +160,10 @@ class LearnHelperUtil {
           }
         })
         assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
-        assignment.evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
-        assignment.evaluatingDate = assignment.evaluatingDate === 'null' ? '' : assignment.evaluatingDate
-        assignment.scored = assignment.evaluatingDate !== ''
+        let evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
+        evaluatingDate = new Date(`${evaluatingDate} 00:00:00`).getTime()
+        assignment.evaluatingDate = Number.isNaN(evaluatingDate) ? 0 : evaluatingDate
+        assignment.scored = assignment.evaluatingDate !== 0
         assignment.grade = parseFloat($2('#table_box .tr_1').eq(2).text().replace('分', '0').trim())
         assignment.grade = isNaN(assignment.grade) ? 0.0 : assignment.grade
         assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
@@ -194,8 +198,9 @@ class LearnHelperUtil {
           sequenceNumStr,
           title,
           publisher,
-          publishTime,
+          _publishTime,
           rawState] = tds.map(td => $(td).text().trim())
+        const publishTime = new Date(`${_publishTime} 00:00:00`).getTime()
 
         const href = encodeURI(`${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`)
         const options = {
