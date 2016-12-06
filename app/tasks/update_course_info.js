@@ -18,6 +18,7 @@ const updateCourseInfo = async(user) => {
     user.courses.push({
       courseName: course.courseName,
       courseID: course.courseID,
+      courseNS: course.courseNS,
       unsubmittedOperations: course.unsubmittedOperations,
       unreadNotice: course.unreadNotice,
       newFile: course.newFile,
