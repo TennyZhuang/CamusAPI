@@ -283,13 +283,16 @@ class LearnHelperUtil {
           jar: this.cicCookies,
           json: true
         })
+
         const _detail = ci.load(det.dataSingle.detail, {decodeEntities: false})
         notice.content = _detail.text()
         notices.push(notice)
       }
+
       return notices
     } catch (e) {
       console.error(e)
+      return []
     }
   }
 }
