@@ -21,11 +21,27 @@ router.post('/:username/courses', async(ctx) => {
   }
 })
 
-router.post('/:username/courses/:courseID/notices', async (ctx) => {
+router.post('/:username/courses/:courseID/notices', async(ctx) => {
   const {courseID} = ctx.params
   const course = await getCourse(ctx.user, courseID)
   ctx.body = {
     notices: course.notices.toObject()
+  }
+})
+
+router.post('/:username/courses/:courseID/documents', async(ctx) => {
+  const {courseID} = ctx.params
+  const course = await getCourse(ctx.user, courseID)
+  ctx.body = {
+    notices: course.documents.toObject()
+  }
+})
+
+router.post('/:username/courses/:courseID/assignments', async(ctx) => {
+  const {courseID} = ctx.params
+  const course = await getCourse(ctx.user, courseID)
+  ctx.body = {
+    notices: course.assignments.toObject()
   }
 })
 

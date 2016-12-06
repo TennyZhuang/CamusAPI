@@ -37,6 +37,12 @@ const DocumentSchema = new mongoose.Schema({
   state: String,
   size: String,
   url: String
+}, {
+  toObject: {
+    transform: (doc, ret) => {
+      delete ret._id
+    }
+  }
 })
 
 const AssignmentSchema = new mongoose.Schema({
@@ -60,6 +66,12 @@ const AssignmentSchema = new mongoose.Schema({
   filename: String,
   fileURL: String,
   scored: Boolean
+}, {
+  toObject: {
+    transform: (doc, ret) => {
+      delete ret._id
+    }
+  }
 })
 
 const CourseSchema = new mongoose.Schema({
