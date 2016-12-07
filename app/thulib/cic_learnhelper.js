@@ -12,13 +12,14 @@ class CicLearnHelperUtil {
     this.cookies = rp.jar()
     this.username = username
     this.password = password
+    this.prefix = 'http://learn.cic.tsinghua.edu.cn'
   }
 
   async login() {
     try {
       const ticket = await AuthUtil.getTicket(this.username, this.password, 'WLXT')
       const options = {
-        uri: `${CicLearnHelperUtil.LOGIN_URL}${ticket}`,
+        uri: `${this.prefix}/j_spring_security_thauth_roaming_entry?status=SUCCESS&ticket=${ticket}`,
         method: 'GET',
         jar: this.cookies
       }
@@ -31,7 +32,7 @@ class CicLearnHelperUtil {
   }
 
   async getNotices(courseID) {
-    const noticeUrl = `${CicLearnHelperUtil.HOST_URL}/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`
+    const noticeUrl = `${this.prefix}/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`
     const notices = []
     try {
       const res = await rp({
@@ -43,17 +44,18 @@ class CicLearnHelperUtil {
 
       for (const rawNoticeInfo of res.paginationList.recordList) {
         const notice = {}
-        if (rawNoticeInfo.status)
+        if (rawNoticeInfo.status) {
           notice.state = rawNoticeInfo.status.trim() === '1' ? 'read' : 'unread'
-        else
+        } else {
           notice.state = 'unread'
+        }
         const rawNotice = rawNoticeInfo.courseNotice
         notice.noticeID = rawNotice.id
         notice.title = rawNotice.title
         notice.publisher = rawNotice.owner
         notice.publishTime = new Date(`${rawNotice.regDate} 00:00:00`).getTime()
 
-        const detailUrl = `${CicLearnHelperUtil.HOST_URL}/b/myCourse/notice/studDetail/${notice.noticeID}`
+        const detailUrl = `${this.prefix}/b/myCourse/notice/studDetail/${notice.noticeID}`
         const det = await rp({
           method: 'GET',
           uri: detailUrl,
@@ -73,9 +75,5 @@ class CicLearnHelperUtil {
     }
   }
 }
-
-CicLearnHelperUtil.HOST_URL = 'http://learn.cic.tsinghua.edu.cn'
-CicLearnHelperUtil.LOGIN_URL =
-  `${CicLearnHelperUtil.HOST_URL}/j_spring_security_thauth_roaming_entry?status=SUCCESS&ticket=`
 
 module.exports = CicLearnHelperUtil
