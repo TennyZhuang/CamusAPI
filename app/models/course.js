@@ -82,6 +82,9 @@ const CourseSchema = new mongoose.Schema({
   unsubmittedOperations: Number,
   unreadNotice: Number,
   newFile: Number,
+  teacher: String,
+  phone: String,
+  email: String,
   notices: [NoticeSchema],
   documents: [DocumentSchema],
   assignments: [AssignmentSchema]

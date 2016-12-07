@@ -58,6 +58,9 @@ class LearnHelperUtil {
           })
           const courseNum = _$('#table_box .tr_1').eq(0).text().trim()
           const courseSeq = _$('#table_box .tr_1').eq(1).text().trim()
+          course.teacher = _$('#table_box .tr_1').eq(4).text().replace(/&nbsp;/gi, '').trim()
+          course.email = _$('#table_box .tr_1').eq(5).text().replace(/&nbsp;/gi, '').trim()
+          course.phone = _$('#table_box .tr2').eq(4).text().replace(/&nbsp;/gi, '').trim()
           course.courseID = `2016-2017-1-${courseNum}-${courseSeq}`
           course._courseID = courseID
         }

@@ -28,6 +28,9 @@ const updateCourseInfo = async(user) => {
     courseModels.push({
       courseName: course.courseName,
       courseID: course.courseID,
+      teacher: course.teacher,
+      email: course.email,
+      phone: course.phone,
       unsubmittedOperations: course.unsubmittedOperations,
       unreadNotice: course.unreadNotice,
       newFile: course.newFile,
