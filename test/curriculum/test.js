@@ -5,8 +5,40 @@ const cur = require('../../app/thulib/curriculum')
 const readFile = require('fs-readfile-promise')
 const cheerio = require('cheerio')
 
-describe('1. test parser', () => {
-  it('1.1 curriculum info should be properly extracted form the right test page', async () =>{
+describe('1. test week parser', () => {
+  it('1.1 should return right week array based on different key word', () => {
+    const fullWeeks = new Array(16).fill(1)
+    const beforeWeeks = new Array(16).fill(1, 0, 8).fill(0, 8, 16)
+    const afterWeeks = new Array(16).fill(0, 0, 8).fill(1, 8, 16)
+    const oddWeeks = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+    const evenWeeks = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+    const specialWeeks1 = [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+    const specialWeeks2 = [0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0]
+    const specialWeeks3 = [0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1]
+    const matchPairs = [
+      ['全周', fullWeeks],
+      ['前八周', beforeWeeks],
+      ['后八周', afterWeeks],
+      ['单周', oddWeeks],
+      ['双周', evenWeeks],
+      ['1, 9,13周', specialWeeks1],
+      ['2-4, 8-10, 11-14周', specialWeeks2],
+      ['2-4,8, 11,13-16周', specialWeeks3]
+    ]
+    
+    matchPairs.forEach(async (pair) => {
+      const result = await cur.parseWeekStr(pair[0])
+      try {
+        result.should.be.eql(pair[1])
+      } catch (e) {
+        console.log(e.message)
+      }
+    })
+  })
+})
+
+describe('2. test curriculum parser', () => {
+  it('2.1 curriculum info should be properly extracted form the right test page', async () =>{
     const data = await readFile(`${__dirname}\\test-right.html`, 'utf8')
     const $ = cheerio.load(data, { decodeEntities: false })
     const classes = await cur.parseFirstLevelCurriculum($)
@@ -29,13 +61,19 @@ describe('1. test parser', () => {
   })
   
   //FIXME: How to test an exception thrown by async function properly
-  /*
-  it('1.2 curriculum info should be empty from the wrong test page', async (done) =>{
+  it('2.2 curriculum info should be empty from the wrong test page', async () =>{
     const data = await readFile(`${__dirname}\\test-wrong.html`, 'utf8')
     const $ = cheerio.load(data, { decodeEntities: false })
 
-    const myFunc = () => { cur.parseFirstLevelCurriculum($) }
-    assert.throws(myFunc)
+    cur.parseFirstLevelCurriculum($)
+    .then(() => {
+      console.error('we did not catch the exception, so the test failed !')
+    })
+    .catch(() => {
+      console.log('we catch the exception, so the test is passed !')
+    })
   })
-  */
 })
+
+
+
