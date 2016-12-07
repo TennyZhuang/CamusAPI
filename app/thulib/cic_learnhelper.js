@@ -63,8 +63,12 @@ class CicLearnHelperUtil {
           json: true
         })
 
-        const _detail = ci.load(det.dataSingle.detail, {decodeEntities: false})
-        notice.content = _detail.text()
+        if (det.dataSingle) {
+          const _detail = ci.load(det.dataSingle.detail, {decodeEntities: false})
+          notice.content = _detail.text()
+        } else {
+          notice.content = ''
+        }
         notices.push(notice)
       }
 
