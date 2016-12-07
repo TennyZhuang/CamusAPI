@@ -78,6 +78,58 @@ class CicLearnHelperUtil {
       return []
     }
   }
+
+  async getAssignments(courseID) {
+    const assignmentUrl = `${this.prefix}/b/myCourse/homework/list4Student/${courseID}/0`
+    const assignments = []
+    try {
+      const res = await rp({
+        method: 'GET',
+        uri: assignmentUrl,
+        jar: this.cookies,
+        json: true
+      })
+
+      for (const rawAssignment of res.resultList) {
+        const assignment = {}
+        const info = rawAssignment.courseHomeworkInfo
+        const record = rawAssignment.courseHomeworkRecord
+
+        assignment.assignmentID = info.homewkId ? info.homewkId : ''
+        assignment.title = info.title ? info.title : ''
+        assignment.startDate = info.beginDate ? info.beginDate : 0
+        assignment.dueDate = info.endDate ? info.endDate : 0
+        if (info.detail) {
+          const _detail = ci.load(info.detail, {decodeEntities: false})
+          assignment.detail = _detail.text()
+        } else {
+          assignment.detail = ''
+        }
+        assignment.state = record.status === '0' ? '尚未提交' : '已经提交'
+
+        assignment.fileUrl = info.homewkAffix ? info.homewkAffix : ''
+        assignment.filename = info.homewkAffixFilename ? info.homewkAffixFilename : ''
+        assignment.size = '0' // TODO: parse size
+
+        assignment.scored = record.status === '3'
+        assignment.grade = record.mark ? record.mark : 0
+        if (record.replyDetail) {
+          const _comment = ci.load(record.replyDetail, {decodeEntities: false})
+          assignment.comment = _comment.text()
+        } else {
+          assignment.comment = ''
+        }
+        assignment.evaluatingTeacher = record.gradeUser ? record.gradeUser : ''
+        assignment.evaluatingDate = record.replyDate ? record.replyDate : 0
+
+        assignments.push(assignment)
+      }
+      return assignments
+    } catch (e) {
+      console.error(e)
+      return []
+    }
+  }
 }
 
 module.exports = CicLearnHelperUtil
