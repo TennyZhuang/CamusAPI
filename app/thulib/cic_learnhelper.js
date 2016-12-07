@@ -79,6 +79,41 @@ class CicLearnHelperUtil {
     }
   }
 
+  async getDocuments(courseID) {
+    const documentUrl = `${this.prefix}/b/myCourse/tree/getCoursewareTreeData/${courseID}/0`
+    const documents = []
+    try {
+      const res = await rp({
+        method: 'GET',
+        uri: documentUrl,
+        jar: this.cookies,
+        json: true
+      })
+
+      const list = Object.values(Object.values(res.resultList)[0].childMapData)
+      const items = []
+      list.map(obj => {
+        items.push.apply(items, obj.courseCoursewareList)
+      })
+
+      for (const item of items) {
+        const document = {}
+        document.title = item.title
+        document.explanation = item.detail ? item.detail : ''
+        document.updatingTime = item.resourcesMappingByFileId.regDate
+        document.state = 'unknown'
+        document.size = `${item.resourcesMappingByFileId.fileSize}B`
+        document.url = `${this.prefix}/b/resource/downloadFileStream/${item.resourcesMappingByFileId.fileId}`
+        documents.push(document)
+      }
+
+      return documents
+    } catch (e) {
+      console.error(e)
+      return []
+    }
+  }
+
   async getAssignments(courseID) {
     const assignmentUrl = `${this.prefix}/b/myCourse/homework/list4Student/${courseID}/0`
     const assignments = []

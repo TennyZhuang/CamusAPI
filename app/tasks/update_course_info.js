@@ -17,7 +17,7 @@ const updateCourseInfo = async(user) => {
     let notices, documents, assignments
     if (course._courseID.indexOf('-') !== -1) {
       notices = await cicLhu.getNotices(course._courseID)
-      documents = []
+      documents = await cicLhu.getDocuments(course._courseID)
       assignments = await cicLhu.getAssignments(course._courseID)
     } else {
       notices = await lhu.getNotices(course._courseID)
