@@ -97,7 +97,6 @@ class CurriculumUtil {
       course.coursename = courseName
       course.teacher = teacher
       course.courseid = courseID
-      course.coursesequence = courseSequence
       course.time = time
       course.classroom = classroom
       course.week = week

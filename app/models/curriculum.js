@@ -13,9 +13,6 @@ const CurriculumClassSchema = new mongoose.Schema({
     type: String,
     index: true
   },
-  courseSequence: {
-    type: Number
-  },
   teacher: {
     type: String
   },

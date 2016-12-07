@@ -17,7 +17,6 @@ const updateCurriculumInfo = async(user) => {
         user.curriculum.push({
           courseName: curriculumClass.coursename,
           courseID: curriculumClass.courseid,
-          courseSequence: curriculumClass.coursesequence,
           classroom: curriculumClass.classroom,
           teacher: curriculumClass.teacher,
           time: curriculumClass.time,
