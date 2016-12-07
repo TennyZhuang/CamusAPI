@@ -3,6 +3,7 @@
 const rp = require('request-promise')
 const ci = require('cheerio')
 
+
 class LearnHelperUtil {
   constructor(username, password) {
     this.username = username
@@ -90,7 +91,6 @@ class LearnHelperUtil {
         const doc = {}
 
         const $children = $this.children()
-        doc.sequenceNum = $children.eq(0).text().replace(/&nbsp;/gi, '').trim()
         doc.title = $children.eq(1).text().replace(/&nbsp;/gi, '').trim()
         doc.explanation = $children.eq(2).text().replace(/&nbsp;/gi, '').trim()
         doc.size = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
@@ -138,7 +138,7 @@ class LearnHelperUtil {
         const homeworkPrefix = 'http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/'
         const _url = $children.eq(0).find('a').attr('href')
 
-        assignment.assignmentID = parseInt(_url.split(/&|=/).slice(-5)[0])
+        assignment.assignmentID = _url.split(/&|=/).slice(-5)[0]
         const $1 = await rp({
           method: 'GET',
           uri: homeworkPrefix + _url,
@@ -196,7 +196,7 @@ class LearnHelperUtil {
       for (const ele of Array.from($('.tr1, .tr2'))) {
         const tds = Array.from($(ele).find('td'))
         const [
-          sequenceNumStr,
+          ,
           title,
           publisher,
           _publishTime,
@@ -213,16 +213,14 @@ class LearnHelperUtil {
           }
         }
 
-        const noticeID = parseInt(href.split(/&|=/).slice(-3)[0])
+        const noticeID = href.split(/&|=/).slice(-3)[0]
         const $notice = await rp(options)
         const content = $notice($notice('.tr_l2')[1]).text()
 
-        const sequenceNum = parseInt(sequenceNumStr)
         const state = rawState === '已读' ? 'read' : 'unread'
 
         notices.push({
           noticeID,
-          sequenceNum,
           title,
           publisher,
           publishTime,
