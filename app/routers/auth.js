@@ -1,15 +1,18 @@
 const Router = require('koa-router')
 const register = require('../tasks/register')
 const cancel = require('../tasks/cancel')
+const checkUser = require('../middlewares/checkuser')
 
 const router = new Router({
   prefix: '/users'
 })
 
+router.param('username', checkUser)
+
 router.post('/register', async (ctx) => {
   const {username, password} = ctx.request.fields || {}
   if (!username || !password) {
-    ctx.throw(400, 'Missing Arguments')
+    throw new Error('Missing Arguments')
   }
 
   const [user, existed] = await register(username, password)
@@ -19,13 +22,10 @@ router.post('/register', async (ctx) => {
   }
 
   if (user) {
-    ctx.status = 200
-    ctx.body.message = 'Success'
     ctx.body.existed = existed
     ctx.body.information = user.info.toObject()
   } else {
-    ctx.status = 400
-    ctx.body.message = 'Failure'
+    throw new Error('Auth failed')
   }
 })
 
@@ -34,11 +34,9 @@ router.post('/:username/cancel', async (ctx) => {
 
   const removed = await cancel(username)
 
-  ctx.body = {
-    username: username
+  if (!removed) {
+    throw new Error('Remove failed')
   }
-
-  ctx.res.statusCode = removed ? 200 : 400
 })
 
 exports.router = router

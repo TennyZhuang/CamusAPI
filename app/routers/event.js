@@ -12,13 +12,11 @@ const router = new Router({
 router.post('/', async (ctx) => {
   try {
     ctx.body = {
-      message: 'Success',
       events: EventUtil.getEventList()
     }
   } catch (e) {
-    ctx.body = {
-      message: 'Failure',
-    }
+    console.error(e)
+    throw e
   }
 })
 

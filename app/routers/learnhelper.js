@@ -17,7 +17,6 @@ router.post('/:username/courses', async(ctx) => {
   const user = ctx.user
 
   ctx.body = {
-    message: 'Success',
     courses: user.courses.toObject()
   }
 })
@@ -26,7 +25,6 @@ router.post('/:username/courses/:courseID/notices', async(ctx) => {
   const {courseID} = ctx.params
   const course = await getCourse(ctx.user, courseID)
   ctx.body = {
-    message: 'Success',
     notices: course.notices.toObject()
   }
 })
@@ -35,7 +33,6 @@ router.post('/:username/courses/:courseID/documents', async(ctx) => {
   const {courseID} = ctx.params
   const course = await getCourse(ctx.user, courseID)
   ctx.body = {
-    message: 'Success',
     documents: course.documents.toObject()
   }
 })
@@ -44,7 +41,6 @@ router.post('/:username/courses/:courseID/assignments', async(ctx) => {
   const {courseID} = ctx.params
   const course = await getCourse(ctx.user, courseID)
   ctx.body = {
-    message: 'Success',
     assignments: course.assignments.toObject()
   }
 })
