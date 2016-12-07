@@ -28,7 +28,7 @@ class CurriculumUtil {
         let startWeek = null
         let endWeek = null
         const index = ele.indexOf('-')
-        if (index != -1) {
+        if (index !== -1) {
           startWeek = parseInt(ele.slice(0, index))
           endWeek = parseInt(ele.slice(index + 1))
         } else {
