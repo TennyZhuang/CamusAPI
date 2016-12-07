@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 
 const NoticeSchema = new mongoose.Schema({
   noticeID: {
-    type: Number,
+    type: String,
     index: true
   },
   title: String,
@@ -42,7 +42,7 @@ const DocumentSchema = new mongoose.Schema({
 
 const AssignmentSchema = new mongoose.Schema({
   assignmentID: {
-    type: Number,
+    type: String,
     index: true
   },
   title: {

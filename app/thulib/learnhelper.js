@@ -138,7 +138,7 @@ class LearnHelperUtil {
         const homeworkPrefix = 'http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/'
         const _url = $children.eq(0).find('a').attr('href')
 
-        assignment.assignmentID = parseInt(_url.split(/&|=/).slice(-5)[0])
+        assignment.assignmentID = _url.split(/&|=/).slice(-5)[0]
         const $1 = await rp({
           method: 'GET',
           uri: homeworkPrefix + _url,
@@ -213,7 +213,7 @@ class LearnHelperUtil {
           }
         }
 
-        const noticeID = parseInt(href.split(/&|=/).slice(-3)[0])
+        const noticeID = href.split(/&|=/).slice(-3)[0]
         const $notice = await rp(options)
         const content = $notice($notice('.tr_l2')[1]).text()
 
