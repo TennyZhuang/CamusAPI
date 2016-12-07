@@ -28,7 +28,7 @@ describe('1. test parser', () => {
     })
   })
   
-  //FIXME: How to test an exception threwed by async function properly
+  //FIXME: How to test an exception thrown by async function properly
   /*
   it('1.2 curriculum info should be empty from the wrong test page', async (done) =>{
     const data = await readFile(`${__dirname}\\test-wrong.html`, 'utf8')
