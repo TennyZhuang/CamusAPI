@@ -2,7 +2,7 @@
  * Created by Ma_Zi_jun on 2016/12/3.
  */
 
-/* Test summary for this function:
+/* Test summary for this feature:
  1. With incomplete post data, the response show miss arguments
  2.1 With valid (username, password) for the first time, the response show success and existed = true
  2.2 With valid (username, password) for the second time, the response show success and existed = false
