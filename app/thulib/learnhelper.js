@@ -61,7 +61,11 @@ class LearnHelperUtil {
           course.teacher = _$('#table_box .tr_1').eq(4).text().replace(/&nbsp;/gi, '').trim()
           course.email = _$('#table_box .tr_1').eq(5).text().replace(/&nbsp;/gi, '').trim()
           course.phone = _$('#table_box .tr2').eq(4).text().replace(/&nbsp;/gi, '').trim()
-          course.courseID = `2016-2017-1-${courseNum}-${courseSeq}`
+          const _semester = course.courseName.split(/[(]|[-]/).slice(-2)
+          const start = _semester[0]
+          const end = _semester[1].slice(0, 4)
+          const season = _semester[1].charAt(4) === '秋' ? '1' : '2'
+          course.courseID = `${start}-${end}-${season}-${courseNum}-${courseSeq}`
           course._courseID = courseID
         }
 
