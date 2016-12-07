@@ -23,17 +23,20 @@ class CurriculumUtil {
 
     const parseMultiGroupWeek = (s) => {
       let week = []
-      let index = s.indexOf('-')
-      while (index !== -1) {
-        const startWeek = parseInt(s.slice(0, index))
-        s = s.slice(index + 1, s.length)
-        index = s.indexOf(',')
-        index = index > 0 ? index : s.indexOf('周')
-        const endWeek = parseInt(s.slice(0, index))
-        s = s.slice(index + 1, s.length)
+      const weekSlices = s.split(/[ ]*[,，][ ]*|周/).slice(0, -1)
+      weekSlices.forEach((ele) => {
+        let startWeek = null
+        let endWeek = null
+        const index = ele.indexOf('-')
+        if (index != -1) {
+          startWeek = parseInt(ele.slice(0, index))
+          endWeek = parseInt(ele.slice(index + 1))
+        } else {
+          startWeek = parseInt(ele)
+          endWeek = startWeek
+        }
         week = week.concat(range(startWeek, endWeek))
-        index = s.indexOf('-')
-      }
+      })
       return week
     }
 
