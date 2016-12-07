@@ -19,6 +19,10 @@ const updateCourseInfo = async(user) => {
       notices = await cicLhu.getNotices(course._courseID)
       documents = await cicLhu.getDocuments(course._courseID)
       assignments = await cicLhu.getAssignments(course._courseID)
+      const info = await cicLhu.getTeacherInfo(course._courseID)
+      course.teacher = info[0]
+      course.email = info[1]
+      course.phone = info[2]
     } else {
       notices = await lhu.getNotices(course._courseID)
       documents = await lhu.getDocuments(course._courseID)

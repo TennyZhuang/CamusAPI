@@ -31,6 +31,26 @@ class CicLearnHelperUtil {
     }
   }
 
+  async getTeacherInfo(courseID) {
+    const infoUrl = `${this.prefix}/b/mycourse/SpeakTeacher/list/${courseID}`
+    try {
+      const res = await rp({
+        method: 'POST',
+        uri: infoUrl,
+        jar: this.cookies,
+        json: true
+      })
+      const info = res.resultList.teacherInfo
+      const teacher = info.name ? info.name : ''
+      const email = info.email ? info.email : ''
+      const phone = info.phone ? info.phone : ''
+      return [teacher, email, phone]
+    } catch (e) {
+      console.error(e)
+      return ['', '', '']
+    }
+  }
+
   async getNotices(courseID) {
     const noticeUrl = `${this.prefix}/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`
     const notices = []
