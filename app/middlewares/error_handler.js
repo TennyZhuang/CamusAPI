@@ -3,13 +3,15 @@
  */
 
 const errorHandler = async (ctx, next) => {
-  ctx.body = ctx.body || {}
-
   try {
     await next()
-    ctx.body.message = 'Success'
+    if (ctx.status === 200) {
+      ctx.body = ctx.body || {}
+      ctx.body.message = 'Success'
+    }
   } catch (e) {
     ctx.status = 400
+    ctx.body = ctx.body || {}
     ctx.body.message = 'Failure'
     ctx.body.reason = e.message
   }
