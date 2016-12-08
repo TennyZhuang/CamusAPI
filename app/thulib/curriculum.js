@@ -110,7 +110,7 @@ class CurriculumUtil {
   }
 
   static async getFirstLevelCurriculum(username, password, isUndergraduate) {
-    const prefix = 'http://zhjw.cic.tsinghua.edu.cn/'
+    const prefix = 'http://zhjw.cic.tsinghua.edu.cn'
     const curriculumUndergraduateFirstLevelUrlMobile =
       `${prefix}/portal3rd.do?m=bks_yjkbSearch&mobile=true`
     const curriculumGraduateFirstLevelUrlMobile =
