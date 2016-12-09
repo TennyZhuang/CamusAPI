@@ -4,29 +4,35 @@ const updateCourseInfo = require('./update_course_info')
 const updateCurriculumInfo = require('./update_curriculum_info')
 const taskSchedular = require('./task_schedular')
 
-const register = async (username, password) => {
-  let user = await User.findOne({ username: username })
-  if (user) {
-    return [user, true]
-  }
-
+const register = async(username, password) => {
   const authResult = await AuthUtil.auth(username, password)
 
   if (authResult) {
-    const info = await AuthUtil.getUserInfo(username, password)
-    user = new User({
-      username: username,
-      password: password,
-      info: info
-    })
+    let user = await User.findOne({username: username})
+    const existed = !!user
 
-    await user.save()
+    if (!existed) {
+      const info = await AuthUtil.getUserInfo(username, password)
+      user = new User({
+        username: username,
+        password: password,
+        info: info
+      })
 
-    taskSchedular.add(updateCourseInfo, user, 300000)
-    taskSchedular.add(updateCurriculumInfo, user, 300000)
+      await user.save()
+
+      taskSchedular.add(updateCourseInfo, user, 300000)
+      taskSchedular.add(updateCurriculumInfo, user, 300000)
+
+    } else if (existed && user.getPassword() !== password) {
+      user.password = password
+      user.save()
+    }
+
+    return [user, existed]
+  } else {
+    return [null, false]
   }
-
-  return [user, false]
 }
 
 module.exports = register
