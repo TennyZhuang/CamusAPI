@@ -57,7 +57,7 @@ class EventUtil {
       const $ = await rp(options)
       EventUtil._events = await EventUtil.parseEvents($)
     } catch(e) {
-      console.log(e)
+      console.error(e)
       throw e
     }
   }
