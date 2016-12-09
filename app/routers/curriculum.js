@@ -20,17 +20,13 @@ router.post('/:username/:week', async(ctx) => {
   const {week} = ctx.params
   const weekCurriculum =
     await getWeekCurriculumWithClassEntry(ctx.user, week)
-  ctx.body = {
-    classes: weekCurriculum
-  }
+  ctx.body.classes = weekCurriculum
 })
 
 router.post('/:username', async (ctx) => {
   const semesterCurriculum =
     await getSemesterCurriculumWithClassEntry(ctx.user)
-  ctx.body = {
-    classes: semesterCurriculum
-  }
+  ctx.body.classes = semesterCurriculum
 })
 
 exports.router = router
