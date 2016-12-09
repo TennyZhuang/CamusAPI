@@ -164,7 +164,7 @@ class CicLearnHelperUtil {
 
         assignment.fileUrl = info.homewkAffix ? info.homewkAffix : ''
         assignment.filename = info.homewkAffixFilename ? info.homewkAffixFilename : ''
-        assignment.size = '0' // TODO: parse size
+        assignment.size = 'unknown'
 
         assignment.scored = record.status === '3'
         assignment.grade = record.mark ? record.mark : -1
