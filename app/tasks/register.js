@@ -2,7 +2,7 @@ const AuthUtil = require('../thulib/auth')
 const User = require('../models/user')
 const updateCourseInfo = require('./update_course_info')
 const updateCurriculumInfo = require('./update_curriculum_info')
-const taskSchedular = require('./task_schedular')
+const taskScheduler = require('./task_scheduler')
 
 const register = async(username, password) => {
   const authResult = await AuthUtil.auth(username, password)
@@ -21,8 +21,8 @@ const register = async(username, password) => {
 
       await user.save()
 
-      taskSchedular.add(updateCourseInfo, user, 300000)
-      taskSchedular.add(updateCurriculumInfo, user, 300000)
+      taskScheduler.add(updateCourseInfo, user, 300000)
+      taskScheduler.add(updateCurriculumInfo, user, 300000)
 
     } else if (existed && user.getPassword() !== password) {
       user.password = password
