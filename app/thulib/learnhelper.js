@@ -173,7 +173,7 @@ class LearnHelperUtil {
         assignment.evaluatingDate = Number.isNaN(evaluatingDate) ? 0 : evaluatingDate
         assignment.scored = assignment.evaluatingDate !== 0
         assignment.grade = parseFloat($2('#table_box .tr_1').eq(2).text().replace('分', '0').trim())
-        assignment.grade = isNaN(assignment.grade) ? 0.0 : assignment.grade
+        assignment.grade = isNaN(assignment.grade) ? -1 : assignment.grade
         assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
 
         assignments.push(assignment)

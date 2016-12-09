@@ -167,7 +167,7 @@ class CicLearnHelperUtil {
         assignment.size = '0' // TODO: parse size
 
         assignment.scored = record.status === '3'
-        assignment.grade = record.mark ? record.mark : 0
+        assignment.grade = record.mark ? record.mark : -1
         if (record.replyDetail) {
           const _comment = ci.load(record.replyDetail, {decodeEntities: false})
           assignment.comment = _comment.text()
