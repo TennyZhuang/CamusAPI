@@ -14,8 +14,6 @@ const checkUser = async (username, ctx, next) => {
   } else {
     throw new Error('Invalid username')
   }
-
-  ctx.body.username = username
 }
 
 module.exports = checkUser
