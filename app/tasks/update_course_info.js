@@ -12,8 +12,8 @@ const updateCourseInfo = async(user) => {
   await cicLhu.login()
   const courses = await lhu.getCourseList()
 
-  const courseModels = []
-  for (const course of courses) {
+  const ps = courses.map(course => new Promise(async (resolve) => {
+    // TODO: reject
     let notices, documents, assignments
     if (course._courseID.indexOf('-') !== -1) {
       notices = await cicLhu.getNotices(course._courseID)
@@ -29,7 +29,7 @@ const updateCourseInfo = async(user) => {
       assignments = await lhu.getAssignments(course._courseID)
     }
 
-    courseModels.push({
+    resolve({
       courseName: course.courseName,
       courseID: course.courseID,
       teacher: course.teacher,
@@ -42,9 +42,9 @@ const updateCourseInfo = async(user) => {
       documents: documents,
       assignments: assignments
     })
-  }
+  }))
 
-  user.courses = courseModels
+  user.courses = await Promise.all(ps)
   console.log('update learnhelper info done')
 
   await user.save()
