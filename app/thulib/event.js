@@ -24,8 +24,12 @@ class EventUtil {
       // name
       const name = $(elem).find('span').text()
       const daysStr = $(elem).find('b').text()
+
+      //days
       let days = parseInt(daysStr)
       days = isNaN(days) ? 0: days
+
+      //status
       const removed = rawStr.replace(name, '')
       const status = removed.includes('开始')? 'begin': 'end'
 
@@ -57,7 +61,7 @@ class EventUtil {
       const $ = await rp(options)
       EventUtil._events = await EventUtil.parseEvents($)
     } catch(e) {
-      console.error(e)
+      console.log(e)
       throw e
     }
   }
