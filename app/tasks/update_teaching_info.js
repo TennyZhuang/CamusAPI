@@ -16,6 +16,9 @@ const updateTeachingInfo = async(user) => {
     currentTeachingWeek: _info.currentTeachingWeek,
     nextSemester: _info.nextSemester
   })
+
+  console.log('Update Teaching Info Done')
+
   await info.save()
 }
 
