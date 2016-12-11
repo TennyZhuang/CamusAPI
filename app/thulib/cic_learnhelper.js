@@ -185,6 +185,44 @@ class CicLearnHelperUtil {
       return []
     }
   }
+
+
+  async getCurrentTeachingInfo() {
+    const url = `${this.prefix}/b/myCourse/courseList/getCurrentTeachingWeek`
+    const info = {}
+    try {
+      const res = await rp({
+        method: 'GET',
+        uri: url,
+        jar: this.cookies,
+        json: true
+      })
+      info.time = Date.now()
+
+      info.currentSemester = {}
+      info.currentSemester.name = res.currentSemester.semesterName
+      info.currentSemester.id = res.currentSemester.id
+      info.currentSemester.beginTime = new Date(`${res.currentSemester.startDate} 00:00:00`).getTime()
+      info.currentSemester.endTime = new Date(`${res.currentSemester.endDate} 23:59:59`).getTime()
+
+      info.currentTeachingWeek = {}
+      info.currentTeachingWeek.name = res.currentTeachingWeek.weekName
+      info.currentTeachingWeek.id = res.currentTeachingWeek.teachingWeekId.toString()
+      info.currentTeachingWeek.beginTime = new Date(`${res.currentTeachingWeek.beginDate} 00:00:00`).getTime()
+      info.currentTeachingWeek.endTime = new Date(`${res.currentTeachingWeek.endDate} 23:59:59`).getTime()
+
+      info.nextSemester = {}
+      info.nextSemester.name = res.nextSemester.semesterName
+      info.nextSemester.id = res.nextSemester.id
+      info.nextSemester.beginTime = new Date(`${res.nextSemester.startDate} 00:00:00`).getTime()
+      info.nextSemester.endTime = new Date(`${res.nextSemester.endDate} 23:59:59`).getTime()
+
+      return info
+    } catch (e) {
+      console.error(e)
+      return {}
+    }
+  }
 }
 
 module.exports = CicLearnHelperUtil
