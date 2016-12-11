@@ -7,6 +7,7 @@ const EventUtil = require('../thulib/event')
 const taskScheduler = require('./task_scheduler')
 const updateCourseInfo = require('./update_course_info')
 const updateCurriculumInfo = require('./update_curriculum_info')
+const updateTeachingInfo = require('./update_teaching_info')
 const User = require('../models/user')
 
 const start = async () => {
@@ -17,6 +18,7 @@ const start = async () => {
     taskScheduler.add(updateCourseInfo, user, 300000)
     taskScheduler.add(updateCurriculumInfo, user, 300000)
   })
+  taskScheduler.add(updateTeachingInfo, users[0], 300000)
 }
 
 module.exports = start
