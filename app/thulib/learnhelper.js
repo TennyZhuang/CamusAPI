@@ -188,8 +188,6 @@ class LearnHelperUtil {
   async getNotices(courseID) {
     const noticeUrl = `${this.prefix}/MultiLanguage/public/bbs/getnoteid_student.jsp?course_id=${courseID}`
 
-    const notices = []
-
     try {
       const option = {
         uri: noticeUrl,
@@ -201,8 +199,8 @@ class LearnHelperUtil {
 
       const $ = await rp(option)
 
-      for (const ele of Array.from($('.tr1, .tr2'))) {
-        const tds = Array.from($(ele).find('td'))
+      const ps = Array.from($('.tr1, .tr2')).map(tr => new Promise(async (resolve) => {
+        const tds = Array.from($(tr).find('td'))
         const [
           ,
           title,
@@ -210,7 +208,6 @@ class LearnHelperUtil {
           _publishTime,
           rawState] = tds.map(td => $(td).text().trim())
         const publishTime = new Date(`${_publishTime} 00:00:00`).getTime()
-
         const href = encodeURI(`${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`)
         const options = {
           method: 'GET',
@@ -227,7 +224,7 @@ class LearnHelperUtil {
 
         const state = rawState === '已读' ? 'read' : 'unread'
 
-        notices.push({
+        resolve({
           noticeID,
           title,
           publisher,
@@ -235,11 +232,15 @@ class LearnHelperUtil {
           state,
           content
         })
-      }
+      }))
+
+      const notices = await Promise.all(ps)
+
+      return notices
     } catch (e) {
       console.error(e)
+      return []
     }
-    return notices
   }
 }
 
