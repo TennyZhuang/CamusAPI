@@ -3,7 +3,7 @@
  */
 
 const rp = require('request-promise')
-const ci = require('cheerio')
+const h2t = require('html-to-text')
 const AuthUtil = require('./auth')
 
 
@@ -84,8 +84,7 @@ class CicLearnHelperUtil {
         })
 
         if (det.dataSingle) {
-          const _detail = ci.load(det.dataSingle.detail, {decodeEntities: false})
-          notice.content = _detail.text()
+          notice.content = h2t.fromString(det.dataSingle.detail)
         } else {
           notice.content = ''
         }
@@ -155,8 +154,7 @@ class CicLearnHelperUtil {
         assignment.startDate = info.beginDate ? info.beginDate : 0
         assignment.dueDate = info.endDate ? info.endDate : 0
         if (info.detail) {
-          const _detail = ci.load(info.detail, {decodeEntities: false})
-          assignment.detail = _detail.text()
+          assignment.detail = h2t.fromString(info.detail)
         } else {
           assignment.detail = ''
         }
@@ -169,8 +167,7 @@ class CicLearnHelperUtil {
         assignment.scored = record.status === '3'
         assignment.grade = record.mark ? record.mark : -1
         if (record.replyDetail) {
-          const _comment = ci.load(record.replyDetail, {decodeEntities: false})
-          assignment.comment = _comment.text()
+          assignment.comment = h2t.fromString(record.replyDetail)
         } else {
           assignment.comment = ''
         }
