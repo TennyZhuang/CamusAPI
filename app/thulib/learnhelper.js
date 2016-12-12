@@ -2,6 +2,7 @@
 
 const rp = require('request-promise')
 const ci = require('cheerio')
+const h2t = require('html-to-text')
 
 
 class LearnHelperUtil {
@@ -222,7 +223,7 @@ class LearnHelperUtil {
 
         const noticeID = href.split(/&|=/).slice(-3)[0]
         const $notice = await rp(options)
-        const content = $notice($notice('.tr_l2')[1]).text()
+        const content = h2t.fromString($notice('.tr_l2').eq(1).html())
 
         const state = rawState === '已读' ? 'read' : 'unread'
 
