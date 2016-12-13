@@ -129,9 +129,8 @@ class LearnHelperUtil {
         }
       })
 
-      const assignments = []
-      for (const ele of Array.from($('.tr1, .tr2'))) {
-        const $this = $(ele)
+      const ps = Array.from($('.tr1, .tr2')).map((tr) => new Promise(async (resolve) => {
+        const $this = $(tr)
         const assignment = {}
 
         const $children = $this.children()
@@ -177,11 +176,15 @@ class LearnHelperUtil {
         assignment.grade = isNaN(assignment.grade) ? -1 : assignment.grade
         assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
 
-        assignments.push(assignment)
-      }
+        resolve(assignment)
+      }))
+
+      const assignments = await Promise.all(ps)
+
       return assignments
     } catch (e) {
-      throw e
+      console.error(e)
+      return []
     }
   }
 
