@@ -36,9 +36,8 @@ class LearnHelperUtil {
         }
       })
 
-      const courses = []
-      for (const ele of Array.from($('.info_tr, .info_tr2'))) {
-        const $this = $(ele)
+      const ps = Array.from($('.info_tr, .info_tr2')).map(tr => new Promise(async (resolve) => {
+        const $this = $(tr)
         const course = {}
 
         course.courseName = $this.find('a').text().trim()
@@ -74,11 +73,14 @@ class LearnHelperUtil {
         course.unreadNotice = parseInt($this.find('.red_text').eq(1).text())
         course.newFile = parseInt($this.find('.red_text').eq(2).text())
 
-        courses.push(course)
-      }
+        resolve(course)
+      }))
+
+      const courses = await Promise.all(ps)
       return courses
     } catch (e) {
-      throw e
+      console.error(e)
+      return []
     }
   }
 
