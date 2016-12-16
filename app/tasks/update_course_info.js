@@ -16,17 +16,30 @@ const updateCourseInfo = async(user) => {
     // TODO: reject
     let notices, documents, assignments
     if (course._courseID.indexOf('-') !== -1) {
-      notices = await cicLhu.getNotices(course._courseID)
-      documents = await cicLhu.getDocuments(course._courseID)
-      assignments = await cicLhu.getAssignments(course._courseID)
-      const info = await cicLhu.getTeacherInfo(course._courseID)
-      course.teacher = info[0]
-      course.email = info[1]
-      course.phone = info[2]
+      const taskPs = [
+        cicLhu.getNotices, cicLhu.getDocuments, cicLhu.getAssignments, cicLhu.getTeacherInfo
+      ].map(task => new Promise(async (resolve) => {
+        const result = await task.call(cicLhu, course._courseID)
+        resolve(result)
+      }))
+
+      const results = await Promise.all(taskPs)
+
+      ;[
+        notices, documents, assignments, [
+          course.teacher, course.email, course.phone
+        ]
+      ] = results
     } else {
-      notices = await lhu.getNotices(course._courseID)
-      documents = await lhu.getDocuments(course._courseID)
-      assignments = await lhu.getAssignments(course._courseID)
+      const taskPs = [
+        lhu.getNotices, lhu.getDocuments, lhu.getAssignments
+      ].map(task => new Promise(async (resolve) => {
+        const result = await task.call(lhu, course._courseID)
+        resolve(result)
+      }))
+
+      const results = await Promise.all(taskPs)
+      ;[notices, documents, assignments] = results
     }
 
     resolve({
