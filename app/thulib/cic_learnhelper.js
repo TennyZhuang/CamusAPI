@@ -53,7 +53,6 @@ class CicLearnHelperUtil {
 
   async getNotices(courseID) {
     const noticeUrl = `${this.prefix}/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`
-    const notices = []
     try {
       const res = await rp({
         method: 'GET',
@@ -62,8 +61,9 @@ class CicLearnHelperUtil {
         json: true
       })
 
-      for (const rawNoticeInfo of res.paginationList.recordList) {
+      const ps = res.paginationList.recordList.map(rawNoticeInfo => new Promise(async (resolve) => {
         const notice = {}
+
         if (rawNoticeInfo.status) {
           notice.state = rawNoticeInfo.status.trim() === '1' ? 'read' : 'unread'
         } else {
@@ -88,8 +88,11 @@ class CicLearnHelperUtil {
         } else {
           notice.content = ''
         }
-        notices.push(notice)
-      }
+
+        resolve(notice)
+      }))
+
+      const notices = await Promise.all(ps)
 
       return notices
     } catch (e) {
