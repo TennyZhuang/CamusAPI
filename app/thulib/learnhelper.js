@@ -36,9 +36,8 @@ class LearnHelperUtil {
         }
       })
 
-      const courses = []
-      for (const ele of Array.from($('.info_tr, .info_tr2'))) {
-        const $this = $(ele)
+      const ps = Array.from($('.info_tr, .info_tr2')).map(tr => new Promise(async (resolve) => {
+        const $this = $(tr)
         const course = {}
 
         course.courseName = $this.find('a').text().trim()
@@ -74,11 +73,14 @@ class LearnHelperUtil {
         course.unreadNotice = parseInt($this.find('.red_text').eq(1).text())
         course.newFile = parseInt($this.find('.red_text').eq(2).text())
 
-        courses.push(course)
-      }
+        resolve(course)
+      }))
+
+      const courses = await Promise.all(ps)
       return courses
     } catch (e) {
-      throw e
+      console.error(e)
+      return []
     }
   }
 
@@ -129,9 +131,8 @@ class LearnHelperUtil {
         }
       })
 
-      const assignments = []
-      for (const ele of Array.from($('.tr1, .tr2'))) {
-        const $this = $(ele)
+      const ps = Array.from($('.tr1, .tr2')).map((tr) => new Promise(async (resolve) => {
+        const $this = $(tr)
         const assignment = {}
 
         const $children = $this.children()
@@ -177,18 +178,20 @@ class LearnHelperUtil {
         assignment.grade = isNaN(assignment.grade) ? -1 : assignment.grade
         assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
 
-        assignments.push(assignment)
-      }
+        resolve(assignment)
+      }))
+
+      const assignments = await Promise.all(ps)
+
       return assignments
     } catch (e) {
-      throw e
+      console.error(e)
+      return []
     }
   }
 
   async getNotices(courseID) {
     const noticeUrl = `${this.prefix}/MultiLanguage/public/bbs/getnoteid_student.jsp?course_id=${courseID}`
-
-    const notices = []
 
     try {
       const option = {
@@ -201,8 +204,8 @@ class LearnHelperUtil {
 
       const $ = await rp(option)
 
-      for (const ele of Array.from($('.tr1, .tr2'))) {
-        const tds = Array.from($(ele).find('td'))
+      const ps = Array.from($('.tr1, .tr2')).map(tr => new Promise(async (resolve) => {
+        const tds = Array.from($(tr).find('td'))
         const [
           ,
           title,
@@ -210,7 +213,6 @@ class LearnHelperUtil {
           _publishTime,
           rawState] = tds.map(td => $(td).text().trim())
         const publishTime = new Date(`${_publishTime} 00:00:00`).getTime()
-
         const href = encodeURI(`${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`)
         const options = {
           method: 'GET',
@@ -227,7 +229,7 @@ class LearnHelperUtil {
 
         const state = rawState === '已读' ? 'read' : 'unread'
 
-        notices.push({
+        resolve({
           noticeID,
           title,
           publisher,
@@ -235,11 +237,15 @@ class LearnHelperUtil {
           state,
           content
         })
-      }
+      }))
+
+      const notices = await Promise.all(ps)
+
+      return notices
     } catch (e) {
       console.error(e)
+      return []
     }
-    return notices
   }
 }
 
