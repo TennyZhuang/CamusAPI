@@ -4,6 +4,7 @@
 
 const rp = require('request-promise').defaults({jar: true})
 const sleep = require('es6-sleep').promise
+const moment = require('moment')
 
 const AuthUtil = require('../thulib/auth')
 class ScheduleUtil {
@@ -30,13 +31,12 @@ class ScheduleUtil {
 
   static async splitSemesterSchedule(semesterSchedule) {
 
-
   }
 
   static async getSchedule(username, password, isUndergraduate) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/jxmh.do'
-    const startDate = ScheduleUtil.getStartDate();
-    const endDate = ScheduleUtil.getEndDate();
+    const startDate = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.format('YYYYMMDD')
+    const endDate = ScheduleUtil.UNDERGRADUATE_SEMESTER_END_DATE.format('YYYYMMDD')
     const scheduleUndergraduateArgs =
       `?m=bks_jxrl_all&p_start_date=${startDate}&p_end_date=${endDate}` +
       '\&jsoncallback=no_such_method'
@@ -67,13 +67,15 @@ class ScheduleUtil {
       //Wait for ticket take effect
       const resp = await rp(scheduleOptions)
       const semesterSchedule = await ScheduleUtil.parseSchedule(resp)
-      const weekSchedules = await
+      const weekSchedules = await ScheduleUtil.splitSemesterSchedule(semesterSchedule)
+      return weekSchedules
     } catch (e) {
       throw e
     }
   }
 }
 
-module.UNDERGRADUATE_SEMESTER_STARTDATE = new Date(2016, 9, 12)
-module.UNDERGRADUATE_SEMESTER_DUEDATE = new Date(2017, 1, 15)
+ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE = moment('2016-09-12')
+ScheduleUtil.UNDERGRADUATE_SEMESTER_END_DATE = moment('2017-01-15')
+
 module.exports = ScheduleUtil
