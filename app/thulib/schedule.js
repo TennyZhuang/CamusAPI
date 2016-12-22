@@ -35,7 +35,7 @@ class ScheduleUtil {
 
     const weekSchedules = []
     for (let i = 0; i < weeks; ++i) {
-      const weekEndStr = weekEndMoment.format("YYYYMMDD")
+      const weekEndStr = weekEndMoment.format('YYYY-MM-DD')
       const before = (ele) => {
         return ele['date'] <= weekEndStr
       }
