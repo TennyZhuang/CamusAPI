@@ -7,16 +7,16 @@ const sleep = require('es6-sleep').promise
 
 const AuthUtil = require('../thulib/auth')
 class ScheduleUtil {
-  // static async getScheduleList(username, password, isUndergraduate) {
-  //
-  // }
-  static getStartDate()
-  {
-    return '20161101'
-  }
-  static getEndDate()
-  {
-    return '20170201'
+  static async parseSchedule(resp) {
+    if (!resp.includes('no_such_method')) {
+      throw 'Fail to Crawl Schedule'
+    }
+    const jsonStr = resp.slice(15, resp.length - 1)
+    console.log(jsonStr)
+    // jsonStr = `schdule:${jsonStr}`
+    const schedules = JSON.parse(jsonStr)
+    console.log(schedules.length)
+    return schedules
   }
 
   static async getWeekSchedule(username, password, isUndergraduate) {
@@ -52,8 +52,9 @@ class ScheduleUtil {
     try {
       await rp(loginOptions)
       //Wait for ticket take effect
-      const json = await rp(scheduleOptions)
-      console.log(json)
+      const resp = await rp(scheduleOptions)
+      const schedule = await ScheduleUtil.parseSchedule(resp)
+      console.log(schedule)
     } catch (e) {
       throw e
     }
