@@ -45,8 +45,8 @@ const WeekScheduleSchema = new mongoose.Schema({
 })
 
 const ScheduleActivity = mongoose.model('ScheduleActivitySchema', ScheduleActivitySchema)
-const WeekSchedule = mongoose.module('WeekScheduleSchema', WeekScheduleSchema)
+const WeekSchedule = mongoose.model('WeekScheduleSchema', WeekScheduleSchema)
 
 module.exports.ScheduleActivity = ScheduleActivity
 module.exports.WeekScedule = WeekSchedule
-module.exports.WeekSceduleSchema = WeekScheduleSchema
+module.exports.WeekScheduleSchema = WeekScheduleSchema

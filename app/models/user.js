@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const CryptoJS = require('crypto-js')
 const CourseSchema = require('./course').CourseSchema
 const CurriculumClassSchema = require('./curriculum').CurriculumClassSchema
-const WeekSchedule = require('./schedule').WeekScedule
+const WeekScheduleSchema = require('./schedule').WeekScheduleSchema
 const config = require('../config')
 const POSITIONS = ['undergraduate', 'master', 'doctor', 'teacher', 'unknown']
 
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   info: userInfoSchema,
   courses: [CourseSchema],
   curriculum: [CurriculumClassSchema],
-  schedule: [WeekSchedule]
+  schedule: [WeekScheduleSchema]
 })
 
 userSchema.pre('save', function (next) {
