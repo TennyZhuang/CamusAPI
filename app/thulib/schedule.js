@@ -28,7 +28,7 @@ class ScheduleUtil {
     return schedules
   }
 
-  static async getWeekSchedule(username, password, isUndergraduate) {
+  static async getSchedule(username, password, isUndergraduate) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/jxmh.do'
     const startDate = ScheduleUtil.getStartDate();
     const endDate = ScheduleUtil.getEndDate();
