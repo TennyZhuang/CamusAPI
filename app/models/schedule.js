@@ -42,6 +42,12 @@ const WeekScheduleSchema = new mongoose.Schema({
   weekSchedule: {
     type: [ScheduleActivitySchema]
   }
+}, {
+  toObject: {
+    transform: (doc, ret) => {
+      delete ret._id
+    }
+  }
 })
 
 const ScheduleActivity = mongoose.model('ScheduleActivitySchema', ScheduleActivitySchema)

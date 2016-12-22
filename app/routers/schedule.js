@@ -18,7 +18,7 @@ router.post('/:username/:week', async(ctx) => {
   const {week} = ctx.params
   const weekSchedule =
     await getWeekScheduleInfo(ctx.user, week)
-  ctx.body.classes = weekSchedule
+  ctx.body.schedule = weekSchedule
 })
 
 exports.router = router
