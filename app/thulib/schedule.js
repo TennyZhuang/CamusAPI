@@ -28,6 +28,11 @@ class ScheduleUtil {
     return schedules
   }
 
+  static async splitSemesterSchedule(semesterSchedule) {
+
+
+  }
+
   static async getSchedule(username, password, isUndergraduate) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/jxmh.do'
     const startDate = ScheduleUtil.getStartDate();
@@ -61,12 +66,14 @@ class ScheduleUtil {
       await rp(loginOptions)
       //Wait for ticket take effect
       const resp = await rp(scheduleOptions)
-      const schedule = await ScheduleUtil.parseSchedule(resp)
-      console.log(schedule)
+      const semesterSchedule = await ScheduleUtil.parseSchedule(resp)
+      const weekSchedules = await
     } catch (e) {
       throw e
     }
   }
 }
 
+module.UNDERGRADUATE_SEMESTER_STARTDATE = new Date(2016, 9, 12)
+module.UNDERGRADUATE_SEMESTER_DUEDATE = new Date(2017, 1, 15)
 module.exports = ScheduleUtil
