@@ -30,7 +30,28 @@ class ScheduleUtil {
   }
 
   static async splitSemesterSchedule(semesterSchedule) {
+    const weeks = ScheduleUtil.NUM_OF_WEEK
+    let weekEndMoment = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.add(6, 'days')
 
+    const weekSchedules = []
+    for (let i = 0; i < weeks; ++i) {
+      const weekEndStr = weekEndMoment.format("YYYYMMDD")
+      const after = (ele) => {
+        return ele['date'] > weekEndStr
+      }
+      const index = semesterSchedule.findIndex(after)
+      if (index === -1) {
+        for (i; i < weeks; ++i) {
+          weekSchedules.push([])
+        }
+        break
+      }
+      const weekSchedule = semesterSchedule.slice(0, index)
+      semesterSchedule = semesterSchedule.slice(index)
+      weekSchedules.push(weekSchedule)
+      weekEndMoment = weekEndMoment.add(7, 'days')
+    }
+    return weekSchedules
   }
 
   static async getSchedule(username, password, isUndergraduate) {
@@ -77,5 +98,6 @@ class ScheduleUtil {
 
 ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE = moment('2016-09-12')
 ScheduleUtil.UNDERGRADUATE_SEMESTER_END_DATE = moment('2017-01-15')
+ScheduleUtil.NUM_OF_WEEK = 18
 
 module.exports = ScheduleUtil
