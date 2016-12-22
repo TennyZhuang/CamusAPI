@@ -26,6 +26,12 @@ const ScheduleSchema = new mongoose.Schema({
   description: {
     type: String
   }
+}, {
+  toObject: {
+    transform: (doc, ret) => {
+      delete ret._id
+    }
+  }
 })
 
 const ScheduleSchema = mongoose.model('ScheduleSchema', ScheduleSchema)
