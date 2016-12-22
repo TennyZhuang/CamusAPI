@@ -12,10 +12,19 @@ class ScheduleUtil {
       throw 'Fail to Crawl Schedule'
     }
     const jsonStr = resp.slice(15, resp.length - 1)
-    console.log(jsonStr)
-    // jsonStr = `schdule:${jsonStr}`
-    const schedules = JSON.parse(jsonStr)
-    console.log(schedules.length)
+    const rawSchedules = JSON.parse(jsonStr)
+    const schedules = []
+    rawSchedules.forEach((item) => {
+      const parsedItem = {}
+      parsedItem['place'] = item['dd']
+      parsedItem['type'] = item['fl']
+      parsedItem['starteTime'] = item['kssj']
+      parsedItem['dueTime'] = item['jssj']
+      parsedItem['date'] = item['nq']
+      parsedItem['content'] = item['nr']
+      parsedItem['description'] = item['sm']
+      schedules.push(parsedItem)
+    })
     return schedules
   }
 
