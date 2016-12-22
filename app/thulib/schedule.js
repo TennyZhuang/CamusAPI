@@ -44,7 +44,6 @@ class ScheduleUtil {
       `http://zhjw.cic.tsinghua.edu.cn/j_acegi_login.do?ticket=${ticket}`
     const scheduleUrl = prefix +
       (isUndergraduate ? scheduleUndergraduateArgs: scheduleGraduateArgs)
-    console.log(scheduleUrl)
     const cookies = rp.jar()
     const loginOptions = {
       method: 'GET',
