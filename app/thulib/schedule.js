@@ -19,7 +19,7 @@ class ScheduleUtil {
       const parsedItem = {}
       parsedItem['place'] = item['dd']
       parsedItem['type'] = item['fl']
-      parsedItem['starteTime'] = item['kssj']
+      parsedItem['startTime'] = item['kssj']
       parsedItem['dueTime'] = item['jssj']
       parsedItem['date'] = item['nq']
       parsedItem['content'] = item['nr']
