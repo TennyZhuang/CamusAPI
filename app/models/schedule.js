@@ -36,7 +36,8 @@ const ScheduleActivitySchema = new mongoose.Schema({
 
 const WeekScheduleSchema = new mongoose.Schema({
   week: {
-    type: Number
+    type: Number,
+    index: true
   },
   weekSchedule: {
     type: [ScheduleActivitySchema]
