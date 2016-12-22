@@ -36,19 +36,26 @@ class ScheduleUtil {
     const weekSchedules = []
     for (let i = 0; i < weeks; ++i) {
       const weekEndStr = weekEndMoment.format("YYYYMMDD")
+      const before = (ele) => {
+        return ele['date'] <= weekEndStr
+      }
       const after = (ele) => {
         return ele['date'] > weekEndStr
       }
-      const index = semesterSchedule.findIndex(after)
-      if (index === -1) {
-        for (i; i < weeks; ++i) {
-          weekSchedules.push([])
-        }
-        break
+      const beforeIndex = semesterSchedule.findIndex(before)
+      const afterIndex= semesterSchedule.findIndex(after)
+      if (beforeIndex === -1) { //beforeIndex === -1
+        weekSchedules.push([])
+      } else if(afterIndex === -1){ //before index != -1
+        const weekSchedule = semesterSchedule.slice(0)
+        semesterSchedule = []
+        weekSchedules.push(weekSchedule)
+      } else {
+        const weekSchedule = semesterSchedule.slice(0, afterIndex)
+        semesterSchedule = semesterSchedule.slice(afterIndex)
+        weekSchedules.push(weekSchedule)
+
       }
-      const weekSchedule = semesterSchedule.slice(0, index)
-      semesterSchedule = semesterSchedule.slice(index)
-      weekSchedules.push(weekSchedule)
       weekEndMoment = weekEndMoment.add(7, 'days')
     }
     return weekSchedules
