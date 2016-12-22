@@ -4,7 +4,7 @@
 
 const mongoose = require('mongoose')
 
-const ScheduleSchema = new mongoose.Schema({
+const ScheduleActivitySchema = new mongoose.Schema({
   place: {
     type: String
   },
@@ -34,7 +34,18 @@ const ScheduleSchema = new mongoose.Schema({
   }
 })
 
-const ScheduleSchema = mongoose.model('ScheduleSchema', ScheduleSchema)
+const WeekScheduleSchema = new mongoose.Schema({
+  week: {
+    type: Number
+  },
+  weekSchedule: {
+    type: [ScheduleActivitySchema]
+  }
+})
 
-module.exports.ScheduleSchema = ScheduleSchema
-module.exports.ScheduleSchema = ScheduleSchema
+const ScheduleActivity = mongoose.model('ScheduleActivitySchema', ScheduleActivitySchema)
+const WeekSchedule = mongoose.module('WeekScheduleSchema', WeekScheduleSchema)
+
+module.exports.ScheduleActivity = ScheduleActivity
+module.exports.WeekScedule = WeekSchedule
+module.exports.WeekSceduleSchema = WeekScheduleSchema
