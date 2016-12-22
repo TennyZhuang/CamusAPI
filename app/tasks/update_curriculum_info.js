@@ -24,6 +24,7 @@ const updateCurriculumInfo = async(user) => {
         })
       }
       await user.save()
+      console.error('Succeed to update Curriculum')
       break
     }
     catch (e) {
