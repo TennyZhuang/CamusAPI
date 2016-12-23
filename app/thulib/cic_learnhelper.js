@@ -41,9 +41,9 @@ class CicLearnHelperUtil {
         json: true
       })
       const info = res.resultList.teacherInfo
-      const teacher = info.name ? info.name : ''
-      const email = info.email ? info.email : ''
-      const phone = info.phone ? info.phone : ''
+      const teacher = info.name || ''
+      const email = info.email || ''
+      const phone = info.phone || ''
       return [teacher, email, phone]
     } catch (e) {
       console.error(e)
@@ -70,10 +70,11 @@ class CicLearnHelperUtil {
           notice.state = 'unread'
         }
         const rawNotice = rawNoticeInfo.courseNotice
-        notice.noticeID = rawNotice.id
-        notice.title = rawNotice.title
-        notice.publisher = rawNotice.owner
-        notice.publishTime = new Date(`${rawNotice.regDate} 00:00:00`).getTime()
+        notice.noticeID = rawNotice.id || ''
+        notice.title = rawNotice.title || ''
+        notice.publisher = rawNotice.owner || ''
+        const _regDate = rawNotice.regDate || '1970.1.1'
+        notice.publishTime = new Date(`${_regDate} 00:00:00`).getTime()
 
         const detailUrl = `${this.prefix}/b/myCourse/notice/studDetail/${notice.noticeID}`
         const det = await rp({
@@ -92,9 +93,7 @@ class CicLearnHelperUtil {
         resolve(notice)
       }))
 
-      const notices = await Promise.all(ps)
-
-      return notices
+      return await Promise.all(ps)
     } catch (e) {
       console.error(e)
       return []
@@ -120,9 +119,9 @@ class CicLearnHelperUtil {
 
       for (const item of items) {
         const document = {}
-        document.title = item.title
-        document.explanation = item.detail ? item.detail : ''
-        document.updatingTime = item.resourcesMappingByFileId.regDate
+        document.title = item.title || ''
+        document.explanation = item.detail || ''
+        document.updatingTime = item.resourcesMappingByFileId.regDate || 0
         document.state = 'unknown'
         document.size = `${item.resourcesMappingByFileId.fileSize}B`
         document.url = `${this.prefix}/b/resource/downloadFileStream/${item.resourcesMappingByFileId.fileId}`
@@ -152,10 +151,10 @@ class CicLearnHelperUtil {
         const info = rawAssignment.courseHomeworkInfo
         const record = rawAssignment.courseHomeworkRecord
 
-        assignment.assignmentID = info.homewkId ? info.homewkId : ''
-        assignment.title = info.title ? info.title : ''
-        assignment.startDate = info.beginDate ? info.beginDate : 0
-        assignment.dueDate = info.endDate ? info.endDate : 0
+        assignment.assignmentID = info.homewkId || ''
+        assignment.title = info.title || ''
+        assignment.startDate = info.beginDate || 0
+        assignment.dueDate = info.endDate || 0
         if (info.detail) {
           assignment.detail = h2t.fromString(info.detail)
         } else {
@@ -163,19 +162,19 @@ class CicLearnHelperUtil {
         }
         assignment.state = record.status === '0' ? '尚未提交' : '已经提交'
 
-        assignment.fileUrl = info.homewkAffix ? info.homewkAffix : ''
-        assignment.filename = info.homewkAffixFilename ? info.homewkAffixFilename : ''
+        assignment.fileUrl = info.homewkAffix || ''
+        assignment.filename = info.homewkAffixFilename || ''
         assignment.size = 'unknown'
 
         assignment.scored = record.status === '3'
-        assignment.grade = record.mark ? record.mark : -1
+        assignment.grade = record.mark || -1
         if (record.replyDetail) {
           assignment.comment = h2t.fromString(record.replyDetail)
         } else {
           assignment.comment = ''
         }
-        assignment.evaluatingTeacher = record.gradeUser ? record.gradeUser : ''
-        assignment.evaluatingDate = record.replyDate ? record.replyDate : 0
+        assignment.evaluatingTeacher = record.gradeUser || ''
+        assignment.evaluatingDate = record.replyDate || 0
 
         assignments.push(assignment)
       }
@@ -200,20 +199,20 @@ class CicLearnHelperUtil {
       info.time = Date.now()
 
       info.currentSemester = {}
-      info.currentSemester.name = res.currentSemester.semesterName
-      info.currentSemester.id = res.currentSemester.id
+      info.currentSemester.name = res.currentSemester.semesterName || ''
+      info.currentSemester.id = res.currentSemester.id || ''
       info.currentSemester.beginTime = new Date(`${res.currentSemester.startDate} 00:00:00`).getTime()
       info.currentSemester.endTime = new Date(`${res.currentSemester.endDate} 23:59:59`).getTime()
 
       info.currentTeachingWeek = {}
-      info.currentTeachingWeek.name = res.currentTeachingWeek.weekName
+      info.currentTeachingWeek.name = res.currentTeachingWeek.weekName || ''
       info.currentTeachingWeek.id = res.currentTeachingWeek.teachingWeekId.toString()
       info.currentTeachingWeek.beginTime = new Date(`${res.currentTeachingWeek.beginDate} 00:00:00`).getTime()
       info.currentTeachingWeek.endTime = new Date(`${res.currentTeachingWeek.endDate} 23:59:59`).getTime()
 
       info.nextSemester = {}
-      info.nextSemester.name = res.nextSemester.semesterName
-      info.nextSemester.id = res.nextSemester.id
+      info.nextSemester.name = res.nextSemester.semesterName || ''
+      info.nextSemester.id = res.nextSemester.id || ''
       info.nextSemester.beginTime = new Date(`${res.nextSemester.startDate} 00:00:00`).getTime()
       info.nextSemester.endTime = new Date(`${res.nextSemester.endDate} 23:59:59`).getTime()
 
