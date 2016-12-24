@@ -106,6 +106,9 @@ class LearnHelperUtil {
         doc.size = $children.eq(3).text().replace(/&nbsp;/gi, '').trim()
         const updatingTime = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
         doc.updatingTime = new Date(`${updatingTime} 00:00:00`).getTime()
+        if (Number.isNaN(doc.updatingTime)) {
+          doc.updatingTime = 0
+        }
         doc.state = $children.eq(5).text().replace(/&nbsp;/gi, '').trim()
 
         doc.url = this.prefix + $this.find('a').attr('href')

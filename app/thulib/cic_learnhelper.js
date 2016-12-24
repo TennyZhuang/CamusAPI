@@ -122,9 +122,12 @@ class CicLearnHelperUtil {
         document.title = item.title || ''
         document.explanation = item.detail || ''
         document.updatingTime = item.resourcesMappingByFileId.regDate || 0
+        if (Number.isNaN(document.updatingTime)) {
+          document.updatingTime = 0
+        }
         document.state = 'unknown'
         document.size = `${item.resourcesMappingByFileId.fileSize}B`
-        document.url = `${this.prefix}/b/resource/downloadFileStream/${item.resourcesMappingByFileId.fileId}`
+        document.url = `${this.prefix}/b/resource/downloadFileStream/${item.resourcesMappingByFileId.fileId || ''}`
         documents.push(document)
       }
 
@@ -201,20 +204,20 @@ class CicLearnHelperUtil {
       info.currentSemester = {}
       info.currentSemester.name = res.currentSemester.semesterName || ''
       info.currentSemester.id = res.currentSemester.id || ''
-      info.currentSemester.beginTime = new Date(`${res.currentSemester.startDate} 00:00:00`).getTime()
-      info.currentSemester.endTime = new Date(`${res.currentSemester.endDate} 23:59:59`).getTime()
+      info.currentSemester.beginTime = new Date(`${res.currentSemester.startDate || '1970-01-01'} 00:00:00`).getTime()
+      info.currentSemester.endTime = new Date(`${res.currentSemester.endDate || '1970-01-01'} 23:59:59`).getTime()
 
       info.currentTeachingWeek = {}
       info.currentTeachingWeek.name = res.currentTeachingWeek.weekName || ''
       info.currentTeachingWeek.id = res.currentTeachingWeek.teachingWeekId.toString()
-      info.currentTeachingWeek.beginTime = new Date(`${res.currentTeachingWeek.beginDate} 00:00:00`).getTime()
-      info.currentTeachingWeek.endTime = new Date(`${res.currentTeachingWeek.endDate} 23:59:59`).getTime()
+      info.currentTeachingWeek.beginTime = new Date(`${res.currentTeachingWeek.beginDate || '1970-01-01'} 00:00:00`).getTime()
+      info.currentTeachingWeek.endTime = new Date(`${res.currentTeachingWeek.endDate || '1970-01-01'} 23:59:59`).getTime()
 
       info.nextSemester = {}
       info.nextSemester.name = res.nextSemester.semesterName || ''
       info.nextSemester.id = res.nextSemester.id || ''
-      info.nextSemester.beginTime = new Date(`${res.nextSemester.startDate} 00:00:00`).getTime()
-      info.nextSemester.endTime = new Date(`${res.nextSemester.endDate} 23:59:59`).getTime()
+      info.nextSemester.beginTime = new Date(`${res.nextSemester.startDate || '1970-01-01'} 00:00:00`).getTime()
+      info.nextSemester.endTime = new Date(`${res.nextSemester.endDate || '1970-01-01'} 23:59:59`).getTime()
 
       return info
     } catch (e) {
