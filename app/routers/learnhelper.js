@@ -22,19 +22,19 @@ router.post('/:username/courses', async(ctx) => {
 
 router.post('/:username/courses/:courseID/notices', async(ctx) => {
   const course = ctx.course
-  
+
   ctx.body.notices = course.notices.toObject()
 })
 
 router.post('/:username/courses/:courseID/documents', async(ctx) => {
   const course = ctx.course
-  
+
   ctx.body.documents = course.documents.toObject()
 })
 
 router.post('/:username/courses/:courseID/assignments', async(ctx) => {
   const course = ctx.course
-  
+
   ctx.body.assignments = course.assignments.toObject()
 })
 
