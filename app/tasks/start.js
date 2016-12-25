@@ -15,11 +15,15 @@ const start = async () => {
   taskScheduler.add(LibraryUtil.fetch, 300000)
   taskScheduler.add(EventUtil.fetch, 300000)
   const users = await User.find({})
-  users.forEach((user) => {
-    taskScheduler.add(updateCourseInfo, user, 300000)
-    taskScheduler.add(updateCurriculumInfo, user, 300000)
-    taskScheduler.add(updateScheduleInfo, user, 300000)
+  const eventIDs = []
+  users.forEach(async (user) => {
+    eventIDs.push(await taskScheduler.add(updateCourseInfo, user, 300000))
+    eventIDs.push(await taskScheduler.add(updateCurriculumInfo, user, 300000))
+    eventIDs.push(await taskScheduler.add(updateScheduleInfo, user, 300000))
+    user._eventIDs = eventIDs
+    await user.save()
   })
+
   taskScheduler.add(updateTeachingInfo, users[0], 300000)
 }
 

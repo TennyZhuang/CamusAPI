@@ -11,13 +11,12 @@
     "koa-convert": "^1.2.0",
     "koa-logger": "^2.0.0",
     "koa-router": "^7.0.1",
+    "moment": ">= 2.0.0",
     "mongoose": "^4.7.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "restc": "0.0.2",
-    "iconv-lite": "^0.4.15",
-    "es6-sleep": "2.0.2",
-    "moment": ">= 2.0.0"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

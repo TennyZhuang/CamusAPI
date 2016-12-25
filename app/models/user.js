@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
   },
   password: String,
   info: userInfoSchema,
+  _eventIDs: [String],
   courses: [CourseSchema],
   curriculum: [CurriculumClassSchema],
   schedule: [WeekScheduleSchema]
