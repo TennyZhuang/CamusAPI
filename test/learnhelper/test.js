@@ -27,6 +27,20 @@ const assertCourses = (courses) => {
   course.unsubmittedOperations.should.be.Number().and.aboveOrEqual(0)
 }
 
+const assertDocs = (docs) => {
+  docs.should.be.Array().and.should.not.be.empty()
+
+  const doc = docs[0]
+  const properties = ['title', 'explanation', 'size', 'updatingTime', 'state',
+    'size', 'url']
+
+  doc.should.have.properties(properties)
+
+  doc.updatingTime.should.be.Number().and.aboveOrEqual(0)
+
+  doc.state.should.match(/previous|new|unknown/)
+}
+
 describe('Test for LearHelperUtil Class', () => {
   describe('1. test method "getCourseList"', function () {
     // avoid timeout error
@@ -60,4 +74,27 @@ describe('Test for LearHelperUtil Class', () => {
       // console.log('courses = ', courses)
     })
   })
+
+  describe('1. test method "getDocuments"', function () {
+    // avoid timeout error
+    this.timeout(0)
+    it('1.1 document info should be returned', async () => {
+      const response = await readFile(`${__dirname}\\test-doc.html`)
+      const outerDomain = 'https://learn.tsinghua.edu.cn'
+
+      const courseID = '137928'
+
+      nock(outerDomain)
+        .get('/MultiLanguage/lesson/student/download.jsp')
+        .query((query) => {
+          return ('course_id' in query && query.course_id === courseID)
+        })
+        .reply(200, response)
+
+      const docs = await learnHelper.getDocuments(courseID)
+      assertDocs(docs)
+      // console.log('docs = ', docs)
+    })
+  })
+
 })
