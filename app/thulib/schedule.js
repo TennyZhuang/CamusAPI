@@ -2,7 +2,7 @@
  * Created by XiYe on 12/8/2016.
  */
 
-const rp = require('request-promise').defaults({jar: true})
+const rp = require('./util').rp.defaults({jar: true})
 const sleep = require('es6-sleep').promise
 const moment = require('moment')
 

@@ -2,7 +2,7 @@
  * Created by XiYe on 12/6/2016.
  */
 
-const rp = require('request-promise')
+const rp = require('./util').rp
 const ci = require('cheerio')
 const iconv = require('iconv-lite')
 

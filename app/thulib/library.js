@@ -2,7 +2,7 @@
  * Created by tianyizhuang on 30/11/2016.
  */
 
-const rp = require('request-promise')
+const rp = require('./util').rp
 const cheerio = require('cheerio')
 
 

@@ -2,7 +2,7 @@
  * Created by tianyizhuang on 07/12/2016.
  */
 
-const rp = require('request-promise')
+const rp = require('./util').rp
 const h2t = require('html-to-text')
 const AuthUtil = require('./auth')
 

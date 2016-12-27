@@ -1,6 +1,6 @@
 /* Created by Songzhou Yang */
 
-const rp = require('request-promise')
+const rp = require('./util').rp
 const ci = require('cheerio')
 const h2t = require('html-to-text')
 

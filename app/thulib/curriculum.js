@@ -1,7 +1,7 @@
 /**
  * Created by XiYe on 12/1/2016.
  */
-const rp = require('request-promise').defaults({jar: true})
+const rp = require('./util').rp.defaults({jar: true})
 const ci = require('cheerio')
 const iconv = require('iconv-lite')
 const sleep = require('es6-sleep').promise

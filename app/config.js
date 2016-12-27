@@ -7,6 +7,7 @@ class Config {
     this.port = process.env.RUN_PORT || 8000
     this.mongodbUrl = 'mongodb://localhost:27017/camus'
     this.secretkey = process.env.SECRETKEY || 'camusapi'
+    this.requestPoolSize = process.env.REQUEST_POOL_SIZE || 3
   }
 }
 

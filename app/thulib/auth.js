@@ -1,4 +1,4 @@
-const rp = require('request-promise')
+const rp = require('./util').rp
 
 class AuthUtil {
   static async getTicket(username, password, appID) {
