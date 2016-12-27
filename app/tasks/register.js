@@ -22,9 +22,9 @@ const register = async(username, password) => {
 
       await user.save()
 
-      taskScheduler.add(updateCourseInfo, user, 300000)
-      taskScheduler.add(updateCurriculumInfo, user, 300000)
-      taskScheduler.add(updateScheduleInfo, user, 300000)
+      taskScheduler.add(updateCourseInfo, user, 3600000)
+      taskScheduler.add(updateCurriculumInfo, user, 3600000)
+      taskScheduler.add(updateScheduleInfo, user, 3600000)
 
 
     } else if (existed && user.getPassword() !== password) {
