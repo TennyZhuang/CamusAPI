@@ -1,5 +1,5 @@
 /* Test flow
-Test three class function individually
+Test 3 class functions
 1. Use several cases to test the `parseWeekStr` function
 2. Use right html page and wrong html page to test the `parseFirstLevelCurriculum` function
 3. Use valid username and password to test the `getFirstLevelCurriculum` function
