@@ -1,11 +1,19 @@
 /* Test flow
-1. Use a local html page to see if parser could extract correct message from the page.
+Test three class function individually
+1. Use several cases to test the `parseWeekStr` function
+2. Use right html page and wrong html page to test the `parseFirstLevelCurriculum` function
+3. Use valid username and password to test the `getFirstLevelCurriculum` function
  */
+
 const cur = require('../../app/thulib/curriculum')
 const readFile = require('fs-readfile-promise')
 const cheerio = require('cheerio')
 const nock = require('nock')
 const iconv = require('iconv-lite')
+
+//TODO: valid username and password are required in order to pass these units test for curriculum
+const validUsername = 'valid username'
+const validPassword = 'valid password'
 
 const assertClasses = (classes) => {
   classes.should.be.Array().and.should.not.be.empty()
@@ -76,28 +84,27 @@ describe('2. test curriculum parser', () => {
       console.error('we did not catch the exception, so the test failed !')
     })
     .catch(() => {
-      console.log('we catch the exception, so the test is passed !')
+      console.log('we catch the exception, so the test is passed!')
     })
   })
 })
 
 
 describe('3. test curriculum getter', function () {
+  // avoid timeout error
   this.timeout(0)
-  it('3.1 curriculum info should be properly extracted with right username and password', async () => {
+  it('3.1 curriculum info should be properly extracted with valid username and password', async () => {
     const buffer = await readFile(`${__dirname}\\test-right.html`)
     // console.log(buffer)
     const response = iconv.encode(buffer, 'GBK')
     const outerDomain = 'http://zhjw.cic.tsinghua.edu.cn'
-    
+
     nock(outerDomain)
       .get('/j_acegi_login.do')
       .query((query) => {
         return ('ticket' in query)
       })
       .reply(200, {})
-
-    // console.log(response)
 
     nock(outerDomain)
       .get('/portal3rd.do')
@@ -106,8 +113,7 @@ describe('3. test curriculum getter', function () {
       })
       .reply(200, response)
 
-    // let classes = []
-    const classes = await cur.getFirstLevelCurriculum('mzj14', 'a12345k8360', true)
+    const classes = await cur.getFirstLevelCurriculum(validUsername, validPassword, true)
     assertClasses(classes)
   })
 })
