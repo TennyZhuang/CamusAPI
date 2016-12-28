@@ -4,6 +4,7 @@
 
 const LearnHelperUtil = require('../thulib/learnhelper')
 const CicLearnHelperUtil = require('../thulib/cic_learnhelper')
+const Course = require('../models/course').Course
 
 const updateCourseInfo = async(user) => {
   const lhu = new LearnHelperUtil(user)
@@ -42,7 +43,7 @@ const updateCourseInfo = async(user) => {
       ;[notices, documents, assignments] = results
     }
 
-    resolve({
+    const courseObj = new Course({
       courseName: course.courseName,
       courseID: course.courseID,
       teacher: course.teacher,
@@ -55,6 +56,10 @@ const updateCourseInfo = async(user) => {
       documents: documents,
       assignments: assignments
     })
+
+    await courseObj.save()
+
+    resolve(courseObj._id)
   }))
 
   user.courses = await Promise.all(ps)

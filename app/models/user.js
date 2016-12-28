@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const CryptoJS = require('crypto-js')
-const CourseSchema = require('./course').CourseSchema
 const CurriculumClassSchema = require('./curriculum').CurriculumClassSchema
 const WeekScheduleSchema = require('./schedule').WeekScheduleSchema
 const config = require('../config')
@@ -31,7 +30,10 @@ const userSchema = new mongoose.Schema({
   password: String,
   info: userInfoSchema,
   _eventIDs: [String],
-  courses: [CourseSchema],
+  courses: [{
+    type: String,
+    ref: 'Course'
+  }],
   curriculum: [CurriculumClassSchema],
   schedule: [WeekScheduleSchema]
 })

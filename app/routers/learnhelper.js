@@ -5,6 +5,7 @@
 const Router = require('koa-router')
 const checkUser = require('../middlewares/checkuser')
 const checkCourse = require('../middlewares/checkcourse')
+const getCourse = require('../tasks/get_course_info').getCourse
 
 const router = new Router({
   prefix: '/learnhelper'
@@ -16,8 +17,14 @@ router.param('username', checkUser)
 
 router.post('/:username/courses', async(ctx) => {
   const user = ctx.user
+  const ps = user.courses.map(courseObjID =>
+    new Promise(async resolve => {
+      resolve((await getCourse(user, courseObjID)).toObject())
+    })
+  )
 
-  ctx.body.courses = user.courses.toObject()
+  const courses = await Promise.all(ps)
+  ctx.body = courses
 })
 
 router.post('/:username/courses/:courseID/notices', async(ctx) => {

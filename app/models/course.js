@@ -3,6 +3,7 @@
  */
 
 const mongoose = require('mongoose')
+const uuid = require('uuid')
 
 const NoticeSchema = new mongoose.Schema({
   noticeID: {
@@ -70,6 +71,10 @@ const AssignmentSchema = new mongoose.Schema({
 })
 
 const CourseSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    unique: true
+  },
   courseName: {
     type: String,
     index: true
@@ -99,9 +104,19 @@ const CourseSchema = new mongoose.Schema({
 
       delete ret._id
       delete ret._courseID
+      delete ret.__v
     }
   }
 })
+
+CourseSchema.pre('save', function (next) {
+  if (this.isNew) {
+    this._id = `${this.courseID}_${uuid.v4()}`
+  }
+
+  next()
+})
+
 
 const Notice = mongoose.model('Notice', NoticeSchema)
 const Course = mongoose.model('Course', CourseSchema)
