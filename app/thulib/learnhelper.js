@@ -175,8 +175,6 @@ class LearnHelperUtil {
           }
         })
         
-        console.log('assignment url = ', homeworkPrefix + _url)
-        
         assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
         let evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
         evaluatingDate = new Date(`${evaluatingDate} 00:00:00`).getTime()
