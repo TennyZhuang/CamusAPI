@@ -40,5 +40,31 @@ describe('2. test schedules splitter', () => {
   })
 })
 
+describe('3. test schedules getter', function () {
+  // avoid timeout error
+  this.timeout(0)
+  it('3.1 curriculum info should be properly extracted with valid username and password', async () => {
+    const buffer = await readFile(`${__dirname}/schedule.json`, 'utf8')
+    const outerDomain = 'http://zhjw.cic.tsinghua.edu.cn'
+
+    nock(outerDomain)
+      .get('/j_acegi_login.do')
+      .query((query) => {
+        return ('ticket' in query)
+      })
+      .reply(200, {})
+
+    nock(outerDomain)
+      .get('/jxmh.do')
+      .query((query) => {
+        return ('m' in query && 'p_start_date' in query)
+      })
+      .reply(200, buffer)
+
+    const classes = await scheduleUtil.getSchedule(validUsername, validPassword, true, 1)
+    console.log(classes)
+  })
+})
+
 
 
