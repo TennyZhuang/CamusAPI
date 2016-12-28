@@ -12,6 +12,7 @@ class LibraryUtil {
   }
 
   static async fetch() {
+    console.log('Fetching Library')
     try {
       const options = {
         method: 'GET',
@@ -38,8 +39,10 @@ class LibraryUtil {
       }
 
       LibraryUtil._result = areas
+      console.log('Succeed to update Library')
     } catch (e) {
       console.error(e)
+      console.log('Fail to update Library')
     }
   }
 }

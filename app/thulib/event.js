@@ -46,7 +46,7 @@ class EventUtil {
   static async fetch() {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/'
     const eventUrl = `${prefix}portal3rd.do?url=/portal3rd.do&m=tsxx`
-
+    console.log('Fetching Events')
     const options = {
       method: 'GET',
       uri: eventUrl,
@@ -60,8 +60,10 @@ class EventUtil {
     try {
       const $ = await rp(options)
       EventUtil._events = await EventUtil.parseEvents($)
+      console.log('Succeed to update Events')
     } catch(e) {
       console.log(e)
+      console.log('Fail to update Events')
       throw e
     }
   }
