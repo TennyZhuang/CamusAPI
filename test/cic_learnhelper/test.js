@@ -72,112 +72,117 @@ const assertTeacherInfo = (info) => {
   info[1].should.match(/@/)
 }
 
-describe('Test for CicLearHelperUtil Class', () => {
-  describe('1. test method "getTeacherInfo"', function () {
-    // avoid timeout error
-    this.timeout(0)
-    it('1.1 teacher info should be returned', async () => {
-      const response = await readFile(`${__dirname}\\test-teacher.json`)
-      const responseObject = JSON.parse(response.toString())
-      const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
-      const courseID = '2016-2017-1-20250163-0'
-      
-      nock(outerDomain)
-        .post(`/b/mycourse/SpeakTeacher/list/${courseID}`)
-        .reply(200, responseObject)
-      
-      const teacherInfo = await cicLearnHelper.getTeacherInfo(courseID)
-      
-      assertTeacherInfo(teacherInfo)
-    })
-  })
-  
-  describe('2. test method "getNotices"', function () {
-    // avoid timeout error
-    this.timeout(0)
-    it('2.1 course notices info should be returned', async () => {
-      const response = await readFile(`${__dirname}\\test-notice.json`)
-      const responseObject = JSON.parse(response.toString())
-      const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
-      const courseID = '2016-2017-1-00050071-90'
-      
-      nock(outerDomain)
-        .get(`/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`)
-        .reply(200, responseObject)
+const testCicLearnHelper = () => {
+  describe('Test for CicLearHelperUtil Class', () => {
+    describe('1. test method "getTeacherInfo"', function () {
+      // avoid timeout error
+      this.timeout(0)
+      it('1.1 teacher info should be returned', async () => {
+        const response = await readFile(`${__dirname}\\test-teacher.json`)
+        const responseObject = JSON.parse(response.toString())
+        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
+        const courseID = '2016-2017-1-20250163-0'
 
-      const noticeIDs = [1480494129927, 1478006959550, 1477755480247, 1477755131965,
-        1474529329078, 1474529327076, 1474529323531]
-      
-      noticeIDs.forEach(async (ele, index) => {
-        const noticeResponse = await readFile(`${__dirname}\\test-notice-info\\notice-info-${index}.json`)
-        const noticeResponseObject = JSON.parse(noticeResponse.toString())
         nock(outerDomain)
-          .get(`/b/myCourse/notice/studDetail/${ele}`)
-          .reply(200, noticeResponseObject)
+          .post(`/b/mycourse/SpeakTeacher/list/${courseID}`)
+          .reply(200, responseObject)
+
+        const teacherInfo = await cicLearnHelper.getTeacherInfo(courseID)
+
+        assertTeacherInfo(teacherInfo)
       })
-      
-      await sleep(2000)
-      
-      const notices = await cicLearnHelper.getNotices(courseID)
-      assertNotices(notices)
-      // console.log('notices = ', notices)
+    })
+
+    describe('2. test method "getNotices"', function () {
+      // avoid timeout error
+      this.timeout(0)
+      it('2.1 course notices info should be returned', async () => {
+        const response = await readFile(`${__dirname}\\test-notice.json`)
+        const responseObject = JSON.parse(response.toString())
+        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
+        const courseID = '2016-2017-1-00050071-90'
+
+        nock(outerDomain)
+          .get(`/b/myCourse/notice/listForStudent/${courseID}?currentPage=1&pageSize=1000`)
+          .reply(200, responseObject)
+
+        const noticeIDs = [1480494129927, 1478006959550, 1477755480247, 1477755131965,
+          1474529329078, 1474529327076, 1474529323531]
+
+        noticeIDs.forEach(async (ele, index) => {
+          const noticeResponse = await readFile(`${__dirname}\\test-notice-info\\notice-info-${index}.json`)
+          const noticeResponseObject = JSON.parse(noticeResponse.toString())
+          nock(outerDomain)
+            .get(`/b/myCourse/notice/studDetail/${ele}`)
+            .reply(200, noticeResponseObject)
+        })
+
+        await sleep(2000)
+
+        const notices = await cicLearnHelper.getNotices(courseID)
+        assertNotices(notices)
+        // console.log('notices = ', notices)
+      })
+    })
+
+    describe('3. test method "getDocuments"', function () {
+      // avoid timeout error
+      this.timeout(0)
+      it('3.1 document info should be returned', async () => {
+        const response = await readFile(`${__dirname}\\test-doc.json`)
+        const responseObject = JSON.parse(response.toString())
+        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
+        const courseID = '2016-2017-1-20250163-0'
+
+        nock(outerDomain)
+          .get(`/b/myCourse/tree/getCoursewareTreeData/${courseID}/0`)
+          .reply(200, responseObject)
+
+        const docs = await cicLearnHelper.getDocuments(courseID)
+        assertDocs(docs)
+        // console.log('docs = ', docs)
+      })
+    })
+
+    describe('4. test method "getAssignments"', function () {
+      // avoid timeout error
+      this.timeout(0)
+      it('4.1 assignment info should be returned', async () => {
+        const response = await readFile(`${__dirname}\\test-assignment.json`)
+        const responseObject = JSON.parse(response.toString())
+        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
+        const courseID = '2016-2017-1-20250163-0'
+
+        nock(outerDomain)
+          .get(`/b/myCourse/homework/list4Student/${courseID}/0`)
+          .reply(200, responseObject)
+
+        const assignments = await cicLearnHelper.getAssignments(courseID)
+        assertAssignments(assignments)
+        // console.log('assignment = ', assignments)
+      })
+    })
+
+    describe('5. test method "getCurrentTeachingInfo"', function () {
+      // avoid timeout error
+      this.timeout(0)
+      it('5.1 teaching info should be returned', async () => {
+        const response = await readFile(`${__dirname}\\test-current.json`)
+        const responseObject = JSON.parse(response.toString())
+        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
+        const courseID = '2016-2017-1-20250163-0'
+
+        nock(outerDomain)
+          .get('/b/myCourse/courseList/getCurrentTeachingWeek')
+          .reply(200, responseObject)
+
+        const currentTeachingInfo = await cicLearnHelper.getCurrentTeachingInfo(courseID)
+
+        assertCurrentTeachingInfo(currentTeachingInfo)
+      })
     })
   })
-  
-  describe('3. test method "getDocuments"', function () {
-    // avoid timeout error
-    this.timeout(0)
-    it('3.1 document info should be returned', async () => {
-      const response = await readFile(`${__dirname}\\test-doc.json`)
-      const responseObject = JSON.parse(response.toString())
-      const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
-      const courseID = '2016-2017-1-20250163-0'
+}
 
-      nock(outerDomain)
-        .get(`/b/myCourse/tree/getCoursewareTreeData/${courseID}/0`)
-        .reply(200, responseObject)
+module.exports = testCicLearnHelper
 
-      const docs = await cicLearnHelper.getDocuments(courseID)
-      assertDocs(docs)
-      // console.log('docs = ', docs)
-    })
-  })
-  
-  describe('4. test method "getAssignments"', function () {
-    // avoid timeout error
-    this.timeout(0)
-    it('4.1 assignment info should be returned', async () => {
-      const response = await readFile(`${__dirname}\\test-assignment.json`)
-      const responseObject = JSON.parse(response.toString())
-      const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
-      const courseID = '2016-2017-1-20250163-0'
-
-      nock(outerDomain)
-        .get(`/b/myCourse/homework/list4Student/${courseID}/0`)
-        .reply(200, responseObject)
-      
-      const assignments = await cicLearnHelper.getAssignments(courseID)
-      assertAssignments(assignments)
-      // console.log('assignment = ', assignments)
-    })
-  })
-
-  describe('5. test method "getCurrentTeachingInfo"', function () {
-    // avoid timeout error
-    this.timeout(0)
-    it('5.1 teaching info should be returned', async () => {
-      const response = await readFile(`${__dirname}\\test-current.json`)
-      const responseObject = JSON.parse(response.toString())
-      const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
-      const courseID = '2016-2017-1-20250163-0'
-
-      nock(outerDomain)
-        .get('/b/myCourse/courseList/getCurrentTeachingWeek')
-        .reply(200, responseObject)
-      
-      const currentTeachingInfo = await cicLearnHelper.getCurrentTeachingInfo(courseID)
-      
-      assertCurrentTeachingInfo(currentTeachingInfo)
-    })
-  })
-})
