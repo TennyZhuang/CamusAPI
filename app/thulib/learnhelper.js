@@ -53,7 +53,6 @@ class LearnHelperUtil {
             uri: `${this.prefix}/MultiLanguage/lesson/student/course_info.jsp?course_id=${courseID}`,
             jar: this.cookies,
             transform: (body) => {
-              // console.log('body = ', body)
               return ci.load(body, {decodeEntities: false})
             }
           })
@@ -158,14 +157,9 @@ class LearnHelperUtil {
           uri: homeworkPrefix + _url,
           jar: this.cookies,
           transform: (body) => {
-            console.log('body = ', body)
             return ci.load(body, {decodeEntities: false})
           }
         })
-        
-        console.log('assignment url = ', homeworkPrefix + _url)
-        
-        console.log('text = ', $1('#table_box .tr_2').text())
         
         assignment.detail = $1('#table_box .tr_2').eq(1).text().replace(/&nbsp;/gi, '').trim()
         assignment.filename = $1('#table_box .tr_2').eq(2).text().replace(/&nbsp;/gi, '').trim()
