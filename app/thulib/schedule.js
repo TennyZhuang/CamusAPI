@@ -5,6 +5,7 @@
 const rp = require('./util').rp.defaults({jar: true})
 const sleep = require('es6-sleep').promise
 const moment = require('moment')
+const getTeachingInfo = require('../tasks/get_teaching_info')
 
 const AuthUtil = require('../thulib/auth')
 class ScheduleUtil {
@@ -31,7 +32,8 @@ class ScheduleUtil {
 
   static async splitSemesterSchedule(semesterSchedule) {
     const weeks = ScheduleUtil.NUM_OF_WEEK
-    let weekEndMoment = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.add(6, 'days')
+    let weekEndMoment = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.clone()
+    weekEndMoment = weekEndMoment.add(6, 'days')
 
     const weekSchedules = []
     for (let i = 0; i < weeks; ++i) {
@@ -63,7 +65,11 @@ class ScheduleUtil {
 
   static async getSchedule(username, password, isUndergraduate) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/jxmh.do'
-    const startDate = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.format('YYYYMMDD')
+    const teachingInfo = await getTeachingInfo()
+    const currentWeek = parseInt(teachingInfo.currentTeachingWeek.name)
+    let startMoment = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.clone()
+    startMoment = startMoment.add(currentWeek - 1, 'weeks')
+    const  startDate = startMoment.format('YYYYMMDD')
     const endDate = ScheduleUtil.UNDERGRADUATE_SEMESTER_END_DATE.format('YYYYMMDD')
     const scheduleUndergraduateArgs =
       `?m=bks_jxrl_all&p_start_date=${startDate}&p_end_date=${endDate}` +
@@ -78,6 +84,8 @@ class ScheduleUtil {
     const scheduleUrl = prefix +
       (isUndergraduate ? scheduleUndergraduateArgs: scheduleGraduateArgs)
     const cookies = rp.jar()
+
+
     const loginOptions = {
       method: 'GET',
       uri: loginUrl,
