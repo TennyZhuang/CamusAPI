@@ -1,0 +1,37 @@
+{
+  "message": "success",
+  "resultList": {
+    "teacherInfo": {
+      "id": "2006990030",
+      "name": "张涛",
+      "email": "taozhang@tsinghua.edu.cn",
+      "phone": "62797629",
+      "address": "北京市海淀区清华大学自动化系",
+      "zipCode": null,
+      "gender": "男",
+      "position": null,
+      "title": "教授",
+      "status": "在职",
+      "note": "张涛，男，46岁，教授，博士生导师。1988年9月至1993年7月 在清华大学自动化系自动控制专业学习，获学士学位；1993年9月至1995年7月在清华大学自动化系自动化仪表及装置专业学习，获硕士学位；1995年9月至1999年10月在清华大学自动化系检测技术与自动装置专业学习，获博士学位，期间曾于1997年8月至1998年9月赴德国慕尼黒工业大学学习。1999年10月至2002年9月在日本国立佐贺大学大学院工学系研究科系统控制专业学习，再获博士学位。2002年11月至2006年3月曾任日本国立佐贺大学助教、讲师、访问副教授，日本国立情报学研究所任研究员。2006年4月回自动化系工作，现在为教授，博士生导师，自动化系副系主任。目前开设一门本科生课程和两门研究生课程。主要研究方向自动控制理论及应用、机器人、电子电路系统故障诊断与可靠性分析、网络技术等。已发表论文200余篇。IEEE等多个学术组织成员。",
+      "departmentId": "025"
+    },
+    "teacherInfoSectionView": null,
+    "codeDepartmentInfo": {
+      "dwnm": "025",
+      "dwmc": "自动化系",
+      "dwjc": "自动化系",
+      "dwh": "025",
+      "dwlxm": "1",
+      "dwjp": null,
+      "dwywmc": "Department of Automation",
+      "dwywsx": null,
+      "ssdwnm": "021",
+      "bz": null,
+      "sfyxsgzz": "是",
+      "ssbksgzzdwnm": "025",
+      "ssyjsgzzdwnm": "025"
+    },
+    "lessonPreparationTeacher": null,
+    "courseAssistant": null
+  }
+}
