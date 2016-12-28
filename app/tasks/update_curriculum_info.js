@@ -24,13 +24,13 @@ const updateCurriculumInfo = async(user) => {
         })
       }
       await user.save()
-      console.error('Succeed to update Curriculum')
+      console.error(`Succeed to update ${user.username} Curriculum`)
       break
     }
     catch (e) {
       await sleep(1000)
       if (i === 2) {
-        console.error('Fail to update Curriculum')
+        console.error(`Fail to update ${user.username} Curriculum`)
       }
     }
   }

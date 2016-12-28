@@ -32,13 +32,13 @@ const updateScheduleInfo = async (user) => {
         ++weekID
       }
       await user.save()
-      console.error('Succeed to update schedule')
+      console.error(`Succeed to update ${user.username} schedule`)
       break
     }
     catch (e) {
       await sleep(1000)
       if (i === 2) {
-        console.error('Fail to update schedule')
+        console.error(`Fail to update ${user.username} schedule`)
       }
     }
   }
