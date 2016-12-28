@@ -2,6 +2,7 @@
  * Created by Ma_Zi_jun on 2016/12/1.
  */
 
+require('babel-polyfill')
 const testLibrary = require('./library/test')
 const testEvent = require('./event/test')
 const testLearnHelper = require('./learnhelper/test')

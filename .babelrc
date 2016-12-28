@@ -6,10 +6,18 @@
   "plugins": [
     "babel-plugin-syntax-async-functions",
     [
-      "transform-async-to-module-method", {
-      "module": "bluebird",
-      "method": "coroutine"
-    }
+      "transform-async-to-module-method",
+      {
+        "module": "bluebird",
+        "method": "coroutine"
+      }
     ]
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
 }
