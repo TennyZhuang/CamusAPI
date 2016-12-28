@@ -34,7 +34,7 @@ const updateCourseInfo = async(user) => {
       const taskPs = [
         lhu.getNotices, lhu.getDocuments, lhu.getAssignments
       ].map(task => new Promise(async (resolve) => {
-        const result = await task.call(lhu, course._courseID)
+        const result = await task.call(lhu, course)
         resolve(result)
       }))
 

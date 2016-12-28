@@ -37,7 +37,7 @@ class LearnHelperUtil {
         }
       })
 
-      const ps = Array.from($('.info_tr, .info_tr2')).map(tr => new Promise(async (resolve) => {
+      const ps = Array.from($('.info_tr, .info_tr2')).map(tr => new Promise(async(resolve) => {
         const $this = $(tr)
         const course = {}
 
@@ -84,11 +84,11 @@ class LearnHelperUtil {
     }
   }
 
-  async getDocuments(courseID) {
+  async getDocuments(course) {
     try {
       const $ = await rp({
         method: 'GET',
-        uri: `${this.prefix}/MultiLanguage/lesson/student/download.jsp?course_id=${courseID}`,
+        uri: `${this.prefix}/MultiLanguage/lesson/student/download.jsp?course_id=${course._courseID}`,
         jar: this.cookies,
         transform: (body) => {
           return ci.load(body, {decodeEntities: false})
@@ -123,18 +123,18 @@ class LearnHelperUtil {
     }
   }
 
-  async getAssignments(courseID) {
+  async getAssignments(course) {
     try {
       const $ = await rp({
         method: 'GET',
-        uri: `${this.prefix}/MultiLanguage/lesson/student/hom_wk_brw.jsp?course_id=${courseID}`,
+        uri: `${this.prefix}/MultiLanguage/lesson/student/hom_wk_brw.jsp?course_id=${course._courseID}`,
         jar: this.cookies,
         transform: (body) => {
           return ci.load(body, {decodeEntities: false})
         }
       })
 
-      const ps = Array.from($('.tr1, .tr2')).map((tr) => new Promise(async (resolve) => {
+      const ps = Array.from($('.tr1, .tr2')).map((tr) => new Promise(async(resolve) => {
         const $this = $(tr)
         const assignment = {}
 
@@ -194,8 +194,8 @@ class LearnHelperUtil {
     }
   }
 
-  async getNotices(courseID) {
-    const noticeUrl = `${this.prefix}/MultiLanguage/public/bbs/getnoteid_student.jsp?course_id=${courseID}`
+  async getNotices(course) {
+    const noticeUrl = `${this.prefix}/MultiLanguage/public/bbs/getnoteid_student.jsp?course_id=${course._courseID}`
 
     try {
       const option = {
@@ -208,15 +208,13 @@ class LearnHelperUtil {
 
       const $ = await rp(option)
 
-      const course = this.user.courses.find(c => c.courseID === courseID)
-
-      const ps = Array.from($('.tr1, .tr2')).map(tr => new Promise(async (resolve) => {
+      const ps = Array.from($('.tr1, .tr2')).map(tr => new Promise(async(resolve) => {
         const tds = Array.from($(tr).find('td'))
         const rawUri = `${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`
         const href = encodeURI(rawUri.replace(/amp;/gi, ''))
         const noticeID = href.split(/&|=/).slice(-3)[0]
         let oldNotice
-        if (course) {
+        if (course && course.notices) {
           oldNotice = course.notices.find((notice) => notice.noticeID === noticeID)
         }
         if (oldNotice) {
