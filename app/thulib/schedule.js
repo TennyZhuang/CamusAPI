@@ -5,7 +5,6 @@
 const rp = require('./util').rp.defaults({jar: true})
 const sleep = require('es6-sleep').promise
 const moment = require('moment')
-const getTeachingInfo = require('../tasks/get_teaching_info')
 
 const AuthUtil = require('../thulib/auth')
 class ScheduleUtil {
@@ -63,10 +62,8 @@ class ScheduleUtil {
     return weekSchedules
   }
 
-  static async getSchedule(username, password, isUndergraduate) {
+  static async getSchedule(username, password, isUndergraduate, currentWeek) {
     const prefix = 'http://zhjw.cic.tsinghua.edu.cn/jxmh.do'
-    const teachingInfo = await getTeachingInfo()
-    const currentWeek = parseInt(teachingInfo.currentTeachingWeek.name)
     let startMoment = ScheduleUtil.UNDERGRADUATE_SEMESTER_START_DATE.clone()
     startMoment = startMoment.add(currentWeek - 1, 'weeks')
     const  startDate = startMoment.format('YYYYMMDD')

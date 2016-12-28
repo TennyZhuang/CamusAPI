@@ -5,13 +5,16 @@
 const sleep = require('es6-sleep').promise
 const ScheduleUtil = require('../thulib/schedule')
 const WeekSchedule = require('../models/schedule').WeekScedule
+const getTeachingInfo = require('./get_teaching_info')
 
 const updateScheduleInfo = async (user) => {
+  const teachingInfo = await getTeachingInfo()
+  const currentWeek = parseInt(teachingInfo.currentTeachingWeek.name)
   for (let i = 0; i < 3; ++i) {
     try {
       const isUndergraduate = user.info.position === 'undergraduate'
       const scheduleInfo = await
-        ScheduleUtil.getSchedule(user.username, user.getPassword(), isUndergraduate)
+        ScheduleUtil.getSchedule(user.username, user.getPassword(), isUndergraduate, currentWeek)
       user.schedule = []
       let weekID = 1
       for (const weekSche of scheduleInfo) {
