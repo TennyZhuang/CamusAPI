@@ -12,8 +12,8 @@ const updateScheduleInfo = require('./update_schedule_info')
 const User = require('../models/user')
 
 const start = async () => {
-  taskScheduler.add(LibraryUtil.fetch, 3600000)
-  taskScheduler.add(EventUtil.fetch, 3600000)
+  taskScheduler.add(LibraryUtil.fetch, null, 3600000)
+  taskScheduler.add(EventUtil.fetch, null, 3600000)
   const users = await User.find({})
   const eventIDs = []
   users.forEach(async (user) => {
