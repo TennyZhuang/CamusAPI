@@ -219,7 +219,8 @@ class LearnHelperUtil {
           _publishTime,
           rawState] = tds.map(td => $(td).text().trim())
         const publishTime = new Date(`${_publishTime} 00:00:00`).getTime()
-        const href = encodeURI(`${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`)
+        const rawUri = `${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`
+        const href = encodeURI(rawUri.replace(/amp;/gi, ''))
         const options = {
           method: 'GET',
           uri: href,

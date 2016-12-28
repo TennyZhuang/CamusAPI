@@ -3,7 +3,9 @@
  1. Mock html reply to test `getCourseList` function
  2. Mock html reply to test `getDocuments` function
  3. Mock html reply to test `getAssignments` function
+ 4. Mock html reply to test `getNotices` function
  */
+
 const LearnHelperUtil = require('../../app/thulib/learnhelper')
 const learnHelper = new LearnHelperUtil('xxx', 'xxxx')
 const nock = require('nock')
@@ -58,6 +60,17 @@ const assertAssignments = (assignments) => {
 
   assignment.state.should.match(/已经提交|尚未提交/)
   assignment.scored.should.be.Boolean()
+}
+
+const assertNotices = (notices) => {
+  notices.should.be.Array().and.should.not.be.empty()
+  const notice = notices[0]
+  const properties = ['noticeID', 'title', 'publisher', 'publishTime', 'state', 'content']
+
+  notice.should.have.properties(properties)
+  notice.state.should.match(/read|unread/)
+
+  notice.publishTime.should.be.Number().and.aboveOrEqual(0)
 }
 
 describe('Test for LearHelperUtil Class', () => {
@@ -165,6 +178,43 @@ describe('Test for LearHelperUtil Class', () => {
       const assignments = await learnHelper.getAssignments(courseID)
       assertAssignments(assignments)
       // console.log('assignments = ', assignments)
+    })
+  })
+
+  describe('3. test method "getNotices"', function () {
+    // avoid timeout error
+    this.timeout(0)
+    it('3.1 assignment info should be returned', async () => {
+      const response = await readFile(`${__dirname}\\test-notice.html`)
+      const outerDomain = 'https://learn.tsinghua.edu.cn'
+
+      const courseID = '137928'
+
+      const noticeIDs = ['1940927', '1939834', '1928645', '1909904', '1906689']
+
+      nock(outerDomain)
+        .get('/MultiLanguage/public/bbs/getnoteid_student.jsp')
+        .query((query) => {
+          return (query.course_id === courseID)
+        })
+        .reply(200, response)
+
+
+      noticeIDs.forEach(async (ele, index) => {
+        const responseNotice = await readFile(`${__dirname}\\test-notice-info\\notice-info-${index}.html`)
+        nock(outerDomain)
+          .get('/MultiLanguage/public/bbs/note_reply.jsp')
+          .query((query) => {
+            return (query.bbs_type === '课程公告' && query.id === ele && query.course_id === courseID)
+          })
+          .reply(200, responseNotice)
+      })
+
+      await sleep(2000)
+
+      const notices = await learnHelper.getNotices(courseID)
+      // console.log('notices = ', notices)
+      assertNotices(notices)
     })
   })
 })
