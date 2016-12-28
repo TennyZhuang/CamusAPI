@@ -53,6 +53,7 @@ class LearnHelperUtil {
             uri: `${this.prefix}/MultiLanguage/lesson/student/course_info.jsp?course_id=${courseID}`,
             jar: this.cookies,
             transform: (body) => {
+              // console.log('body = ', body)
               return ci.load(body, {decodeEntities: false})
             }
           })
@@ -151,14 +152,21 @@ class LearnHelperUtil {
         const _url = $children.eq(0).find('a').attr('href').replace(/amp;/gi, '')
 
         assignment.assignmentID = _url.split(/&|=/).slice(-5)[0]
+        
         const $1 = await rp({
           method: 'GET',
           uri: homeworkPrefix + _url,
           jar: this.cookies,
           transform: (body) => {
+            console.log('body = ', body)
             return ci.load(body, {decodeEntities: false})
           }
         })
+        
+        console.log('assignment url = ', homeworkPrefix + _url)
+        
+        console.log('text = ', $1('#table_box .tr_2').text())
+        
         assignment.detail = $1('#table_box .tr_2').eq(1).text().replace(/&nbsp;/gi, '').trim()
         assignment.filename = $1('#table_box .tr_2').eq(2).text().replace(/&nbsp;/gi, '').trim()
         assignment.fileURL = $1('#table_box .tr_2').eq(2).find('a').attr('href')
@@ -172,6 +180,9 @@ class LearnHelperUtil {
             return ci.load(body, {decodeEntities: false})
           }
         })
+        
+        console.log('assignment url = ', homeworkPrefix + _url)
+        
         assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
         let evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
         evaluatingDate = new Date(`${evaluatingDate} 00:00:00`).getTime()
