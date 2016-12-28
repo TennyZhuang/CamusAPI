@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015",
+    "stage-3"
+  ],
+  "plugins": [
+    "babel-plugin-syntax-async-functions",
+    [
+      "transform-async-to-module-method", {
+      "module": "bluebird",
+      "method": "coroutine"
+    }
+    ]
+  ]
+}
