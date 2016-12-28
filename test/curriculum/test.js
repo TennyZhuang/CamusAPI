@@ -12,8 +12,8 @@ const nock = require('nock')
 const iconv = require('iconv-lite')
 
 //TODO: valid username and password are required in order to pass these units test for curriculum
-const validUsername = 'mzj14'
-const validPassword = 'a12345k8360'
+const validUsername = 'valid username'
+const validPassword = 'valid password'
 
 const assertClasses = (classes) => {
   classes.should.be.Array().and.should.not.be.empty()
@@ -99,6 +99,11 @@ const testCurriculum = () => {
       // console.log(buffer)
       const response = iconv.encode(buffer, 'GBK')
       const outerDomain = 'http://zhjw.cic.tsinghua.edu.cn'
+      const ticketDomain = 'https://id.tsinghua.edu.cn'
+
+      nock(ticketDomain)
+        .post('/thuser/authapi/login/ALL_ZHJW/0_0_0_0')
+        .reply(200, '{ \"status\": \"RESTLOGIN_OK\", \"ticket\": \"ticket\" }')
 
       nock(outerDomain)
         .get('/j_acegi_login.do')

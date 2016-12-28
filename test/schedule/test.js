@@ -72,6 +72,7 @@ const testSchedule = () => {
       nock(ticketDomain)
         .post('/thuser/authapi/login/ALL_ZHJW/0_0_0_0')
         .reply(200, '{ \"status\": \"RESTLOGIN_OK\", \"ticket\": \"ticket\" }')
+
       nock(outerDomain)
         .get('/j_acegi_login.do')
         .query((query) => {
