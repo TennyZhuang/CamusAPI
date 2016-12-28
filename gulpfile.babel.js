@@ -5,9 +5,9 @@ const sourceMaps = require('gulp-sourcemaps');
 const clean = require('gulp-clean');
 const babel = require('gulp-babel');
 const mocha = require('gulp-mocha');
-const src = ['app/**/*.js'];
+const src = ['app/**/*.js', 'test/**/*.js'];
 const testSrc = ['test/**/*.js'];
-const srcOption = {base: './app'};
+const srcOption = {base: './'};
 const dest = './dist';
 
 gulp.task('default', ['clean'], () => {

@@ -42,4 +42,6 @@ jspm_packages
 # Database
 db/*
 !db/.gitkeep
+
+# Babel
 dist
