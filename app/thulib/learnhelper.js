@@ -148,7 +148,7 @@ class LearnHelperUtil {
         assignment.size = $children.eq(4).text().replace(/&nbsp;/gi, '').trim()
 
         const homeworkPrefix = 'http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/'
-        const _url = $children.eq(0).find('a').attr('href')
+        const _url = $children.eq(0).find('a').attr('href').replace(/amp;/gi, '')
 
         assignment.assignmentID = _url.split(/&|=/).slice(-5)[0]
         const $1 = await rp({
