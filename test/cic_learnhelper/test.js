@@ -3,9 +3,10 @@
  */
 /* Test flow
  Test 3 class functions
- 2. Mock html reply to test `getDocuments` function
- 3. Mock html reply to test `getAssignments` function
- 4. Mock html reply to test `getNotices` function
+ 1. Mock html reply to test `getDocuments` function
+ 2. Mock html reply to test `getAssignments` function
+ 3. Mock html reply to test `getNotices` function
+ 4. Mock html reply to test `getTeacherInfo` function
  */
 
 const CicLearnHelperUtil = require('../../app/thulib/cic_learnhelper')
@@ -55,6 +56,15 @@ const assertNotices = (notices) => {
   notice.state.should.match(/read|unread/)
 
   notice.publishTime.should.be.Number().and.aboveOrEqual(0)
+}
+
+const assertCurrentTeachingInfo = (info) => {
+  info.time.should.be.Number().and.aboveOrEqual(0)
+  const beginTime = info.currentSemester.beginTime
+  const endTime = info.currentSemester.endTime
+  beginTime.should.be.Number().and.aboveOrEqual(0)
+  endTime.should.be.Number().and.aboveOrEqual(0)
+  endTime.should.be.above(beginTime)
 }
 
 describe('Test for CicLearHelperUtil Class', () => {
@@ -125,6 +135,25 @@ describe('Test for CicLearHelperUtil Class', () => {
       const assignments = await cicLearnHelper.getAssignments(courseID)
       assertAssignments(assignments)
       // console.log('assignment = ', assignments)
+    })
+  })
+
+  describe('4. test method "getCurrentTeachingInfo"', function () {
+    // avoid timeout error
+    this.timeout(0)
+    it('4.1 teaching info should be returned', async () => {
+      const response = await readFile(`${__dirname}\\test-current.json`)
+      const responseObject = JSON.parse(response.toString())
+      const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
+      const courseID = '2016-2017-1-20250163-0'
+
+      nock(outerDomain)
+        .get('/b/myCourse/courseList/getCurrentTeachingWeek')
+        .reply(200, responseObject)
+      
+      const currentTeachingInfo = await cicLearnHelper.getCurrentTeachingInfo(courseID)
+      
+      assertCurrentTeachingInfo(currentTeachingInfo)
     })
   })
 })

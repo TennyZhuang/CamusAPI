@@ -1,0 +1,24 @@
+{
+  "currentTeachingWeek": {
+    "teachingWeekId": 11065,
+    "weekName": "16",
+    "beginDate": "2016-12-26",
+    "endDate": "2017-01-01",
+    "semesterId": "2016-2017-1"
+  },
+  "currentSemester": {
+    "id": "2016-2017-1",
+    "semesterName": "2016-2017-秋季学期",
+    "startDate": "2016-09-12",
+    "endDate": "2017-02-19",
+    "semesterEname": "2016-2017-Autumn"
+  },
+  "currentDate": "2016-12-29",
+  "nextSemester": {
+    "id": "2016-2017-2",
+    "semesterName": "2016-2017-春季学期",
+    "startDate": "2017-02-20",
+    "endDate": "2017-06-25",
+    "semesterEname": "2016-2017-Spring"
+  }
+}
