@@ -93,6 +93,7 @@ class ScheduleUtil {
     try {
       await rp(loginOptions)
       //Wait for ticket take effect
+      await sleep(2000)
       const resp = await rp(scheduleOptions)
       const semesterSchedule = await ScheduleUtil.parseSchedule(resp)
       const weekSchedules = await ScheduleUtil.splitSemesterSchedule(semesterSchedule)
