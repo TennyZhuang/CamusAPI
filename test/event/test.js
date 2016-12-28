@@ -21,7 +21,7 @@ const assertEvents = (events) => {
 const testEvent = () => {
   describe('1. test method "parseEvents" ', () => {
     it('1.1 event info should be properly extracted with the right test page', async () =>{
-      const data = await readFile(`${__dirname}\\test.html`, 'utf8')
+      const data = await readFile(`${__dirname}/test.html`, 'utf8')
       const $ = cheerio.load(data, { decodeEntities: false })
 
       const events = await eve.parseEvents($)
@@ -35,7 +35,7 @@ const testEvent = () => {
     // avoid timeout error
     this.timeout(0)
     it('2.1 curriculum info should be get', async () => {
-      const buffer = await readFile(`${__dirname}\\test.html`)
+      const buffer = await readFile(`${__dirname}/test.html`)
       // console.log(buffer)
       const response = iconv.encode(buffer, 'GBK')
       const outerDomain = 'http://zhjw.cic.tsinghua.edu.cn'

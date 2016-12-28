@@ -96,7 +96,7 @@ const testLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('1.1 course list info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-list.html`)
+        const response = await readFile(`${__dirname}/test-list.html`)
         const outerDomain = 'https://learn.tsinghua.edu.cn'
 
         nock(outerDomain)
@@ -110,7 +110,7 @@ const testLearnHelper = () => {
           '138765', '136965', '138767']
 
         courseIDs.forEach(async (ele, index) => {
-          const response = await readFile(`${__dirname}\\test-course-info\\course-info-${index}.html`)
+          const response = await readFile(`${__dirname}/test-course-info/course-info-${index}.html`)
           nock(outerDomain)
             .get('/MultiLanguage/lesson/student/course_info.jsp')
             .query((query) => {
@@ -131,7 +131,7 @@ const testLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('1.1 document info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-doc.html`)
+        const response = await readFile(`${__dirname}/test-doc.html`)
         const outerDomain = 'https://learn.tsinghua.edu.cn'
 
         // const courseID = '137928'
@@ -154,7 +154,7 @@ const testLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('3.1 assignment info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-assignment.html`)
+        const response = await readFile(`${__dirname}/test-assignment.html`)
         const outerDomain = 'https://learn.tsinghua.edu.cn'
 
         // const courseID = '137928'
@@ -174,8 +174,8 @@ const testLearnHelper = () => {
 
 
         assignmentIDs.forEach(async (ele, index) => {
-          const responseDetail = await readFile(`${__dirname}\\test-assignment-info\\assignment-detail-${index}.html`)
-          const responseView = await readFile(`${__dirname}\\test-assignment-info\\assignment-view-${index}.html`)
+          const responseDetail = await readFile(`${__dirname}/test-assignment-info/assignment-detail-${index}.html`)
+          const responseView = await readFile(`${__dirname}/test-assignment-info/assignment-view-${index}.html`)
 
           nock('http://learn.tsinghua.edu.cn')
             .get('/MultiLanguage/lesson/student/hom_wk_detail.jsp')
@@ -203,7 +203,7 @@ const testLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('3.1 assignment info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-notice.html`)
+        const response = await readFile(`${__dirname}/test-notice.html`)
         const outerDomain = 'https://learn.tsinghua.edu.cn'
 
         // const courseID = '137928'
@@ -219,7 +219,7 @@ const testLearnHelper = () => {
 
 
         noticeIDs.forEach(async (ele, index) => {
-          const responseNotice = await readFile(`${__dirname}\\test-notice-info\\notice-info-${index}.html`)
+          const responseNotice = await readFile(`${__dirname}/test-notice-info/notice-info-${index}.html`)
           nock(outerDomain)
             .get('/MultiLanguage/public/bbs/note_reply.jsp')
             .query((query) => {

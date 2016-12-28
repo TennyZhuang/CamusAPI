@@ -69,7 +69,7 @@ const testCurriculum = () => {
 
   describe('2. test curriculum parser', () => {
     it('2.1 curriculum info should be properly extracted form the right test page', async () =>{
-      const data = await readFile(`${__dirname}\\test-right.html`, 'utf8')
+      const data = await readFile(`${__dirname}/test-right.html`, 'utf8')
       const $ = cheerio.load(data, { decodeEntities: false })
       const classes = await cur.parseFirstLevelCurriculum($)
       assertClasses(classes)
@@ -77,7 +77,7 @@ const testCurriculum = () => {
 
     //FIXME: How to test an exception thrown by async function properly
     it('2.2 curriculum info should be empty from the wrong test page', async () =>{
-      const data = await readFile(`${__dirname}\\test-wrong.html`, 'utf8')
+      const data = await readFile(`${__dirname}/test-wrong.html`, 'utf8')
       const $ = cheerio.load(data, { decodeEntities: false })
 
       cur.parseFirstLevelCurriculum($)
@@ -95,7 +95,7 @@ const testCurriculum = () => {
     // avoid timeout error
     this.timeout(0)
     it('3.1 curriculum info should be properly extracted with valid username and password', async () => {
-      const buffer = await readFile(`${__dirname}\\test-right.html`)
+      const buffer = await readFile(`${__dirname}/test-right.html`)
       // console.log(buffer)
       const response = iconv.encode(buffer, 'GBK')
       const outerDomain = 'http://zhjw.cic.tsinghua.edu.cn'

@@ -78,7 +78,7 @@ const testCicLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('1.1 teacher info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-teacher.json`)
+        const response = await readFile(`${__dirname}/test-teacher.json`)
         const responseObject = JSON.parse(response.toString())
         const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
@@ -97,7 +97,7 @@ const testCicLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('2.1 course notices info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-notice.json`)
+        const response = await readFile(`${__dirname}/test-notice.json`)
         const responseObject = JSON.parse(response.toString())
         const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-00050071-90'
@@ -110,7 +110,7 @@ const testCicLearnHelper = () => {
           1474529329078, 1474529327076, 1474529323531]
 
         noticeIDs.forEach(async (ele, index) => {
-          const noticeResponse = await readFile(`${__dirname}\\test-notice-info\\notice-info-${index}.json`)
+          const noticeResponse = await readFile(`${__dirname}/test-notice-info/notice-info-${index}.json`)
           const noticeResponseObject = JSON.parse(noticeResponse.toString())
           nock(outerDomain)
             .get(`/b/myCourse/notice/studDetail/${ele}`)
@@ -129,7 +129,7 @@ const testCicLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('3.1 document info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-doc.json`)
+        const response = await readFile(`${__dirname}/test-doc.json`)
         const responseObject = JSON.parse(response.toString())
         const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
@@ -148,7 +148,7 @@ const testCicLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('4.1 assignment info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-assignment.json`)
+        const response = await readFile(`${__dirname}/test-assignment.json`)
         const responseObject = JSON.parse(response.toString())
         const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
@@ -167,7 +167,7 @@ const testCicLearnHelper = () => {
       // avoid timeout error
       this.timeout(0)
       it('5.1 teaching info should be returned', async () => {
-        const response = await readFile(`${__dirname}\\test-current.json`)
+        const response = await readFile(`${__dirname}/test-current.json`)
         const responseObject = JSON.parse(response.toString())
         const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'

@@ -13,7 +13,7 @@ const testLibrary = () => {
         const outerDomain = 'http://seat.lib.tsinghua.edu.cn'
         const outerPath = '/roomshow/'
         const fileName = 'test.html'
-        const htmlResponse = await readFile(`${__dirname}\\${fileName}`)
+        const htmlResponse = await readFile(`${__dirname}/${fileName}`)
 
         nock(outerDomain)
           .get(outerPath)
