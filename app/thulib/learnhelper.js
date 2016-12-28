@@ -77,8 +77,7 @@ class LearnHelperUtil {
         resolve(course)
       }))
 
-      const courses = await Promise.all(ps)
-      return courses
+      return await Promise.all(ps)
     } catch (e) {
       console.error(e)
       return []
@@ -188,9 +187,7 @@ class LearnHelperUtil {
         resolve(assignment)
       }))
 
-      const assignments = await Promise.all(ps)
-
-      return assignments
+      return await Promise.all(ps)
     } catch (e) {
       console.error(e)
       return []
@@ -257,9 +254,7 @@ class LearnHelperUtil {
         }
       }))
 
-      const notices = await Promise.all(ps)
-
-      return notices
+      return await Promise.all(ps)
     } catch (e) {
       console.error(e)
       return []
