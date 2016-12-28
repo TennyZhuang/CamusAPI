@@ -6,7 +6,7 @@ const LearnHelperUtil = require('../thulib/learnhelper')
 const CicLearnHelperUtil = require('../thulib/cic_learnhelper')
 
 const updateCourseInfo = async(user) => {
-  const lhu = new LearnHelperUtil(user.username, user.getPassword())
+  const lhu = new LearnHelperUtil(user)
   const cicLhu = new CicLearnHelperUtil(user.username, user.getPassword())
   await lhu.login()
   await cicLhu.login()

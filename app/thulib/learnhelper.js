@@ -6,9 +6,10 @@ const h2t = require('html-to-text')
 
 
 class LearnHelperUtil {
-  constructor(username, password) {
-    this.username = username
-    this.password = password
+  constructor(user) {
+    this.user = user
+    this.username = user.username
+    this.password = user.getPassword()
     this.cookies = rp.jar()
     this.prefix = 'https://learn.tsinghua.edu.cn'
   }
@@ -151,7 +152,7 @@ class LearnHelperUtil {
         const _url = $children.eq(0).find('a').attr('href').replace(/amp;/gi, '')
 
         assignment.assignmentID = _url.split(/&|=/).slice(-5)[0]
-        
+
         const $1 = await rp({
           method: 'GET',
           uri: homeworkPrefix + _url,
@@ -160,7 +161,7 @@ class LearnHelperUtil {
             return ci.load(body, {decodeEntities: false})
           }
         })
-        
+
         assignment.detail = $1('#table_box .tr_2').eq(1).text().replace(/&nbsp;/gi, '').trim()
         assignment.filename = $1('#table_box .tr_2').eq(2).text().replace(/&nbsp;/gi, '').trim()
         assignment.fileURL = $1('#table_box .tr_2').eq(2).find('a').attr('href')
@@ -174,7 +175,7 @@ class LearnHelperUtil {
             return ci.load(body, {decodeEntities: false})
           }
         })
-        
+
         assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
         let evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
         evaluatingDate = new Date(`${evaluatingDate} 00:00:00`).getTime()
@@ -210,40 +211,50 @@ class LearnHelperUtil {
 
       const $ = await rp(option)
 
+      const course = this.user.courses.find(c => c.courseID === courseID)
+
       const ps = Array.from($('.tr1, .tr2')).map(tr => new Promise(async (resolve) => {
         const tds = Array.from($(tr).find('td'))
-        const [
-          ,
-          title,
-          publisher,
-          _publishTime,
-          rawState] = tds.map(td => $(td).text().trim())
-        const publishTime = new Date(`${_publishTime} 00:00:00`).getTime()
         const rawUri = `${this.prefix}/MultiLanguage/public/bbs/${$(tds[1]).find('a').attr('href')}`
         const href = encodeURI(rawUri.replace(/amp;/gi, ''))
-        const options = {
-          method: 'GET',
-          uri: href,
-          jar: this.cookies,
-          transform: (body) => {
-            return ci.load(body, {decodeEntities: false})
-          }
-        }
-
         const noticeID = href.split(/&|=/).slice(-3)[0]
-        const $notice = await rp(options)
-        const content = h2t.fromString($notice('.tr_l2').eq(1).html())
+        let oldNotice
+        if (course) {
+          oldNotice = course.notices.find((notice) => notice.noticeID === noticeID)
+        }
+        if (oldNotice) {
+          resolve(oldNotice)
+        } else {
+          const [
+            ,
+            title,
+            publisher,
+            _publishTime,
+            rawState] = tds.map(td => $(td).text().trim())
+          const publishTime = new Date(`${_publishTime} 00:00:00`).getTime()
 
-        const state = rawState === '已读' ? 'read' : 'unread'
+          const options = {
+            method: 'GET',
+            uri: href,
+            jar: this.cookies,
+            transform: (body) => {
+              return ci.load(body, {decodeEntities: false})
+            }
+          }
 
-        resolve({
-          noticeID,
-          title,
-          publisher,
-          publishTime,
-          state,
-          content
-        })
+          const $notice = await rp(options)
+          const content = h2t.fromString($notice('.tr_l2').eq(1).html())
+
+          const state = rawState === '已读' ? 'read' : 'unread'
+          resolve({
+            noticeID,
+            title,
+            publisher,
+            publishTime,
+            state,
+            content
+          })
+        }
       }))
 
       const notices = await Promise.all(ps)
