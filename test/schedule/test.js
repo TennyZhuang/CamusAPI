@@ -21,8 +21,6 @@ describe('1. test schedule parser', () => {
   })
 
   it('1.1 should return a schedules with right length', async () => {
-    // const data = await readFile(`${__dirname}/schedule.json`, 'utf8')
-    // const schedules = await scheduleUtil.parseSchedule(data)
     schedules.should.be.Array().and.have.length(137)
   })
   it('1.2 should return a json with specific field', async () => {
@@ -32,4 +30,15 @@ describe('1. test schedule parser', () => {
     })
   })
 })
+
+describe('2. test schedules splitter', () => {
+  it('2.1 should split schedules to 18 weeks', async() => {
+    const data = await readFile(`${__dirname}/schedule.json`, 'utf8')
+    const schedules = await scheduleUtil.parseSchedule(data)
+    const weekSchedules = await scheduleUtil.splitSemesterSchedule(schedules)
+    weekSchedules.should.be.Array().and.have.length(18)
+  })
+})
+
+
 
