@@ -152,39 +152,47 @@ class LearnHelperUtil {
 
         assignment.assignmentID = _url.split(/&|=/).slice(-5)[0]
 
-        const $1 = await rp({
-          method: 'GET',
-          uri: homeworkPrefix + _url,
-          jar: this.cookies,
-          transform: (body) => {
-            return ci.load(body, {decodeEntities: false})
-          }
-        })
+        let oldAssignment
+        if (course && course.assignments) {
+          oldAssignment = course.assignments.find((ass) => ass.assignmentID === assignment.assignmentID)
+        }
+        if (oldAssignment) {
+          resolve(oldAssignment)
+        } else {
+          const $1 = await rp({
+            method: 'GET',
+            uri: homeworkPrefix + _url,
+            jar: this.cookies,
+            transform: (body) => {
+              return ci.load(body, {decodeEntities: false})
+            }
+          })
 
-        assignment.detail = $1('#table_box .tr_2').eq(1).text().replace(/&nbsp;/gi, '').trim()
-        assignment.filename = $1('#table_box .tr_2').eq(2).text().replace(/&nbsp;/gi, '').trim()
-        assignment.fileURL = $1('#table_box .tr_2').eq(2).find('a').attr('href')
-        assignment.fileURL = !assignment.fileURL ? '' : this.prefix + assignment.fileURL
+          assignment.detail = $1('#table_box .tr_2').eq(1).text().replace(/&nbsp;/gi, '').trim()
+          assignment.filename = $1('#table_box .tr_2').eq(2).text().replace(/&nbsp;/gi, '').trim()
+          assignment.fileURL = $1('#table_box .tr_2').eq(2).find('a').attr('href')
+          assignment.fileURL = !assignment.fileURL ? '' : this.prefix + assignment.fileURL
 
-        const $2 = await rp({
-          method: 'GET',
-          uri: homeworkPrefix + _url.replace('detail', 'view'),
-          jar: this.cookies,
-          transform: (body) => {
-            return ci.load(body, {decodeEntities: false})
-          }
-        })
+          const $2 = await rp({
+            method: 'GET',
+            uri: homeworkPrefix + _url.replace('detail', 'view'),
+            jar: this.cookies,
+            transform: (body) => {
+              return ci.load(body, {decodeEntities: false})
+            }
+          })
 
-        assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
-        let evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
-        evaluatingDate = new Date(`${evaluatingDate} 00:00:00`).getTime()
-        assignment.evaluatingDate = Number.isNaN(evaluatingDate) ? 0 : evaluatingDate
-        assignment.scored = assignment.evaluatingDate !== 0
-        assignment.grade = parseFloat($2('#table_box .tr_1').eq(2).text().replace('分', '0').trim())
-        assignment.grade = isNaN(assignment.grade) ? -1 : assignment.grade
-        assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
+          assignment.evaluatingTeacher = $2('#table_box .tr_12').eq(0).text().replace(/&nbsp;/gi, '').trim()
+          let evaluatingDate = $2('#table_box .tr_12').eq(1).text().replace(/&nbsp;/gi, '').trim()
+          evaluatingDate = new Date(`${evaluatingDate} 00:00:00`).getTime()
+          assignment.evaluatingDate = Number.isNaN(evaluatingDate) ? 0 : evaluatingDate
+          assignment.scored = assignment.evaluatingDate !== 0
+          assignment.grade = parseFloat($2('#table_box .tr_1').eq(2).text().replace('分', '0').trim())
+          assignment.grade = isNaN(assignment.grade) ? -1 : assignment.grade
+          assignment.comment = $2('#table_box .tr_12').eq(2).text().replace(/&nbsp;/gi, '').trim()
 
-        resolve(assignment)
+          resolve(assignment)
+        }
       }))
 
       return await Promise.all(ps)
