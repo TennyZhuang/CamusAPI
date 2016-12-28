@@ -1,0 +1,15 @@
+{
+  "message": "success",
+  "dataSingle": {
+    "id": 1474529327076,
+    "title": "课外读物推荐",
+    "owner": "唐云飞",
+    "regDate": "2016-09-13",
+    "endDate": null,
+    "courseId": "2016-2017-1-00050071-90",
+    "msgPriority": 0,
+    "status": null,
+    "detail": "<span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, sans-serif; background-color: rgb(248, 249, 253);\">给 大家推荐三本在环境保护和可持续发展领域具有里程碑性质的读物： 1、1962年: &lt;寂静的春天&gt; 美国 Carson 2、1972年:  &lt;增长的极限&gt; 罗马俱乐部 3、1987年: &lt;我们共同的未来&gt; 世界环境与发展委员会 。 <br /></span>",
+    "browseTimes": 44581
+  }
+}

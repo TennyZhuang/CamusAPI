@@ -1,0 +1,15 @@
+{
+  "message": "success",
+  "dataSingle": {
+    "id": 1480494129927,
+    "title": "课程总结和论文提醒",
+    "owner": "唐云飞",
+    "regDate": "2016-11-30",
+    "endDate": null,
+    "courseId": "2016-2017-1-00050071-90",
+    "msgPriority": 1,
+    "status": null,
+    "detail": "<p>各位同学好，</p><p>我是课程助教唐云飞，由于新版网络学堂的缺陷，有部分同学提交的课程作业附件没有上传成功，请大家抽空检查自己的作业情况，以确保提交成功。</p><p>没有成功提交的同学请把作业发到我的邮箱：yunfeitang@yeah.net。</p><p>祝大家学习进步！</p>",
+    "browseTimes": 44056
+  }
+}
