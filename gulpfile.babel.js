@@ -1,29 +1,30 @@
-'use strict';
-
-const gulp = require('gulp');
-const sourceMaps = require('gulp-sourcemaps');
-const clean = require('gulp-clean');
-const babel = require('gulp-babel');
-const mocha = require('gulp-mocha');
-const src = ['app/**/*.js', 'test/**/*.js'];
-const testSrc = ['test/**/*.js'];
-const srcOption = {base: './'};
-const dest = './dist';
+const gulp = require('gulp')
+const sourceMaps = require('gulp-sourcemaps')
+const clean = require('gulp-clean')
+const babel = require('gulp-babel')
+const src = ['app/**/*.js', 'test/**/*.js']
+const copy = ['test/**/*.json', 'test/**/*.html']
+const srcOption = {base: './'}
+const dest = './dist'
 
 gulp.task('default', ['clean'], () => {
+  gulp.start('copy')
   return gulp.src(src, srcOption)
     .pipe(sourceMaps.init())
     .pipe(babel())
-    .pipe(sourceMaps.write('.', {includeContent: false, sourceRoot: '..'}))
-    .pipe(gulp.dest(dest));
-});
+    .pipe(sourceMaps.write('.', {
+      includeContent: false,
+      sourceRoot: '.'
+    }))
+    .pipe(gulp.dest(dest))
+})
 
 gulp.task('clean', () => {
   return gulp.src(dest, {read: false})
-    .pipe(clean());
-});
+    .pipe(clean())
+})
 
-gulp.task('test', () => {
-  return gulp.src(testSrc, {read: false})
-    .pipe(mocha({reporter: 'nyan'}));
-});
+gulp.task('copy', () => {
+  return gulp.src(copy)
+    .pipe(gulp.dest('./dist/test'))
+})
