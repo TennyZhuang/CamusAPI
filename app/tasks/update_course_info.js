@@ -4,7 +4,7 @@
 
 const LearnHelperUtil = require('../thulib/learnhelper')
 const CicLearnHelperUtil = require('../thulib/cic_learnhelper')
-const Course = require('../models/course').Course
+const {Notice, Document, Assignment, Course} = require('../models/course')
 
 const updateCourseInfo = async(user) => {
   const lhu = new LearnHelperUtil(user)
@@ -26,11 +26,22 @@ const updateCourseInfo = async(user) => {
 
       const results = await Promise.all(taskPs)
 
-      ;[
-        notices, documents, assignments, [
-          course.teacher, course.email, course.phone
-        ]
-      ] = results
+      const noticePs = results[0].map(notice => new Promise(async resolve => {
+        resolve((await (new Notice(notice)).save())._id)
+      }))
+      notices = await Promise.all(noticePs)
+
+      const documentPs = results[1].map(document => new Promise(async resolve => {
+        resolve((await (new Document(document)).save())._id)
+      }))
+      documents = await Promise.all(documentPs)
+
+      const assignmentPs = results[2].map(assignment => new Promise(async resolve => {
+        resolve((await (new Assignment(assignment)).save())._id)
+      }))
+      assignments = await Promise.all(assignmentPs)
+
+      ;[course.teacher, course.email, course.phone] = results[3]
     } else {
       const taskPs = [
         lhu.getNotices, lhu.getDocuments, lhu.getAssignments
@@ -40,7 +51,21 @@ const updateCourseInfo = async(user) => {
       }))
 
       const results = await Promise.all(taskPs)
-      ;[notices, documents, assignments] = results
+
+      const noticePs = results[0].map(notice => new Promise(async resolve => {
+        resolve((await (new Notice(notice)).save())._id)
+      }))
+      notices = await Promise.all(noticePs)
+
+      const documentPs = results[1].map(document => new Promise(async resolve => {
+        resolve((await (new Document(document)).save())._id)
+      }))
+      documents = await Promise.all(documentPs)
+
+      const assignmentPs = results[2].map(assignment => new Promise(async resolve => {
+        resolve((await (new Assignment(assignment)).save())._id)
+      }))
+      assignments = await Promise.all(assignmentPs)
     }
 
     const courseObj = new Course({

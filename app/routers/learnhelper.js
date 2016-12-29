@@ -6,6 +6,7 @@ const Router = require('koa-router')
 const checkUser = require('../middlewares/checkuser')
 const checkCourse = require('../middlewares/checkcourse')
 const getCourse = require('../tasks/get_course_info').getCourse
+const {Notice, Document, Assignment} = require('../models/course')
 
 const router = new Router({
   prefix: '/learnhelper'
@@ -30,19 +31,43 @@ router.post('/:username/courses', async(ctx) => {
 router.post('/:username/courses/:courseID/notices', async(ctx) => {
   const course = ctx.course
 
-  ctx.body.notices = course.notices.toObject()
+  const ps = course.notices.map(noticeObjID =>
+    new Promise(async resolve => {
+      resolve((await Notice.findOne({_id: noticeObjID})).toObject())
+    })
+  )
+
+  const notices = await Promise.all(ps)
+
+  ctx.body.notices = notices
 })
 
 router.post('/:username/courses/:courseID/documents', async(ctx) => {
   const course = ctx.course
 
-  ctx.body.documents = course.documents.toObject()
+  const ps = course.documents.map(documentObjID =>
+    new Promise(async resolve => {
+      resolve((await Document.findOne({_id: documentObjID})).toObject())
+    })
+  )
+
+  const documents = await Promise.all(ps)
+
+  ctx.body.documents = documents
 })
 
 router.post('/:username/courses/:courseID/assignments', async(ctx) => {
   const course = ctx.course
 
-  ctx.body.assignments = course.assignments.toObject()
+  const ps = course.assignments.map(assignmentObjID =>
+    new Promise(async resolve => {
+      resolve((await Assignment.findOne({_id: assignmentObjID})).toObject())
+    })
+  )
+
+  const assignments = await Promise.all(ps)
+
+  ctx.body.assignments = assignments
 })
 
 exports.router = router
