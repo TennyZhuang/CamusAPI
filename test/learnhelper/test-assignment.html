@@ -1,351 +1,401 @@
-
 <!-- saved from url=(0089)http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/hom_wk_brw.jsp?course_id=137928 -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link href="./test-assignment_files/common.css" rel="stylesheet" type="text/css">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="./test-assignment_files/common.css" rel="stylesheet" type="text/css">
 
 
+    <title>课程作业</title>
+    <link href="./test-assignment_files/WLXT.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript" type="text/JavaScript">
+        <!--
+        function MM_preloadImages() { //v3.0
+            var d = document;
+            if (d.images) {
+                if (!d.MM_p) d.MM_p = new Array();
+                var i, j = d.MM_p.length, a = MM_preloadImages.arguments;
+                for (i = 0; i < a.length; i++)
+                    if (a[i].indexOf("#") != 0) {
+                        d.MM_p[j] = new Image;
+                        d.MM_p[j++].src = a[i];
+                    }
+            }
+        }
 
+        function MM_swapImgRestore() { //v3.0
+            var i, x, a = document.MM_sr;
+            for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++) x.src = x.oSrc;
+        }
 
+        function MM_findObj(n, d) { //v4.01
+            var p, i, x;
+            if (!d) d = document;
+            if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+                d = parent.frames[n.substring(p + 1)].document;
+                n = n.substring(0, p);
+            }
+            if (!(x = d[n]) && d.all) x = d.all[n];
+            for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
+            for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
+            if (!x && d.getElementById) x = d.getElementById(n);
+            return x;
+        }
 
+        function MM_swapImage() { //v3.0
+            var i, j = 0, x, a = MM_swapImage.arguments;
+            document.MM_sr = new Array;
+            for (i = 0; i < (a.length - 2); i += 3)
+                if ((x = MM_findObj(a[i])) != null) {
+                    document.MM_sr[j++] = x;
+                    if (!x.oSrc) x.oSrc = x.src;
+                    x.src = a[i + 2];
+                }
+        }
+        function check_del(temp) {
 
-
-
-
-
-
-
-
-
-
-
-
-	
-		
-
-
-
-<title>课程作业</title>
-<link href="./test-assignment_files/WLXT.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
-
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
-
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
-
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-function check_del(temp)
-{
-	
-  if (confirm("真的要删除吗?")) 
-    document.location.replace(temp);
-}
-//-->
-</script>
-<link href="./test-assignment_files/xxx.css" rel="stylesheet" type="text/css">
+            if (confirm("真的要删除吗?"))
+                document.location.replace(temp);
+        }
+        //-->
+    </script>
+    <link href="./test-assignment_files/xxx.css" rel="stylesheet" type="text/css">
 </head>
 
 <body onload="MM_preloadImages(&#39;/images/new/Users_2.jpg&#39;)">
 <table cellpadding="0" cellspacing="0" id="info_1">
-<tbody><tr>
-  <td class="info_title"><img src="./test-assignment_files/info_title.gif">&nbsp;计算机与网络体系结构(1)
-</td>
-</tr>	
-<tr height="25">
-  <td class="info_xb" align="left"><input name="submit_hw" value="查看全部成绩" type="button" onclick="javascript:window.location.href=&#39;hom_wk_recmark.jsp?course_id=137928&#39;;"></td>
-</tr>	
-  <tr>
-    <td valign="top" height="100">
-		<table id="table_box" cellspacing="1" cellpadding="0" width="100%">
-		  <tbody><tr>
-			<td width="30%" height="30" class="title">作业题目</td>
-			<td width="10%" height="30" class="title">生效日期</td>
-			<td width="10%" height="30" class="title">截止日期</td>
-			<td width="15%" height="30" class="title">提交状态</td>
-			<td width="10%" height="30" class="title">附件大小</td>
-			<td width="25%" height="30" class="title">作业管理</td>
-		  </tr>
-     </tbody></table>
-		 <table id="table_box" cellspacing="1" cellpadding="0" width="100%">
-			
-			    <tbody><tr class="tr2">
-			  
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=714167&amp;course_id=137928&amp;rec_id=null">计算机体系结构——第二章作业</a></td>
-				   <td width="10%">2016-09-30</td>
-				   <td width="10%">2016-10-16</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">111.4KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=714167&amp;course_id=137928&amp;rec_id=4695237&#39;;">
-			          
-			          
-			       <input id="lookinfo" name="lookinfo" value="查看批阅" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=714167&amp;course_id=137928&#39;">
-				          
-				        </td>
-			       </tr>
-			
-			     <tr class="tr1">       
-			 
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=715467&amp;course_id=137928&amp;rec_id=4695237">计算机体系结构——第二章作业2</a></td>
-				   <td width="10%">2016-10-10</td>
-				   <td width="10%">2016-10-16</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">88.8KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=715467&amp;course_id=137928&amp;rec_id=4695860&#39;;">
-			          
-			          
-			       <input id="lookinfo" name="lookinfo" value="查看批阅" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=715467&amp;course_id=137928&#39;">
-				          
-				        </td>
-			       </tr>
-			
-			    <tr class="tr2">
-			  
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=710921&amp;course_id=137928&amp;rec_id=4695860">网络部分第一次大作业——Socket&nbsp;Programming</a></td>
-				   <td width="10%">2016-09-21</td>
-				   <td width="10%">2016-10-23</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">461.3KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=710921&amp;course_id=137928&amp;rec_id=4752631&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=710921&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			     <tr class="tr1">       
-			 
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=718565&amp;course_id=137928&amp;rec_id=4752631">计算机体系结构——位运算实验（Data&nbsp;Lab）</a></td>
-				   <td width="10%">2016-10-21</td>
-				   <td width="10%">2016-11-11</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">402.1KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=718565&amp;course_id=137928&amp;rec_id=4755578&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=718565&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			    <tr class="tr2">
-			  
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=721805&amp;course_id=137928&amp;rec_id=4755578">计算机体系结构——栈溢出实验（Buffer&nbsp;Lab）&nbsp;&nbsp;</a></td>
-				   <td width="10%">2016-11-02</td>
-				   <td width="10%">2016-11-20</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">306.9KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=721805&amp;course_id=137928&amp;rec_id=4773263&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=721805&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			     <tr class="tr1">       
-			 
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=726511&amp;course_id=137928&amp;rec_id=4773263">计算机体系结构——Y86实验（Architecture&nbsp;Lab）</a></td>
-				   <td width="10%">2016-11-23</td>
-				   <td width="10%">2016-12-18</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">279.2KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=726511&amp;course_id=137928&amp;rec_id=4881717&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=726511&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			    <tr class="tr2">
-			  
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=718619&amp;course_id=137928&amp;rec_id=4881717">计算机网络——第一章作业</a></td>
-				   <td width="10%">2016-10-21</td>
-				   <td width="10%">2016-10-28</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">226.6KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=718619&amp;course_id=137928&amp;rec_id=4732442&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=718619&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			     <tr class="tr1">       
-			 
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=718621&amp;course_id=137928&amp;rec_id=4732442">计算机网络——第二章作业</a></td>
-				   <td width="10%">2016-10-21</td>
-				   <td width="10%">2016-10-31</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">105.1KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=718621&amp;course_id=137928&amp;rec_id=4730977&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=718621&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			    <tr class="tr2">
-			  
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=725765&amp;course_id=137928&amp;rec_id=4730977">计算机网络——第三章作业&nbsp;</a></td>
-				   <td width="10%">2016-11-19</td>
-				   <td width="10%">2016-11-29</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">128.0KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=725765&amp;course_id=137928&amp;rec_id=4811077&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=725765&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			     <tr class="tr1">       
-			 
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=725767&amp;course_id=137928&amp;rec_id=4811077">计算机网络——第四章作业&nbsp;&nbsp;</a></td>
-				   <td width="10%">2016-11-19</td>
-				   <td width="10%">2016-11-29</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">271.4KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=725767&amp;course_id=137928&amp;rec_id=4829496&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=725767&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-			    <tr class="tr2">
-			  
-			     <td width="30%"><a href="hom_wk_detail.jsp?id=728273&amp;course_id=137928&amp;rec_id=4829496">网络部分第二次大作业——WSN&nbsp;</a></td>
-				   <td width="10%">2016-11-30</td>
-				   <td width="10%">2016-12-25</td>
-				   <td width="15%">
-				   
-				            已经提交
-				         
-				   </td>
-			
-				   <td width="10%">605.9KB
-				   </td>
-				   <td width="25%">
-				
-			          <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=728273&amp;course_id=137928&amp;rec_id=4906180&#39;;">
-			          
-			          
-			          <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button" onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=728273&amp;course_id=137928&#39;" ;="">
-			          	          
-				        </td>
-			       </tr>
-			
-       <tr>
-  			<td colspan="6" class="info_b"><img src="./test-assignment_files/spacer.gif"></td>
-			</tr> 			
-			</tbody></table>
-    </td>
-  </tr>
-  
-</tbody></table> 
+    <tbody>
+    <tr>
+        <td class="info_title"><img src="./test-assignment_files/info_title.gif">&nbsp;计算机与网络体系结构(1)
+        </td>
+    </tr>
+    <tr height="25">
+        <td class="info_xb" align="left"><input name="submit_hw" value="查看全部成绩" type="button"
+                                                onclick="javascript:window.location.href=&#39;hom_wk_recmark.jsp?course_id=137928&#39;;">
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" height="100">
+            <table id="table_box" cellspacing="1" cellpadding="0" width="100%">
+                <tbody>
+                <tr>
+                    <td width="30%" height="30" class="title">作业题目</td>
+                    <td width="10%" height="30" class="title">生效日期</td>
+                    <td width="10%" height="30" class="title">截止日期</td>
+                    <td width="15%" height="30" class="title">提交状态</td>
+                    <td width="10%" height="30" class="title">附件大小</td>
+                    <td width="25%" height="30" class="title">作业管理</td>
+                </tr>
+                </tbody>
+            </table>
+            <table id="table_box" cellspacing="1" cellpadding="0" width="100%">
+
+                <tbody>
+                <tr class="tr2">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=714167&amp;course_id=137928&amp;rec_id=null">计算机体系结构——第二章作业</a>
+                    </td>
+                    <td width="10%">2016-09-30</td>
+                    <td width="10%">2016-10-16</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">111.4KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=714167&amp;course_id=137928&amp;rec_id=4695237&#39;;">
 
 
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=714167&amp;course_id=137928&#39;">
+
+                    </td>
+                </tr>
+
+                <tr class="tr1">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=715467&amp;course_id=137928&amp;rec_id=4695237">计算机体系结构——第二章作业2</a>
+                    </td>
+                    <td width="10%">2016-10-10</td>
+                    <td width="10%">2016-10-16</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">88.8KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=715467&amp;course_id=137928&amp;rec_id=4695860&#39;;">
 
 
-</body></html>
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=715467&amp;course_id=137928&#39;">
+
+                    </td>
+                </tr>
+
+                <tr class="tr2">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=710921&amp;course_id=137928&amp;rec_id=4695860">网络部分第一次大作业——Socket&nbsp;Programming</a>
+                    </td>
+                    <td width="10%">2016-09-21</td>
+                    <td width="10%">2016-10-23</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">461.3KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=710921&amp;course_id=137928&amp;rec_id=4752631&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=710921&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr1">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=718565&amp;course_id=137928&amp;rec_id=4752631">计算机体系结构——位运算实验（Data&nbsp;Lab）</a>
+                    </td>
+                    <td width="10%">2016-10-21</td>
+                    <td width="10%">2016-11-11</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">402.1KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=718565&amp;course_id=137928&amp;rec_id=4755578&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=718565&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr2">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=721805&amp;course_id=137928&amp;rec_id=4755578">计算机体系结构——栈溢出实验（Buffer&nbsp;Lab）&nbsp;&nbsp;</a>
+                    </td>
+                    <td width="10%">2016-11-02</td>
+                    <td width="10%">2016-11-20</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">306.9KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=721805&amp;course_id=137928&amp;rec_id=4773263&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=721805&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr1">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=726511&amp;course_id=137928&amp;rec_id=4773263">计算机体系结构——Y86实验（Architecture&nbsp;Lab）</a>
+                    </td>
+                    <td width="10%">2016-11-23</td>
+                    <td width="10%">2016-12-18</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">279.2KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=726511&amp;course_id=137928&amp;rec_id=4881717&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=726511&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr2">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=718619&amp;course_id=137928&amp;rec_id=4881717">计算机网络——第一章作业</a>
+                    </td>
+                    <td width="10%">2016-10-21</td>
+                    <td width="10%">2016-10-28</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">226.6KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=718619&amp;course_id=137928&amp;rec_id=4732442&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=718619&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr1">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=718621&amp;course_id=137928&amp;rec_id=4732442">计算机网络——第二章作业</a>
+                    </td>
+                    <td width="10%">2016-10-21</td>
+                    <td width="10%">2016-10-31</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">105.1KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=718621&amp;course_id=137928&amp;rec_id=4730977&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=718621&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr2">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=725765&amp;course_id=137928&amp;rec_id=4730977">计算机网络——第三章作业&nbsp;</a>
+                    </td>
+                    <td width="10%">2016-11-19</td>
+                    <td width="10%">2016-11-29</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">128.0KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=725765&amp;course_id=137928&amp;rec_id=4811077&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=725765&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr1">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=725767&amp;course_id=137928&amp;rec_id=4811077">计算机网络——第四章作业&nbsp;&nbsp;</a>
+                    </td>
+                    <td width="10%">2016-11-19</td>
+                    <td width="10%">2016-11-29</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">271.4KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=725767&amp;course_id=137928&amp;rec_id=4829496&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=725767&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr class="tr2">
+
+                    <td width="30%"><a href="hom_wk_detail.jsp?id=728273&amp;course_id=137928&amp;rec_id=4829496">网络部分第二次大作业——WSN&nbsp;</a>
+                    </td>
+                    <td width="10%">2016-11-30</td>
+                    <td width="10%">2016-12-25</td>
+                    <td width="15%">
+
+                        已经提交
+
+                    </td>
+
+                    <td width="10%">605.9KB
+                    </td>
+                    <td width="25%">
+
+                        <input id="submit_hw" name="submit_hw" value="提交作业" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_submit.jsp?id=728273&amp;course_id=137928&amp;rec_id=4906180&#39;;">
+
+
+                        <input id="lookinfo" name="lookinfo" value="查看批阅" disabled="true" type="button"
+                               onclick="javascript:window.location.href=&#39;hom_wk_view.jsp?id=728273&amp;course_id=137928&#39;"
+                               ;="">
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="6" class="info_b"><img src="./test-assignment_files/spacer.gif"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+</body>
+</html>
