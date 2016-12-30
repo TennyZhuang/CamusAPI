@@ -2,7 +2,7 @@
  * Created by Ma_Zi_jun on 2016/12/29.
  */
 /* Test flow
- Test 3 class functions
+ Test 4 class functions
  1. Mock html reply to test `getDocuments` function
  2. Mock html reply to test `getAssignments` function
  3. Mock html reply to test `getNotices` function
@@ -14,6 +14,7 @@ const cicLearnHelper = new CicLearnHelperUtil('xxx', 'xxxx')
 const nock = require('nock')
 const readFile = require('fs-readfile-promise')
 const sleep = require('es6-sleep').promise
+const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
 
 const assertDocs = (docs) => {
   docs.should.be.Array().and.should.not.be.empty()
@@ -80,7 +81,6 @@ const testCicLearnHelper = () => {
       it('1.1 teacher info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-teacher.json`)
         const responseObject = JSON.parse(response.toString())
-        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
 
         nock(outerDomain)
@@ -99,7 +99,6 @@ const testCicLearnHelper = () => {
       it('2.1 course notices info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-notice.json`)
         const responseObject = JSON.parse(response.toString())
-        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-00050071-90'
 
         nock(outerDomain)
@@ -131,7 +130,6 @@ const testCicLearnHelper = () => {
       it('3.1 document info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-doc.json`)
         const responseObject = JSON.parse(response.toString())
-        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
 
         nock(outerDomain)
@@ -150,7 +148,6 @@ const testCicLearnHelper = () => {
       it('4.1 assignment info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-assignment.json`)
         const responseObject = JSON.parse(response.toString())
-        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
 
         nock(outerDomain)
@@ -169,7 +166,6 @@ const testCicLearnHelper = () => {
       it('5.1 teaching info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-current.json`)
         const responseObject = JSON.parse(response.toString())
-        const outerDomain = 'http://learn.cic.tsinghua.edu.cn/'
         const courseID = '2016-2017-1-20250163-0'
 
         nock(outerDomain)

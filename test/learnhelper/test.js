@@ -1,5 +1,5 @@
 /* Test flow
- Test 3 class functions
+ Test 4 class functions
  1. Mock html reply to test `getCourseList` function
  2. Mock html reply to test `getDocuments` function
  3. Mock html reply to test `getAssignments` function
