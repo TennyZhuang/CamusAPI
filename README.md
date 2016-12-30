@@ -28,6 +28,8 @@ npm run dev
 npm run lint
 ```
 
+you should pass the lint before every commit.
+
 ### test
 ```
 npm run test
@@ -42,5 +44,3 @@ or
 ```
 npm run coverage-es5
 ```
-
-you should pass the lint before every commit.
