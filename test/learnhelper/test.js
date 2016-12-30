@@ -24,6 +24,8 @@ const courseSample = {
   notices: []
 }
 
+const outerDomain = 'https://learn.tsinghua.edu.cn'
+  
 const learnHelper = new LearnHelperUtil(user)
 const nock = require('nock')
 const readFile = require('fs-readfile-promise')
@@ -97,7 +99,6 @@ const testLearnHelper = () => {
       this.timeout(0)
       it('1.1 course list info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-list.html`)
-        const outerDomain = 'https://learn.tsinghua.edu.cn'
 
         nock(outerDomain)
           .get('/MultiLanguage/lesson/student/MyCourse.jsp')
@@ -132,9 +133,6 @@ const testLearnHelper = () => {
       this.timeout(0)
       it('1.1 document info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-doc.html`)
-        const outerDomain = 'https://learn.tsinghua.edu.cn'
-
-        // const courseID = '137928'
 
         nock(outerDomain)
           .get('/MultiLanguage/lesson/student/download.jsp')
@@ -155,10 +153,7 @@ const testLearnHelper = () => {
       this.timeout(0)
       it('3.1 assignment info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-assignment.html`)
-        const outerDomain = 'https://learn.tsinghua.edu.cn'
-
-        // const courseID = '137928'
-
+        
         const assignmentIDs = ['714167', '715467', '710921', '718565', '721805', '726511', '718619',
           '718621', '725765', '725767', '728273']
 
@@ -171,20 +166,21 @@ const testLearnHelper = () => {
             return (query.course_id === courseSample._courseID)
           })
           .reply(200, response)
-
+        
+        const _outerDomain = 'http://learn.tsinghua.edu.cn'
 
         assignmentIDs.forEach(async (ele, index) => {
           const responseDetail = await readFile(`${__dirname}/test-assignment-info/assignment-detail-${index}.html`)
           const responseView = await readFile(`${__dirname}/test-assignment-info/assignment-view-${index}.html`)
 
-          nock('http://learn.tsinghua.edu.cn')
+          nock(_outerDomain)
             .get('/MultiLanguage/lesson/student/hom_wk_detail.jsp')
             .query((query) => {
               return (query.course_id === courseSample._courseID && query.id === ele && query.rec_id === recIDs[index])
             })
             .reply(200, responseDetail)
 
-          nock('http://learn.tsinghua.edu.cn')
+          nock(_outerDomain)
             .get('/MultiLanguage/lesson/student/hom_wk_view.jsp')
             .query((query) => {
               return (query.course_id === courseSample._courseID && query.id === ele && query.rec_id === recIDs[index])
@@ -204,9 +200,6 @@ const testLearnHelper = () => {
       this.timeout(0)
       it('3.1 assignment info should be returned', async () => {
         const response = await readFile(`${__dirname}/test-notice.html`)
-        const outerDomain = 'https://learn.tsinghua.edu.cn'
-
-        // const courseID = '137928'
 
         const noticeIDs = ['1940927', '1939834', '1928645', '1909904', '1906689']
 
