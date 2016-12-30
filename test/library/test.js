@@ -1,6 +1,6 @@
 /* Test flow
  Test 2 class functions
- 1. Use right html page and wrong html page to test the `fetch` and `get` function
+ 1. Mock the html reply to test the `fetch` and `get` function
  */
 const lib = require('../../app/thulib/library')
 const nock = require('nock')
