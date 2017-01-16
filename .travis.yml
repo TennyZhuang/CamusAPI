@@ -3,9 +3,7 @@ node_js:
   - "7.2"
 services:
   - mongodb
-install: "npm install"
+install:
+  - npm install
 script:
   - npm run lint
-  - npm run coverage
-after_script:
-  - npm run coveralls
