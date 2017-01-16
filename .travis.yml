@@ -4,7 +4,8 @@ node_js:
 services:
   - mongodb
 install: "npm install"
-script: npm run lint
-after_script:
+script:
+  - npm run lint
   - npm run coverage
+after_script:
   - npm run coveralls
